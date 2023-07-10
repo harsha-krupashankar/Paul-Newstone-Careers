@@ -5,25 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jobs</title>
     <style>
-        :root{
+        :root {
             --color-primary: #1b1b1b;
             --color-primary-light: #FF3366;
             --color-primary-dark: #BA265D;
-
             --color-grey-light-1: #faf9f9;
             --color-grey-light-2: #f4f2f2;
             --color-grey-light-3: #f0eeee;
             --color-grey-light-4: #ccc;
-            
             --color-grey-dark-1: #333;
             --color-grey-dark-2: #777;
             --color-grey-dark-3: #999;
-
             --shadow-dark: 0 2rem 6rem rgba(0,0,0,.3);
             --shadow-light: 0 2rem 5rem rgba(0,0,0,.06);
-
             --line: 1px solid var(--color-grey-light-2);
         }
+        
         * {
             margin: 0;
             padding: 0;
@@ -43,31 +40,46 @@
                 font-size: 50%;
             }
         }
-        .img-main{
-        /* background-image: url(main.jpg); */
-        /* height: 100vh; */
-        width: 100vw;
-        position: fixed;
-        z-index: -10;
-        top:-150px;
-        /* transform: scale(1.2); */
+
+        body {
+            margin: 0;
+        }
+
+        .header{
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background: #f8f9fa;
+        }
+
+        .header #bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url(header-image.png);
+            background-size: cover;
+        }
+
+        main {
+            padding: 100px;
+            color: #f8f9fa;
         }
 
         .overlay{
-        height: 35rem;
+        height: 100vh;
         position: relative;
-        /* background-image: linear-gradient(to top, rgb(190 202 198) 0, rgb(190 202 198 / 51%) 18%, rgb(0 0 0 / -71%) 46%) */
-        }
-
-        .main-content{
-            height: 1800px;
-            background-color: green;
+        background: rgb(255,255,255);
+        background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8702074579831933) 17%, rgba(255,255,255,0) 100%);
         }
     </style>
 </head>
 <body>
-    <section class="head">
-        <img src="header-image.png" class="img-main" alt="Your Image">
+    <section class="header">
+        <div id="bg">
+        </div>
         <div class="overlay"></div> 
     </section>
     <main>
@@ -80,7 +92,6 @@
             <h1>job1</h1>
             <h1>job1</h1>
             <h1>job1</h1>
-
             <h1>job1</h1>
             <h1>job1</h1>
             <h1>job1</h1>
@@ -96,28 +107,36 @@
             <h1>job1</h1>
             <h1>job1</h1>
             <h1>job1</h1>
-
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
+            <h1>job1</h1>
         </div>
-
     </main>
-
-
+    
 
     <script>
-        
-        const scrollHandle = () => {
-            let scroll = window.scrollY || document.documentElement.scrollTop;
-            let img = document.querySelector('.img-main');
 
-                console.log(scroll)
-            if(scroll < 149){
-            img.style.top = `${scroll - 150}px`;
-            img.style.opacity = 1- scroll/160;
-            
-            }
-        };
-        window.addEventListener('scroll', scrollHandle);
-        console.log('Starting');
+        let headerBg = document.getElementById('bg');
+        window.addEventListener('scroll', function() {
+            headerBg.style.opacity = 1 - +window.pageYOffset/550+''
+            headerBg.style.top =  +window.pageYOffset+'px'
+        })
     </script>
 </body>
 </html>
