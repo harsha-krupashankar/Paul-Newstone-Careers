@@ -110,12 +110,12 @@ main {
 }
 
 .select2-container--focus {
-    box-shadow: 0 0 0 0.2rem rgba(225,83,97,.5) !important;
+    box-shadow: 0 0 0 0.2rem rgb(0 8 16 / 25%) !important;
     border: none !important;
 }
 
 .select2-results__option--highlighted {
-    background-color: #D80606 !important;
+    background-color: #343a40 !important;
 }
 
 .search-box::placeholder {
@@ -124,7 +124,7 @@ main {
 }
 
 .search-box:focus {
-    box-shadow: 0 0 0 0.2rem rgba(225,83,97,.5) !important;
+    box-shadow: 0 0 0 0.2rem rgb(0 8 16 / 25%) !important;
 }
 
 .btn-red {
@@ -153,6 +153,11 @@ main {
     transition: all .3s ease !important;
     color: #ffff !important;
     font-size: 1.4rem !important;
+}
+
+.btn-black:focus,
+.btn-outline-black:focus {
+    box-shadow: 0 0 0 0.2rem rgb(0 8 16 / 25%) !important;
 }
 
 .btn-black:hover {
