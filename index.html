@@ -1,88 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Jobs</title>
-    <style>
-        :root {
-            --color-primary: #1b1b1b;
-            --color-primary-light: #FF3366;
-            --color-primary-dark: #BA265D;
-            --color-grey-light-1: #faf9f9;
-            --color-grey-light-2: #f4f2f2;
-            --color-grey-light-3: #f0eeee;
-            --color-grey-light-4: #ccc;
-            --color-grey-dark-1: #333;
-            --color-grey-dark-2: #777;
-            --color-grey-dark-3: #999;
-            --shadow-dark: 0 2rem 6rem rgba(0,0,0,.3);
-            --shadow-light: 0 2rem 5rem rgba(0,0,0,.06);
-            --line: 1px solid var(--color-grey-light-2);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-        }
+    <link rel="stylesheet" href="index_styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
 
-        *,
-        *::before,
-        *::after {
-            box-sizing: inherit;
-        }
-
-        html {
-            box-sizing: border-box;
-            font-size: 62.5%; 
-
-            @media only screen and (max-width: 68.75em) {
-                font-size: 50%;
-            }
-        }
-
-        body {
-            margin: 0;
-        }
-
-        .header{
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            background: #f8f9fa;
-        }
-
-        .header #bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url(header-image.png);
-            background-size: cover;
-        }
-
-        main {
-            padding: 100px;
-            color: #f8f9fa;
-        }
-
-        .overlay{
-        height: 100vh;
-        position: relative;
-        background: rgb(255,255,255);
-        background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8702074579831933) 17%, rgba(255,255,255,0) 100%);
-        }
-    </style>
 </head>
+
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
     <section class="header">
         <div id="bg">
+
         </div>
-        <div class="overlay"></div> 
+        <div class="overlay d-flex align-items-center justify-content-center">
+            <div class="container filter-box">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control search-box" placeholder="Search Jobs" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="multi-select1" class="form-control country-search" multiple="multiple">
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                            <option value="option3">Option 3</option>
+                            <option value="option4">Option 4</option>
+                            <option value="option5">Option 5</option>
+                            <option value="option6">Option 6</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="multi-select2" class="form-control" multiple="multiple">
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                            <option value="option3">Option 3</option>
+                            <option value="option4">Option 4</option>
+                            <option value="option5">Option 5</option>
+                            <option value="option6">Option 6</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-danger btn-block">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <main>
+
         <div class="main-content">
             <h1>job1</h1>
             <h1>job1</h1>
@@ -128,15 +105,30 @@
             <h1>job1</h1>
         </div>
     </main>
-    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     <script>
+        $(document).ready(function () {
+            $('#multi-select1').select2({
+                placeholder: 'Search Country',
+                allowClear: true
+            });
+            $('#multi-select2').select2({
+                placeholder: 'Search City',
+                allowClear: true
+            });
+        });
+    </script>
 
-        let headerBg = document.getElementById('bg');
-        window.addEventListener('scroll', function() {
-            headerBg.style.opacity = 1 - +window.pageYOffset/550+''
-            headerBg.style.top =  +window.pageYOffset+'px'
-        })
+    <script>
+        let headerBg = document.getElementById("bg");
+        window.addEventListener("scroll", function () {
+            headerBg.style.opacity = 1 - +window.pageYOffset / 550 + "";
+            headerBg.style.top = +window.pageYOffset + "px";
+        });
     </script>
 </body>
+
 </html>
