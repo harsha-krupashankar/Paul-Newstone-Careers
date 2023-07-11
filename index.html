@@ -27,8 +27,8 @@
                 <div class="row align-items-center justify-content-center">
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input type="text" class="form-control search-box" placeholder="Search Jobs" aria-label="Username"
-                                aria-describedby="basic-addon1">
+                            <input type="text" class="form-control search-box" placeholder="Search Jobs"
+                                aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -59,50 +59,39 @@
         </div>
     </section>
     <main>
+        <div class="container d-flex jobs">
+            <div class="left-panel">
+                <div class="section-heading">
+                    <h3>Filter Jobs</h3>
+                </div>
+                <div class="department-dropdown">
+                    <select id="multi-select3" class="form-control department-search" multiple="multiple">
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        <option value="option3">Option 3</option>
+                        <option value="option4">Option 4</option>
+                        <option value="option5">Option 5</option>
+                        <option value="option6">Option 6</option>
+                    </select>
+                </div>
+                <div class="industry-dropdown">
+                    <select id="multi-select4" class="form-control industry-search" multiple="multiple">
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        <option value="option3">Option 3</option>
+                        <option value="option4">Option 4</option>
+                        <option value="option5">Option 5</option>
+                        <option value="option6">Option 6</option>
+                    </select>
+                </div>
+                <div class="clear-all">
+                    <button type="button" class="btn btn-outline-danger btn-block clear-btn">Clear all</button>
+                </div>
+            </div>
+            
+            <div class="job-listings">
 
-        <div class="main-content">
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
+            </div>
         </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -117,6 +106,14 @@
             });
             $('#multi-select2').select2({
                 placeholder: 'Search City',
+                allowClear: true
+            });
+            $('#multi-select3').select2({
+                placeholder: 'All Departments',
+                allowClear: true
+            });
+            $('#multi-select4').select2({
+                placeholder: 'All Industries',
                 allowClear: true
             });
         });

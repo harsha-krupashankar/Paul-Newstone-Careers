@@ -59,7 +59,6 @@ body {
 }
 
 main {
-    padding: 100px;
     background-color: #f4f3ef;
 }
 
@@ -86,7 +85,7 @@ main {
 
 .search-box{
     height: 4rem !important;
-    border: none !important;
+    border: 1px solid #868e96 !important;
     border-radius: 2px !important;
 }
 
@@ -99,7 +98,7 @@ main {
 
 .select2-selection {
     height: 4rem !important;
-    border: none !important;
+    border: 1px solid #868e96 !important;
     border-radius: 2px !important;
 }
 
@@ -112,6 +111,7 @@ main {
 
 .select2-container--focus {
     box-shadow: 0 0 0 0.2rem rgba(225,83,97,.5) !important;
+    border: none !important;
 }
 
 .select2-results__option--highlighted {
@@ -144,5 +144,53 @@ main {
     background-color: transparent !important;
     border: 1px solid #D80606 !important;
     color: #D80606 !important;
+    transform: translateY(5px);
+}
+
+.jobs {
+    gap: 5rem;
+}
+
+.left-panel {
+    flex: 30%;
+}
+
+.job-listings {
+    flex: 70%;
+}
+
+.section-heading {
+    margin: 2rem 2rem 3rem 2rem;
+}
+
+.section-heading h3 {
+    font-size: 2.4rem;
+    text-transform: uppercase;
+}
+
+.department-dropdown,
+.industry-dropdown,
+.clear-all {
+    margin: 2rem;
+}
+
+
+.btn-outline-danger {
+    color: #D80606 !important;
+    border-color: #D80606 !important;
+    transition: all .3s ease !important;
+    font-size: 1.4rem !important;
+}
+
+.btn-outline-danger:hover {
+    background-color: #D80606 !important;
+    border: none !important;
+    color: #fff !important;
+}
+
+.btn-outline-danger:active {
+    background-color: #D80606 !important;
+    border: none !important;
+    color: #fff !important;
     transform: translateY(5px);
 }
