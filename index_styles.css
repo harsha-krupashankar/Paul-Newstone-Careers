@@ -224,6 +224,20 @@ h3 {
 
 .job-card {
     background-color: #fff;
+    margin: 1.5rem 0;
+    display: flex;
+    transform: scale(1)translateY(100px);
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.job-card:hover {
+    transform: scale(1.03) !important;
+}
+
+.job-card.slide-up {
+    opacity: 1;
+    transform: translateY(0)scale(1);
 }
 
 ion-icon {
@@ -256,11 +270,6 @@ p {
     gap: 0.7rem;
 }
 
-.job-card {
-    margin: 1.5rem 0;
-    display: flex;
-}
-
 .info-div {
     flex: 80%;
 }
@@ -289,8 +298,13 @@ p {
     border-left: 1rem solid #809fa2;
 }
 
-/* #707072; */
-/* #9A9A9F */
-/* #4c414a */
-/* #330f17 */
-/* #223236 */
+.view-more-btn {
+    width: 15rem;
+}
+
+.view-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 1rem 3rem 1rem;
+}
