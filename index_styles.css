@@ -59,42 +59,42 @@ body {
 }
 
 main {
-    background-color: #f4f3ef;
+    background-color: #f0f0f0;
 }
 
 .overlay {
     height: 90vh;
     position: relative;
-    background: rgb(244, 243, 239);
-    background: linear-gradient(0deg,
-            rgba(244, 243, 239, 1) 0%,
-            rgba(244, 243, 239, 0.9066220238095238) 10%,
-            rgba(244, 243, 239, 0.5984987745098039) 20%,
-            rgba(244, 243, 239, 0.3968181022408963) 30%,
-            rgba(244, 243, 239, 0.25) 40%,
-            rgba(244, 243, 239, 0) 100%);
+    background: rgb(240, 240, 240);
+    background: linear-gradient(
+        0deg,
+        rgba(240, 240, 240, 1) 0%,
+        rgba(240, 240, 240, 0.8001794467787114) 8%,
+        rgba(240, 240, 240, 0.5984987745098039) 15%,
+        rgba(240, 240, 240, 0.2987788865546218) 30%,
+        rgba(240, 240, 240, 0.1503195028011205) 50%,
+        rgba(240, 240, 240, 0) 100%
+    );
 }
 
 .filter-box {
-    margin-top: 33rem;
-    background-color: rgba(243,242,238,.3);
-    box-shadow: 0 5px 5px rgba(0,0,0,.1);
+    margin-top: 45rem;
+    background-color: rgba(243, 242, 238, 0.3);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
     padding: 3rem;
     font-size: 1.6rem;
 }
 
-.search-box{
+.search-box {
     height: 4rem !important;
     border: 1px solid #868e96 !important;
     border-radius: 2px !important;
 }
 
-
 .overlay .col-md-3,
 .overlay .col-md-2 {
     padding: 0 0.7rem !important;
 }
-
 
 .select2-selection {
     height: 4rem !important;
@@ -128,29 +128,29 @@ main {
 }
 
 .btn-red {
-    background-color: #D80606 !important;
+    background-color: #d80606 !important;
     font-size: 1.4rem !important;
     height: 4rem !important;
-    transition: all .3s ease !important;
+    transition: all 0.3s ease !important;
     color: #ffff !important;
 }
 
 .btn-red:hover {
     background-color: transparent !important;
-    border: 1px solid #D80606 !important;
-    color: #D80606 !important;
+    border: 1px solid #d80606 !important;
+    color: #d80606 !important;
 }
 
 .btn-red:active {
     background-color: transparent !important;
-    border: 1px solid #D80606 !important;
-    color: #D80606 !important;
+    border: 1px solid #d80606 !important;
+    color: #d80606 !important;
     transform: translateY(5px);
 }
 
 .btn-black {
     background-color: #343a40 !important;
-    transition: all .3s ease !important;
+    transition: all 0.3s ease !important;
     color: #ffff !important;
     font-size: 1.4rem !important;
 }
@@ -202,13 +202,10 @@ h3 {
     margin: 2rem;
 }
 
-
-
-
 .btn-outline-black {
     color: #343a40 !important;
     border-color: #343a40 !important;
-    transition: all .3s ease !important;
+    transition: all 0.3s ease !important;
     font-size: 1.4rem !important;
 }
 
@@ -276,22 +273,20 @@ p {
     margin: 3rem 2rem;
 }
 
-.card-1 {
-    border-left: 1rem solid #4c414a;
+.card-office-support {
+    border-left: 1rem solid #d48481;
 }
 
-.card-2 {
-    border-left: 1rem solid #49575a;
+.card-finance-accounting {
+    border-left: 1rem solid #9bd3d8;
 }
 
-.card-3 {
-    border-left: 1rem solid #202b34;
+.card-human-resource {
+    border-left: 1rem solid #f9dc9d;
 }
-.card-4 {
-    border-left: 1rem solid #606961;
-}
-.card-5 {
-    border-left: 1rem solid #9e9da4;
+
+.card-sales-marketing {
+    border-left: 1rem solid #809fa2;
 }
 
 /* #707072; */
