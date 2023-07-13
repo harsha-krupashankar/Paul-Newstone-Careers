@@ -280,6 +280,7 @@
             padding: 2rem 2rem;
             border-radius: 0rem;
             background-color: var(--color-background-light-2);
+            display: hidden;
         }
         
         .card-text{
@@ -582,6 +583,37 @@ input[type=file]::file-selector-button:hover {
     margin: 4rem 2rem 2rem 2rem;  
 }
 
+
+.slide-in-from-right {
+  animation: slideInFromRight 0.5s ease-in-out;
+  display: hidden;
+}
+
+
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.info-card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.info-card:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.info-card:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
     </style>
 </head>
 <body>
@@ -661,7 +693,7 @@ input[type=file]::file-selector-button:hover {
             </form>
         </div>
         <div class="cards">
-            <div class="info-card result">
+            <div class="info-card slide-in-from-right result">
                 <strong class="card-text strong result-text">Hervorragende Ergebnisse</strong>
                 <p class="card-text result-text">Die Hingabe zu unseren grundlegenden Werten, den individuellen und persönlichen Service,
                     welchen wir jedem Bewerber und Unternehmen bieten,
@@ -669,9 +701,9 @@ input[type=file]::file-selector-button:hover {
                     welche die Kernwerte (Hyperlink to „Unsere Werte“) jeden Tag verkörpern,
                     führen zu hervorragenden Ergebnissen.</p>
             </div>
-            <div class="info-card ">
+            <div class="info-card slide-in-from-right">
                 
-                <strong class="card-text strong">Wie geht es nach Ihrer Bewerbung weiter?</strong>
+                <strong class="card-text  strong">Wie geht es nach Ihrer Bewerbung weiter?</strong>
                 <ol class="card-order-list">
                     <li class="card-text">Wir führen mit Ihnen ein persönliches oder virtuelles Vorstellungsgespräch, um Ihre Ziele, Wünsche, sowie Anforderungen
                         an den künftigen Arbeitgeber besser kennenzulernen und erläutern Ihnen alle wichtigen Details zur ausgeschriebenen Stelle.</li>
@@ -682,7 +714,7 @@ input[type=file]::file-selector-button:hover {
                     <li class="card-text">und freuen uns darüber, wenn Sie Ihre Erfahrung mit uns teilen.</li>
                 </ol>
             </div>
-            <div class="info-card contact">
+            <div class="info-card slide-in-from-right contact">
                 <strong class="card-text strong">Ihre Bewerbung wird stets vertraulich behandelt.</strong>
                 <p class="card-text">Sie haben Fragen oder Anregungen? Zögern Sie nicht uns zu kontaktieren und schreiben Sie uns:
                     <a class="contact-email" href="mailto:candidate-service@paulnewstone.com">candidate-service@paulnewstone.com</a></p>
@@ -737,7 +769,7 @@ input[type=file]::file-selector-button:hover {
 const DataModule = (() => {
     let job = {};
     let SOLUTION_API_BASE_URL = 'https://solutions-test.recruitcrm.io'
-    let accountId = 1;
+    let accountId = 20390;
     const urlParams = new URLSearchParams(window.location.search);
     let jobId = urlParams.get('job_id');
     const getJobById = async () => {
@@ -779,10 +811,10 @@ const UIModule = (() => {
   
 
     const paintJobDetailsViewer = (job) => {
-        jobName.innerHTML = job.name
+        jobName.innerHTML = job.name.replace(/\s*\([^)]*\)\s*/g, '');
         jobLocation.innerHTML += job.city
         jobType.innerHTML += job.job_type
-        jobDepartment.innerHTML += job.job_slug
+        jobDepartment.innerHTML += job.custom_fields.find(field => field.field_id === '4').value
         jobIndustry.innerHTML += job.company.industry.label
         jobDescriptionContainer.innerHTML = job.job_description_text;
     }
