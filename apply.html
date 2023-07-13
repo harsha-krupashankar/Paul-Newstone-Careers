@@ -67,12 +67,14 @@
         /* Styling */
         .header{
             padding-top: 4rem;
-            width: 90%;
+            padding: 0 5%;
             margin: 0 auto;
-            padding-bottom: 1rem;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
+            background-color: var(--color-background-dark-1);
             
 
         }
@@ -88,14 +90,14 @@
             font-weight: 400;
             margin-bottom: 1rem;
             margin-left: 0.5rem;
-            color: var(--color-text-dark-2);
+            color: var(--color-text-light-1);
         }
 
 
         .tags{
             display: flex;
             gap: 2rem;
-            color: var(--color-primary);
+            color: var(--color-text-light-2);
         }
 
         .tags .tag{
@@ -110,7 +112,7 @@
         }
         .icon {
             font-size: 2.4rem;
-            color: var(--color-grey-dark-2);
+            color: var(--color-tertiary);
         }
 
         .action-btns{
@@ -132,15 +134,12 @@
             transition: all 0.3s ease;
             position: relative;
             display: inline-block;
-            box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-            7px 7px 20px 0px rgba(0,0,0,.1),
-            4px 4px 5px 0px rgba(0,0,0,.1);
             outline: none;
         }
 
         .btn-apply {
             background: var(--color-tertiary);
-            border: 1px solid var(--color-tertiary);
+            border: 1px solid var(--color-text-light-1);
             z-index: 1;
             color: var(--color-light-1);
             overflow: hidden;
@@ -161,6 +160,7 @@
 
         .btn-apply:hover {
             color: var(--color-tertiary);
+            /* border: 2px solid var(--color-tertiary); */
         }
             
         .btn-apply:hover:after {
@@ -173,10 +173,11 @@
         }
 
         .btn-back {
-            background: var(--color-background-light-1);
-            border: 1px solid var(--color-tertiary);
+            background: transparent;
+            border: 1px solid var(--color-text-light-1);
             z-index: 1;
-            color: var(--color-tertiary);
+            color: var(--color-text-light-1);
+            overflow: hidden;
         }
 
         .btn-back:after {
@@ -635,7 +636,7 @@ input[type=file]::file-selector-button:hover {
             <button type="button" class="custom-btn btn-back" title="Back" id="back-button-top">Back</button>
         </div>
     </header>
-    <hr class="divider divider-large">
+    <!-- <hr class="divider divider-large"> -->
     <main class="container">
         <div class="container-small job-description">
             
