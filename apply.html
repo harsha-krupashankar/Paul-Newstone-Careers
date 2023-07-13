@@ -204,6 +204,39 @@
             top: 2px;
         }
 
+
+        .btn-submit {
+            background: var(--color-background-light-1);
+            border: 1px solid var(--color-text-dark-3);
+            z-index: 1;
+            color: var(--color-text-dark-3);
+        }
+
+        .btn-submit:after {
+            position: absolute;
+            content: "";
+            width: 0;
+            height: 100%;
+            top: 0;
+            right: 0;
+            z-index: -1;
+            background-color: var(--color-text-dark-2);
+            transition: all 0.5s ease;
+        }
+
+        .btn-submit:hover {
+            color: var(--color-light-1);
+        }
+            
+        .btn-submit:hover:after {
+            left: 0;
+            width: 100%;
+        }
+            
+        .btn-submit:active {
+            top: 2px;
+        }
+
         .container{
             margin: 0rem 6rem;
             display: grid;
@@ -283,6 +316,7 @@
         .contact-email{
             color: var(--color-text-link);
             text-decoration: none;
+            white-space: nowrap;
         }
 
         .divider{
@@ -418,7 +452,7 @@
 
         /* Application Form */
         .apply-to-job{
-            font-weight: 400;
+            font-weight: 700;
             text-align: center;
             margin: 3rem 0;
             color: var(--color-primary);
@@ -452,7 +486,8 @@
 	 border: 0;
 	 border-bottom: 2px solid #9b9b9b;
 	 outline: 0;
-	 font-size: 2rem;
+	 font-size: 1.8rem;
+     font-weight: 400;
 	 color: var(--color-text-dark-2);
 	 padding: 7px 0;
 	 background: transparent;
@@ -478,7 +513,7 @@
  .form__field:focus {
 	 padding-bottom: 6px;
 	 font-weight: 400;
-	 border-width: 3px;
+	 border-width: 2px;
 	 border-image: linear-gradient(to right, #11998e, #38ef7d);
 	 border-image-slice: 1;
 }
@@ -612,14 +647,16 @@ input[type=file]::file-selector-button:hover {
                     <span class="small-text hidden"></span>
                 </div>
                 <div class="form__group resume">
-                    <input type="file" id="file" name="resume" title="resume" required>
+                    <input type="file" id="file" name="resume" title="resume" 
+                    accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    required>
                     <label for="resume" class="form__label resume-label">Resume</label>
                     <span class="small-text hidden">Resume field is required</span>
                 </div>
             </div>
                 <div class="form-submit-row">
                     
-                <button type="submit" class="custom-btn btn-back submit" id="form-submit">Submit</button>
+                <button type="submit" class="custom-btn btn-submit submit" id="form-submit">Submit</button>
                 </div>
             </form>
         </div>
@@ -699,11 +736,10 @@ input[type=file]::file-selector-button:hover {
         // Data Module
 const DataModule = (() => {
     let job = {};
-    let SOLUTION_API_BASE_URL = 'http://0.0.0.0:8005'
+    let SOLUTION_API_BASE_URL = 'https://solutions-test.recruitcrm.io'
     let accountId = 1;
     const urlParams = new URLSearchParams(window.location.search);
     let jobId = urlParams.get('job_id');
-  
     const getJobById = async () => {
       try {
         const response = await fetch(`${SOLUTION_API_BASE_URL}/jobs/by-id/${accountId}?job_id=${jobId}`);
@@ -787,6 +823,7 @@ const UIModule = (() => {
     const submitBtn = document.getElementById("form-submit");
     const applyForm = document.querySelector(".form");
     const formInputs = document.querySelectorAll("input");
+    const applyFormContainer = document.querySelector(".job-apply")
 
 
     const scrollFunction = (entries) => {
@@ -832,7 +869,7 @@ const UIModule = (() => {
     const trimmedEmail = email.value.trim();
 
     if (trimmedEmail === "") {
-        errorLabel.textContent = "Email Field is required";
+        errorLabel.textContent = "Email field is required";
         errorLabel.className = "small-text";
         email.classList.add("danger")
         return false;
@@ -846,6 +883,30 @@ const UIModule = (() => {
     }
 
     return true;
+    };
+    
+    const validateResume = () => {
+
+        const file = document.getElementById("file");
+        const errorLabel = file.nextElementSibling.nextElementSibling;
+
+        if (file.value === "") {
+            errorLabel.textContent = "Resume field is required";
+            errorLabel.className = "small-text";
+            file.classList.add("danger")
+            return false;
+        }
+
+        resume = file.files[0];
+        const fileMb = resume.size / 1024 ** 2;
+        if (fileMb > 8) {
+            errorLabel.textContent = "Resume size should be less than 8MB";
+            errorLabel.className = "small-text";
+            email.classList.add("danger")
+            return false;
+        }
+
+        return true;
     };
 
     const validateInput = (inputId) => {
@@ -869,12 +930,23 @@ const UIModule = (() => {
             input.value = input.value.trim();
         });
 
-        isValid = validateInput("firstname");
-        isValid = validateInput("lastname");
-        isValid = validateInput("file");
-        isValid = isEmailValid();
+        const formFields = {
+            "firstname": validateInput("firstname") , 
+            "lastname": validateInput("lastname") , 
+            "file": validateResume() , 
+            "email": isEmailValid()
+        }
+
+        isValid = !Object.values(formFields).includes(false)
+
 
         if (!isValid) {
+            for (let key in formFields) {
+                if(formFields[key] == false){
+                    document.getElementById(key).scrollIntoView({behavior:  'smooth', block: 'start'});
+                    return;
+                }
+            }
             return;
         }
 
