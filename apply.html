@@ -3,29 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Jobs</title>
     <style>
         /* Configurations */
         :root{
-            --color-primary: #1b1b1b;
-            --color-primary-light: #FF3366;
-            --color-primary-dark: #BA265D;
+            --color-primary: #3f4348;
+            --color-secondary: #8a8a8a;
+            --color-tertiary: #D80606;
+            --color-light-1: #ffffff;
+            --color-light-2: #fafafa;
+
+            --color-text-light-1: #ffffff;
+            --color-text-light-2: #fafafa;
+            --color-text-dark-1: #6e6e6e;
+            --color-text-dark-2: #424242;
+            --color-text-dark-3: #000000;
+            --color-text-link: #116dff;
+
+            --color-background-light-1: #ffffff;
+            --color-background-light-2: #fafafa;
+            --color-background-dark-1: #1b1c1e;
+            --color-background-dark-2: #141416;
+            --color-background-tertiary-light: #D80606;
+            --color-background-tertiary-dark: #990000;
 
             --color-grey-light-1: #faf9f9;
-            --color-grey-light-2: #f4f2f2;
+            --color-grey-light-2: #f7f7f7;
             --color-grey-light-3: #f0eeee;
             --color-grey-light-4: #ccc;
             
             --color-grey-dark-1: #333;
             --color-grey-dark-2: #777;
             --color-grey-dark-3: #999;
-
-            --shadow-dark: 0 2rem 6rem rgba(0,0,0,.3);
-            --shadow-light: 0 2rem 5rem rgba(0,0,0,.06);
-
-            --line: 1px solid var(--color-grey-light-2);
         }
         * {
+            box-sizing: border-box;
+        }
+
+        body{
             margin: 0;
             padding: 0;
         }
@@ -39,6 +55,7 @@
         html {
             box-sizing: border-box;
             font-size: 62.5%; 
+            font-family: "Open Sans", sans-serif;
 
             @media only screen and (max-width: 68.75em) {
                 font-size: 50%;
@@ -48,77 +65,842 @@
 
 
         /* Styling */
-        .img-main{
-        width: 100vw;
-        position: fixed;
-        z-index: -10;
-        top:-150px;
+        .header{
+            padding-top: 4rem;
+            width: 90%;
+            margin: 0 auto;
+            padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            
+
+        }
+        .header-main{
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-left: 1rem;
+
+        }
+        .job-name{
+            font-size: 5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            margin-left: 0.5rem;
+            color: var(--color-text-dark-2);
         }
 
-        .overlay{
-        height: 35rem;
-        position: relative;
+
+        .tags{
+            display: flex;
+            gap: 2rem;
+            color: var(--color-primary);
         }
 
-        .main-content{
-            height: 1800px;
-            background-color: green;
+        .tags .tag{
+            font-size: 1.8rem;
+            font-weight: 300;
+            padding: 0;
+            margin: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 0.6rem;
+            align-items: flex-end;
         }
+        .icon {
+            font-size: 2.4rem;
+            color: var(--color-grey-dark-2);
+        }
+
+        .action-btns{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .custom-btn {
+            width: 20rem;
+            height: 4rem;
+            color: var(--color-light-1);
+            border-radius: 0.5rem;
+            padding: 1rem 2.5rem;
+            font-size: 1.6rem;
+            font-weight: 400;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+            box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+            7px 7px 20px 0px rgba(0,0,0,.1),
+            4px 4px 5px 0px rgba(0,0,0,.1);
+            outline: none;
+        }
+
+        .btn-apply {
+            background: var(--color-tertiary);
+            border: 1px solid var(--color-tertiary);
+            z-index: 1;
+            color: var(--color-light-1);
+            overflow: hidden;
+        }
+
+        .btn-apply:after {
+            position: absolute;
+            content: "";
+            width: 0;
+            height: 100%;
+            top: 0;
+            right: 0;
+            z-index: -2;
+            background-color: var(--color-light-1);
+            transition: all 0.5s ease;
+            
+        }
+
+        .btn-apply:hover {
+            color: var(--color-tertiary);
+        }
+            
+        .btn-apply:hover:after {
+            left: 0;
+            width: 100%;
+        }
+            
+        .btn-apply:active {
+            top: 2px;
+        }
+
+        .btn-back {
+            background: var(--color-background-light-1);
+            border: 1px solid var(--color-tertiary);
+            z-index: 1;
+            color: var(--color-tertiary);
+        }
+
+        .btn-back:after {
+            position: absolute;
+            content: "";
+            width: 0;
+            height: 100%;
+            top: 0;
+            right: 0;
+            z-index: -1;
+            background-color: var(--color-tertiary);
+            transition: all 0.5s ease;
+        }
+
+        .btn-back:hover {
+            color: var(--color-light-1);
+        }
+            
+        .btn-back:hover:after {
+            left: 0;
+            width: 100%;
+        }
+            
+        .btn-back:active {
+            top: 2px;
+        }
+
+        .container{
+            margin: 0rem 6rem;
+            display: grid;
+            grid-template-rows: min-content min-content 40vw repeat(3, min-content) ;
+            grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+
+        }
+        .container > * {
+                font-size: 3rem;
+                /* padding: 4rem; */
+        }
+
+        .job-description{
+
+            grid-column: full-start / col-end 6;
+            padding: 0rem 2rem;
+            font-size: 1.6rem;
+            color: var(--color-text-dark-2);
+        }
+
+        .job-apply{
+            grid-column: full-start / col-end 6;
+            grid-row: 2/-1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 4rem;
+        }
+
+
+        .cards{
+            grid-column: col-end 6 / full-end;
+            grid-row: 1 / -1;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .info-card{
+            padding: 2rem 2rem;
+            border-radius: 0rem;
+            background-color: var(--color-background-light-2);
+        }
+        
+        .card-text{
+            color: var(--color-text-dark-2);
+            font-size: 1.6rem;
+            line-height: 2rem;
+            margin-top: 1rem;
+            font-weight: 300;
+            /* font-weight: 300; */
+        }
+        .result{
+            background: linear-gradient(130deg, #e16e93 11%, #9d2e7d 69%);  
+            transition: background 0.4s ease;
+            }
+
+
+            
+        .strong{
+            color: var(--color-text-dark-2);
+            font-weight: 400;
+            display: inline-block;
+        }
+        .result-text{
+                color: var(--color-light-1);
+            }
+        .card-order-list{
+            margin-left: -2rem;
+        }
+
+        .card-order-list > li{
+            margin-top: 1rem;
+        }
+
+        .contact-email{
+            color: var(--color-text-link);
+            text-decoration: none;
+        }
+
+        .divider{
+            border: none;
+            height: 1px;
+            background-color: var(--color-grey-dark-3);
+            margin: 1.8rem 0;
+        }
+
+        .divider-large{
+            width: 90%;
+            margin: 2.4rem auto;
+        }
+
+
+
+        .social-icons {
+        margin:0;
+        padding:0;
+        display:flex;
+        }
+        .social-icons li {
+        list-style:none;
+        }
+        .social-icons li a {
+        display:block;
+        position:relative;
+        width:4rem;
+        height:4rem;
+        line-height:4.4rem;
+        font-size:2rem;
+        text-align:center;
+        text-decoration:none;
+        color:var(--color-text-dark-1); 
+        margin: 1rem 1rem;
+        transition:.5s;
+        }
+        .social-icons li a span {
+        position:absolute;
+        transition: transform .5s;
+        }
+        .social-icons li a span:nth-child(1),
+        .social-icons li a span:nth-child(3){
+        width:100%;
+        height:2px;
+        background:var(--color-text-dark-1);
+        }
+        .social-icons li a span:nth-child(1) {
+        top:0;
+        left:0;
+        transform-origin: right;
+        }
+        .social-icons li a:hover span:nth-child(1) {
+        transform: scaleX(0);
+        transform-origin: left;
+        transition:transform .5s;
+        }
+
+        .social-icons li a span:nth-child(3) {
+        bottom:0;
+        left:0;
+        transform-origin: left;
+        }
+        .social-icons li a:hover span:nth-child(3) {
+        transform: scaleX(0);
+        transform-origin: right;
+        transition:transform .5s;
+        }
+
+        .social-icons li a span:nth-child(2),
+        .social-icons li a span:nth-child(4){
+        width:2px;
+        height:100%;
+        background:var(--color-text-dark-1);
+        }
+        .social-icons li a span:nth-child(2) {
+        top:0;
+        left:0;
+        transform:scale(0);
+        transform-origin: bottom;
+        }
+        .social-icons li a:hover span:nth-child(2) {
+        transform: scale(1);
+        transform-origin: top;
+        transition:transform .5s;
+        }
+        .social-icons li a span:nth-child(4) {
+        top:0;
+        right:0;
+        transform:scale(0);
+        transform-origin: top;
+        }
+        .social-icons li a:hover span:nth-child(4) {
+        transform: scale(1);
+        transform-origin: bottom;
+        transition:transform .5s;
+        }
+
+        .facebook:hover {
+        color: #3b5998;
+        }
+        .facebook:hover span { 
+        background: #3b5998;
+        }
+        .twitter:hover {
+        color: #1da1f2;
+        }
+        .twitter:hover span { 
+        background: #1da1f2;
+        }
+        .instagram:hover {
+        color: #c32aa3;
+        }
+        .instagram:hover span { 
+        background: #c32aa3;
+        }
+        .google:hover {
+        color: #dd4b39;
+        }
+        .google:hover span { 
+        background: #dd4b39;
+        }
+        .social-icons li a .twitter {
+        color: #1da1f2;
+        }
+        .social-icons li a:hover:nth-child(3) {
+        color: #c32aa3;
+        }
+        .social-icons li a:hover:nth-child(4) {
+        color: #dd4b39;
+        }
+
+
+        /* Application Form */
+        .apply-to-job{
+            font-weight: 400;
+            text-align: center;
+            margin: 3rem 0;
+            color: var(--color-primary);
+        }
+
+        .form{
+            max-width: 90%;
+            width: 90%;
+        }
+
+    .form-row{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+.form__group {
+	 position: relative;
+	 padding: 10px 0;
+	 margin-bottom: 1rem;
+     flex: 1;
+     min-width: 24rem;
+}
+.form__group:not(last-child){
+    margin-right: 3rem;
+}
+
+ .form__field {
+	 font-family: inherit;
+	 width: 100%;
+	 border: 0;
+	 border-bottom: 2px solid #9b9b9b;
+	 outline: 0;
+	 font-size: 2rem;
+	 color: var(--color-text-dark-2);
+	 padding: 7px 0;
+	 background: transparent;
+	 transition: border-color 0.2s;
+}
+ .form__field::placeholder {
+	 color: transparent;
+}
+ .form__field:placeholder-shown ~ .form__label {
+	 font-size: 1.8rem;
+	 cursor: text;
+	 top: 20px;
+     font-weight: 300;
+}
+ .form__label {
+	 position: absolute;
+	 top: 0;
+	 display: block;
+	 transition: 0.2s;
+	 font-size: 1.4rem;
+	 color: #9b9b9b;
+}
+ .form__field:focus {
+	 padding-bottom: 6px;
+	 font-weight: 400;
+	 border-width: 3px;
+	 border-image: linear-gradient(to right, #11998e, #38ef7d);
+	 border-image-slice: 1;
+}
+ .form__field:focus ~ .form__label {
+	 position: absolute;
+	 top: 0;
+	 display: block;
+	 transition: 0.2s;
+	 font-size: 1.4rem;
+	 color: #11998e;
+	 font-weight: 400;
+}
+
+/* reset input */
+ .form__field:required, .form__field:invalid {
+	 box-shadow: none;
+}
+.danger{
+    border-color: red;
+}
+
+
+.resume-label {
+    font-size: 1.4rem;
+}
+
+.small-text{
+    font-size: 1.4rem;
+    position: relative;
+    top: -1rem;
+    color: var(--color-background-tertiary-light);
+}
+
+.hidden{
+    display: none;
+}
+ 
+input[type=file] {
+  width: 90%;
+  max-width: 100%;
+  color: var(--color-text-dark-2);
+  background: var(--color-light-1);
+}
+
+input[type=file]::file-selector-button {
+  margin-right: 2rem;
+  border: none;
+  background: #5183f0;
+  padding: 0.6rem 2rem;
+  border-radius: 4px;
+  color: var(--color-light-1);
+  cursor: pointer;
+  transition: background .2s ease-in-out;
+  
+}
+
+input[type=file]::file-selector-button:hover {
+  background: #4d7ce1;
+}
+.form-submit-row{
+    display: flex;
+    justify-content:center;
+}
+.submit{
+    align-self: center;
+    margin: 4rem 2rem 2rem 2rem;  
+}
+
     </style>
 </head>
 <body>
-    <section class="head">
-        <img src="header-image.png" class="img-main" alt="Your Image">
-        <div class="overlay"></div> 
-    </section>
-    <main>
-        <div class="main-content">
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-            <h1>job1</h1>
-
+    <nav>
+            
+    </nav>
+    <header class="header">
+        <div class="header-main">
+            <h1 class="job-name"></h1>
+            <div class="tags">
+                <span class="tag" id="job-location"><i class="ph ph-globe-hemisphere-east icon"></i></span>
+                <span class="tag" id="job-type"><i class="ph ph-briefcase icon"></i></span>
+                <span class="tag" id="job-department"><i class="ph ph-buildings icon"></i></span>
+                <span class="tag" id="job-industry"><i class="ph ph-factory icon"></i></span>
+            </div> 
         </div>
-
+        <div class="action-btns">
+            <button type="button" class="custom-btn btn-apply" title="Apply" id="apply-button-top">Apply</button>
+            <button type="button" class="custom-btn btn-back" title="Back" id="back-button-top">Back</button>
+        </div>
+    </header>
+    <hr class="divider divider-large">
+    <main class="container">
+        <div class="container-small job-description">
+            
+        </div>
+        <div class="container-small job-apply">
+            <hr class="divider divider-large">
+            <h4 class="apply-to-job">
+                Job Application Form
+            </h4>
+            <form class="form" method="post">
+                <div class="form-row">
+                <div class="form__group field">
+                    <input type="input" class="form__field" placeholder="First Name" name="firstname" id='firstname' minlength="1" required/>
+                    <label for="firstname" class="form__label">Name</label>
+                    <span class="small-text hidden">First Name field is required</span>
+                </div>
+                <div class="form__group field">
+                    <input type="input" class="form__field" placeholder="Last Name" name="lastname" id='lastname' minlength="1" required/>
+                    <label for="lastname" class="form__label">Last Name</label>
+                    <span class="small-text hidden">Last Name field is required</span>
+                </div>
+            </div>
+            <form class="form" method="post">
+                <div class="form-row">
+                <div class="form__group field">
+                    <input type="input" class="form__field" placeholder="Email" name="email" id='email' minlength="1" required/>
+                    <label for="email" class="form__label">Email</label>
+                    <span class="small-text hidden">Email field is required</span>
+                </div>
+                <div class="form__group field">
+                    <input type="input" class="form__field" placeholder="Phone" name="phone" id='phone' />
+                    <label for="phone" class="form__label">Phone</label>
+                    <span class="small-text hidden"></span>
+                </div>
+            </div>
+            <form class="form" method="post">
+                <div class="form-row">
+                <div class="form__group field">
+                    <input type="input" class="form__field" placeholder="City" name="city" id='city' />
+                    <label for="city" class="form__label">City</label>
+                    <span class="small-text hidden"></span>
+                </div>
+                <div class="form__group resume">
+                    <input type="file" id="file" name="resume" title="resume" required>
+                    <label for="resume" class="form__label resume-label">Resume</label>
+                    <span class="small-text hidden">Resume field is required</span>
+                </div>
+            </div>
+                <div class="form-submit-row">
+                    
+                <button type="submit" class="custom-btn btn-back submit" id="form-submit">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="cards">
+            <div class="info-card result">
+                <strong class="card-text strong result-text">Hervorragende Ergebnisse</strong>
+                <p class="card-text result-text">Die Hingabe zu unseren grundlegenden Werten, den individuellen und persönlichen Service,
+                    welchen wir jedem Bewerber und Unternehmen bieten,
+                    sowie dem Engagement unserer Mitarbeiter,
+                    welche die Kernwerte (Hyperlink to „Unsere Werte“) jeden Tag verkörpern,
+                    führen zu hervorragenden Ergebnissen.</p>
+            </div>
+            <div class="info-card ">
+                
+                <strong class="card-text strong">Wie geht es nach Ihrer Bewerbung weiter?</strong>
+                <ol class="card-order-list">
+                    <li class="card-text">Wir führen mit Ihnen ein persönliches oder virtuelles Vorstellungsgespräch, um Ihre Ziele, Wünsche, sowie Anforderungen
+                        an den künftigen Arbeitgeber besser kennenzulernen und erläutern Ihnen alle wichtigen Details zur ausgeschriebenen Stelle.</li>
+                    <li class="card-text">Wir begleiten Sie von Anfang bis Ende und darüber hinaus. Wir Briefen und Coachen Sie individuell vor Ihrem Bewerbungsgespräch,</li>
+                    <li class="card-text">damit Sie optimal vorbereitet sind. Auf Wunsch führen wir gerne ein kostenloses CV-Coaching mit Ihnen durch.</li>
+                    <li class="card-text">Wir erzielen für Sie beste Ergebnisse. Dabei übernehmen wir die Vertragsverhandlung und stehen Ihnen kompetent zur Seite.</li>
+                    <li class="card-text"><strong>Herzlichen Glückwunsch zu Ihrem Traumjob!</strong> Wir stehen Ihnen selbstverständlich auch im Anschluss einer erfolgreichen Vermittlung zur Verfügung</li>
+                    <li class="card-text">und freuen uns darüber, wenn Sie Ihre Erfahrung mit uns teilen.</li>
+                </ol>
+            </div>
+            <div class="info-card contact">
+                <strong class="card-text strong">Ihre Bewerbung wird stets vertraulich behandelt.</strong>
+                <p class="card-text">Sie haben Fragen oder Anregungen? Zögern Sie nicht uns zu kontaktieren und schreiben Sie uns:
+                    <a class="contact-email" href="mailto:candidate-service@paulnewstone.com">candidate-service@paulnewstone.com</a></p>
+                <hr class="divider">
+                <ul class="social-icons">
+                    <li>
+                      <a class="facebook" href="#">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="twitter" href="#">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <i class="fab fa-twitter" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="instagram" href="#">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <i class="fab fa-instagram" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="google" href="#">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <i class="fab fa-google" aria-hidden="true"></i>
+                      </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </main>
 
 
-
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script>
         
-        const scrollHandle = () => {
-            let scroll = window.scrollY || document.documentElement.scrollTop;
-            let img = document.querySelector('.img-main');
+        // Data Module
+const DataModule = (() => {
+    let job = {};
+    let SOLUTION_API_BASE_URL = 'http://0.0.0.0:8005'
+    let accountId = 1;
+    const urlParams = new URLSearchParams(window.location.search);
+    let jobId = urlParams.get('job_id');
+  
+    const getJobById = async () => {
+      try {
+        const response = await fetch(`${SOLUTION_API_BASE_URL}/jobs/by-id/${accountId}?job_id=${jobId}`);
+        const data = await response.json();
+        job = data;
+        return data;
+      } catch (error) {
+        console.log('Error fetching job data:', error);
+        return [];
+      }
+    };
 
-                console.log(scroll)
-            if(scroll < 149){
-            img.style.top = `${scroll - 150}px`;
-            img.style.opacity = 1- scroll/160;
-            
-            }
-        };
-        window.addEventListener('scroll', scrollHandle);
-        console.log('Starting');
+    return {
+      getJobById,
+    };
+  })();
+  
+  
+  // UI Module
+const UIModule = (() => {
+    const jobName = document.querySelector('.job-name');
+    const jobLocation = document.querySelector('#job-location');
+    const jobType = document.querySelector('#job-type');
+    const jobDepartment = document.querySelector('#job-department');
+    const jobIndustry = document.querySelector('#job-industry');
+    const jobDescriptionContainer = document.querySelector(".job-description");
+  
+    const startLoading = () => {
+      const loading = document.getElementById('loading');
+      loading.style.display = 'block';
+    }
+    
+    const stopLoading = () => {
+      const loading = document.getElementById('loading');
+      loading.style.display = 'none';
+    }
+  
+
+    const paintJobDetailsViewer = (job) => {
+        jobName.innerHTML = job.name
+        jobLocation.innerHTML += job.city
+        jobType.innerHTML += job.job_type
+        jobDepartment.innerHTML += job.job_slug
+        jobIndustry.innerHTML += job.company.industry.label
+        jobDescriptionContainer.innerHTML = job.job_description_text;
+    }
+    
+    
+    return {
+      startLoading,
+      stopLoading,
+      paintJobDetailsViewer,
+    };
+  })();
+  
+  
+  // Storage Module
+  const StorageModule = (() => {
+    const USER_PREFS_KEY = 'user_preferences';
+  
+    const saveUserPreferences = (prefs) => {
+      localStorage.setItem(USER_PREFS_KEY, JSON.stringify(prefs));
+    };
+  
+    const loadUserPreferences = () => {
+      const storedPrefs = localStorage.getItem(USER_PREFS_KEY);
+      return storedPrefs ? JSON.parse(storedPrefs) : {};
+    };
+  
+    return {
+      saveUserPreferences,
+      loadUserPreferences,
+    };
+  })();
+  
+  
+  // Event Module
+  const EventModule = ((dataModule, uiModule, store) => {
+    const applyBtnTop = document.getElementById("apply-button-top");
+    const backBtnTop = document.getElementById("back-button-top");
+    const submitBtn = document.getElementById("form-submit");
+    const applyForm = document.querySelector(".form");
+    const formInputs = document.querySelectorAll("input");
+
+
+    const scrollFunction = (entries) => {
+        const [entry] = entries
+        if(entry.isIntersecting){
+            console.log(entry)
+        }
+    }
+
+     const backToTopObserver = new IntersectionObserver(scrollFunction, {
+        root:null,
+        threshold: 1
+     })
+
+  
+  
+  
+    const handlePageLoad = async () => {
+      const job = await dataModule.getJobById();
+      uiModule.paintJobDetailsViewer(job);
+      formInputs.forEach(input => { input.addEventListener("input", removeErrorMessage); });
+    };
+
+
+
+    const removeErrorMessage = (e) => {
+        e.target.nextElementSibling.nextElementSibling.className = "small-text hidden";
+        e.target.classList.remove("danger");
+    }
+
+    const handleApplyBtnTopClick = () => {
+        applyFormContainer.scrollIntoView({behavior:"smooth"})
+    }
+
+    const handleBackBtnTopClick = () => {
+        window.location = '/index.html'
+    }
+
+    const isEmailValid = () => {
+    const EMAIL_FORMAT = /^\w+([\.-]?\w+)*@[a-z0-9.-]+\.[a-z]{2,5}$/;
+    const email = document.getElementById("email");
+    const errorLabel = email.nextElementSibling.nextElementSibling;
+    const trimmedEmail = email.value.trim();
+
+    if (trimmedEmail === "") {
+        errorLabel.textContent = "Email Field is required";
+        errorLabel.className = "small-text";
+        email.classList.add("danger")
+        return false;
+    }
+
+    if (!EMAIL_FORMAT.test(trimmedEmail)) {
+        errorLabel.textContent = "Email format is invalid";
+        errorLabel.className = "small-text";
+        email.classList.add("danger")
+        return false;
+    }
+
+    return true;
+    };
+
+    const validateInput = (inputId) => {
+        const input = document.getElementById(inputId);
+        if (input.value == "") {
+            input.nextElementSibling.nextElementSibling.className = "small-text";
+            inputId != 'file' && (input.classList.add("danger"));
+            return false;
+        }
+        return true;
+    };
+
+    const handleSubmitBtnClick = (e) => {
+        e.preventDefault();
+        const jobApplicationForm = new FormData(applyForm);
+        const objCandidate = Object.fromEntries(jobApplicationForm);
+        const formInputs = Array.from(document.querySelectorAll('input[name]:not([name="resume"])'));
+        let isValid = true;
+
+        formInputs.forEach(input => {
+            input.value = input.value.trim();
+        });
+
+        isValid = validateInput("firstname");
+        isValid = validateInput("lastname");
+        isValid = validateInput("file");
+        isValid = isEmailValid();
+
+        if (!isValid) {
+            return;
+        }
+
+        console.log(objCandidate);
+    };
+
+    return {
+      init: () => {
+        window.addEventListener('DOMContentLoaded', handlePageLoad);
+        applyBtnTop.addEventListener('click', handleApplyBtnTopClick);
+        backBtnTop.addEventListener('click', handleBackBtnTopClick);
+        submitBtn.addEventListener('click', handleSubmitBtnClick);
+        // backToTopObserver.observe(nextPageButton);
+      },
+    };
+  })(DataModule, UIModule, StorageModule);
+  
+
+  
+  // Initialize the application
+  EventModule.init();
+  
+
+
+
+
     </script>
 </body>
 </html>
