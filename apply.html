@@ -37,9 +37,9 @@
             --color-grey-dark-2: #777;
             --color-grey-dark-3: #999;
         }
-        * {
+        /* * {
             box-sizing: border-box;
-        }
+        } */
 
         body{
             margin: 0;
@@ -75,8 +75,6 @@
             justify-content: space-between;
             align-items: flex-end;
             background-color: var(--color-background-dark-1);
-            
-
         }
         .header-main{
             display: flex;
@@ -96,7 +94,6 @@
 
         .tags{
             display: flex;
-            gap: 2rem;
             color: var(--color-text-light-2);
         }
 
@@ -106,19 +103,22 @@
             padding: 0;
             margin: 0.5rem;
             display: flex;
-            justify-content: space-between;
             gap: 0.6rem;
-            align-items: flex-end;
+            align-items: center;
+        }
+
+        .tag:not(:last-child){
+            margin-right: 2rem;
         }
         .icon {
             font-size: 2.4rem;
-            color: var(--color-tertiary);
+            color: var(--color-secondary);
         }
 
         .action-btns{
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 1rem;
         }
 
         .custom-btn {
@@ -159,8 +159,7 @@
         }
 
         .btn-apply:hover {
-            color: var(--color-tertiary);
-            /* border: 2px solid var(--color-tertiary); */
+            color: var(--color-text-dark-3);
         }
             
         .btn-apply:hover:after {
@@ -241,30 +240,27 @@
         .container{
             margin: 0rem 6rem;
             display: grid;
-            grid-template-rows: min-content min-content 40vw repeat(3, min-content) ;
+            grid-template-rows: min-content min-content repeat(3, min-content) ;
             grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
 
         }
-        .container > * {
-                font-size: 3rem;
-                /* padding: 4rem; */
-        }
 
         .job-description{
-
             grid-column: full-start / col-end 6;
-            padding: 0rem 2rem;
-            font-size: 1.6rem;
+            padding: 0rem 6rem 0 2rem;
+            /* font-size: 3rem; */
             color: var(--color-text-dark-2);
+            animation-delay: 0s;
         }
 
         .job-apply{
             grid-column: full-start / col-end 6;
-            grid-row: 2/-1;
+            grid-row: 2/3;
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-top: 4rem;
+            transition: transform 0.5s, opacity 0.5s;
         }
 
 
@@ -281,7 +277,8 @@
             padding: 2rem 2rem;
             border-radius: 0rem;
             background-color: var(--color-background-light-2);
-            display: hidden;
+            /* display: hidden; */
+            transition: transform 1s, opacity 1s;
         }
         
         .card-text{
@@ -293,9 +290,14 @@
             /* font-weight: 300; */
         }
         .result{
-            background: linear-gradient(130deg, #e16e93 11%, #9d2e7d 69%);  
-            transition: background 0.4s ease;
-            }
+            /* background: linear-gradient(130deg, #e16e93 11%, #9d2e7d 69%);   */
+            background: #ff416da6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #ff4b2bb2, #ff416dac);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #ff4b2bbb, #ff416dae); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        
+        
+        }
 
 
             
@@ -318,7 +320,7 @@
         .contact-email{
             color: var(--color-text-link);
             text-decoration: none;
-            white-space: nowrap;
+            /* white-space: nowrap; */
         }
 
         .divider{
@@ -454,7 +456,8 @@
 
         /* Application Form */
         .apply-to-job{
-            font-weight: 700;
+            font-size: 3rem;
+            font-weight: 600;
             text-align: center;
             margin: 3rem 0;
             color: var(--color-primary);
@@ -473,7 +476,7 @@
 
 .form__group {
 	 position: relative;
-	 padding: 10px 0;
+	 padding: 1rem 0;
 	 margin-bottom: 1rem;
      flex: 1;
      min-width: 24rem;
@@ -491,7 +494,7 @@
 	 font-size: 1.8rem;
      font-weight: 400;
 	 color: var(--color-text-dark-2);
-	 padding: 7px 0;
+	 padding: 0.7rem 0;
 	 background: transparent;
 	 transition: border-color 0.2s;
 }
@@ -501,7 +504,7 @@
  .form__field:placeholder-shown ~ .form__label {
 	 font-size: 1.8rem;
 	 cursor: text;
-	 top: 20px;
+	 top: 2rem;
      font-weight: 300;
 }
  .form__label {
@@ -513,7 +516,7 @@
 	 color: #9b9b9b;
 }
  .form__field:focus {
-	 padding-bottom: 6px;
+	 padding-bottom: 0.6rem;
 	 font-weight: 400;
 	 border-width: 2px;
 	 border-image: linear-gradient(to right, #11998e, #38ef7d);
@@ -533,13 +536,11 @@
  .form__field:required, .form__field:invalid {
 	 box-shadow: none;
 }
-.danger{
-    border-color: red;
-}
 
 
 .resume-label {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
+    font-weight: 200;
 }
 
 .small-text{
@@ -553,11 +554,13 @@
     display: none;
 }
  
-input[type=file] {
-  width: 90%;
-  max-width: 100%;
-  color: var(--color-text-dark-2);
-  background: var(--color-light-1);
+.resume-file-input {
+    width: 100%;
+    color: var(--color-text-dark-2);
+    background: var(--color-light-1);
+    margin-top: 1.2rem;
+    border-bottom: 2px solid #9b9b9b;
+    padding-bottom: 0.8rem;
 }
 
 input[type=file]::file-selector-button {
@@ -585,50 +588,196 @@ input[type=file]::file-selector-button:hover {
 }
 
 
-.slide-in-from-right {
-  animation: slideInFromRight 0.5s ease-in-out;
-  display: hidden;
-}
 
+#loading {
+    /* display: none; */
+    position: absolute;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease-out;
+  }
+  
+  .loading-icon {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--color-tertiary);
+    border-radius: 50%;
+    border-top: 0.5rem solid var(--color-primary);
+    animation: spin 1s linear infinite;
+    margin: 50vh auto;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
+  .section_hidden{
+    opacity: 0;
+    transform: translateY(10rem);
+  }
 
-@keyframes slideInFromRight {
-  0% {
-    transform: translateX(100%);
+@keyframes popUp {
+  from {
+    transform: translateY(3rem);
     opacity: 0;
   }
-  100% {
-    transform: translateX(0);
+  to {
+    transform: translateY(0);
     opacity: 1;
   }
 }
 
-.info-card:nth-child(1) {
-  animation-delay: 0.2s;
+.zoom-out-animation {
+  animation-name: popUp;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  opacity: 0;
 }
 
-.info-card:nth-child(2) {
-  animation-delay: 0.4s;
+.tag:nth-child(1) {
+  animation-delay: 0.3s;
 }
 
-.info-card:nth-child(3) {
-  animation-delay: 0.6s;
+.tag:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.tag:nth-child(3) {
+  animation-delay: 0.7s;
+}
+
+.tag:nth-child(4) {
+  animation-delay: 0.9s;
+}
+
+#bs64_img_0{
+        max-width: 100%;
+        height: auto;
+    }
+
+@media only screen and (max-width: 56em) {
+
+    .header{
+        align-items: start;
+    }
+
+    .action-btns{
+        padding-top: 3rem;
+    }
+
+    .job-description {
+        grid-column: full-start / full-end;
+        padding: 2rem;
+        /* grid-template-rows: 6rem calc(100vh - 6rem);  */
+    } 
+
+    .cards{
+    grid-column: full-start / full-end;
+    grid-row: 3 / -1;
+    }
+
+    .job-apply{
+        grid-column: full-start / full-end;
+    }
+    .tags{
+        flex-direction: column;
+    }
+
+    .job-name{
+        font-size: 4rem;
+    }
+
+   
+}
+
+@media only screen and (max-width: 32em) {
+    .header{
+        flex-direction: column;
+        align-items: flex-start;
+        
+    }
+
+    .header-main{
+        width: 100%;
+        margin: 0;
+    }
+
+    .action-btns{
+        width: 100%;
+        /* margin-top: 1rem; */
+        /* margin-left: 1rem; */
+    }
+
+    .action-btns button {
+        margin: 0 auto;
+    }
+
+    .custom-btn{
+        width: 100%;
+    }
+
+    .job-description {
+        /* grid-column: full-start / full-end; */
+        padding: 0rem;
+        /* grid-template-rows: 6rem calc(100vh - 6rem);  */
+    } 
+
+    .form-row{
+        flex-direction: column;
+    }
+
+    .form__group:not(last-child){
+        margin-right: 0rem;
+    }
+
+    .container{
+        margin: 3rem;
+    }
+
+}
+
+
+@media only screen and (max-width: 20em) {
+    .job-name{
+        font-size: 2.6rem;
+        margin: 3rem 0 0 0;
+    }
+
+
+    .container{
+        margin: 1rem;
+    }
+
+
 }
 
     </style>
+    
 </head>
 <body>
+    <script>
+        window.scrollTo(0, 0);
+        document.body.style.overflow = 'hidden';
+    </script>
     <nav>
             
     </nav>
+    <div id="loading">
+        <div class="loading-icon"></div>
+    </div>
     <header class="header">
         <div class="header-main">
             <h1 class="job-name"></h1>
             <div class="tags">
-                <span class="tag" id="job-location"><i class="ph ph-globe-hemisphere-east icon"></i></span>
-                <span class="tag" id="job-type"><i class="ph ph-briefcase icon"></i></span>
-                <span class="tag" id="job-department"><i class="ph ph-buildings icon"></i></span>
-                <span class="tag" id="job-industry"><i class="ph ph-factory icon"></i></span>
+                <span class="tag" id="job-location"></span>
+                <span class="tag" id="job-type"></span>
+                <span class="tag" id="job-department"></span>
+                <span class="tag" id="job-industry"></span>
             </div> 
         </div>
         <div class="action-btns">
@@ -643,11 +792,11 @@ input[type=file]::file-selector-button:hover {
         </div>
         <div class="container-small job-apply">
             <hr class="divider divider-large">
-            <h4 class="apply-to-job">
+            <h2 class="apply-to-job">
                 Job Application Form
-            </h4>
+            </h2>
             <form class="form" method="post">
-                <div class="form-row">
+            <div class="form-row">
                 <div class="form__group field">
                     <input type="input" class="form__field" placeholder="First Name" name="firstname" id='firstname' minlength="1" required/>
                     <label for="firstname" class="form__label">Name</label>
@@ -659,8 +808,7 @@ input[type=file]::file-selector-button:hover {
                     <span class="small-text hidden">Last Name field is required</span>
                 </div>
             </div>
-            <form class="form" method="post">
-                <div class="form-row">
+            <div class="form-row">
                 <div class="form__group field">
                     <input type="input" class="form__field" placeholder="Email" name="email" id='email' minlength="1" required/>
                     <label for="email" class="form__label">Email</label>
@@ -672,29 +820,30 @@ input[type=file]::file-selector-button:hover {
                     <span class="small-text hidden"></span>
                 </div>
             </div>
-            <form class="form" method="post">
-                <div class="form-row">
+            <div class="form-row">
                 <div class="form__group field">
                     <input type="input" class="form__field" placeholder="City" name="city" id='city' />
                     <label for="city" class="form__label">City</label>
                     <span class="small-text hidden"></span>
                 </div>
+            </div>   
+            <div class="form-row">
                 <div class="form__group resume">
-                    <input type="file" id="file" name="resume" title="resume" 
+                    <input type="file" id="file" name="resume" title="resume" class="resume-file-input"
                     accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                     required>
                     <label for="resume" class="form__label resume-label">Resume</label>
                     <span class="small-text hidden">Resume field is required</span>
                 </div>
             </div>
-                <div class="form-submit-row">
-                    
+            
+            <div class="form-submit-row">
                 <button type="submit" class="custom-btn btn-submit submit" id="form-submit">Submit</button>
-                </div>
+            </div>
             </form>
         </div>
         <div class="cards">
-            <div class="info-card slide-in-from-right result">
+            <div class="info-card result">
                 <strong class="card-text strong result-text">Hervorragende Ergebnisse</strong>
                 <p class="card-text result-text">Die Hingabe zu unseren grundlegenden Werten, den individuellen und persönlichen Service,
                     welchen wir jedem Bewerber und Unternehmen bieten,
@@ -702,7 +851,7 @@ input[type=file]::file-selector-button:hover {
                     welche die Kernwerte (Hyperlink to „Unsere Werte“) jeden Tag verkörpern,
                     führen zu hervorragenden Ergebnissen.</p>
             </div>
-            <div class="info-card slide-in-from-right">
+            <div class="info-card list">
                 
                 <strong class="card-text  strong">Wie geht es nach Ihrer Bewerbung weiter?</strong>
                 <ol class="card-order-list">
@@ -715,7 +864,7 @@ input[type=file]::file-selector-button:hover {
                     <li class="card-text">und freuen uns darüber, wenn Sie Ihre Erfahrung mit uns teilen.</li>
                 </ol>
             </div>
-            <div class="info-card slide-in-from-right contact">
+            <div class="info-card contact">
                 <strong class="card-text strong">Ihre Bewerbung wird stets vertraulich behandelt.</strong>
                 <p class="card-text">Sie haben Fragen oder Anregungen? Zögern Sie nicht uns zu kontaktieren und schreiben Sie uns:
                     <a class="contact-email" href="mailto:candidate-service@paulnewstone.com">candidate-service@paulnewstone.com</a></p>
@@ -761,8 +910,6 @@ input[type=file]::file-selector-button:hover {
             </div>
         </div>
     </main>
-
-
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script>
         
@@ -802,23 +949,42 @@ const UIModule = (() => {
   
     const startLoading = () => {
       const loading = document.getElementById('loading');
+      loading.style.opacity = '1';
       loading.style.display = 'block';
     }
     
     const stopLoading = () => {
       const loading = document.getElementById('loading');
-      loading.style.display = 'none';
+      loading.style.opacity = '0';
+      setTimeout(function() {
+            loading.style.display = 'none';
+      }, 300);
     }
   
 
     const paintJobDetailsViewer = (job) => {
         jobName.innerHTML = job.name.replace(/\s*\([^)]*\)\s*/g, '');
-        jobLocation.innerHTML += job.city
-        jobType.innerHTML += job.job_type
-        jobDepartment.innerHTML += job.custom_fields.find(field => field.field_id === '4').value
-        jobIndustry.innerHTML += job.company.industry.label
+        jobLocation.innerHTML = '<i class="ph ph-globe-hemisphere-east icon"></i>' + job.city
+        jobType.innerHTML = '<i class="ph ph-briefcase icon"></i>' + job.job_type
+        jobIndustry.innerHTML = '<i class="ph ph-factory icon"></i>' + job.company.industry.label
         jobDescriptionContainer.innerHTML = job.job_description_text;
+        
+        let department = job.custom_fields.find(field => field.field_id === '4').value.toLowerCase();
+        let icon = 'ph-buildings';
+        if (department === 'office support') {
+            icon = 'ph-archive';
+        } else if (department === 'finance & accounting') {
+            icon = 'ph-wallet';
+        } else if (department === 'human resources') {
+            icon = 'ph-users';
+        } else if (department === 'sales') {
+            icon = 'ph-chart-line-up';
+        }
+        jobDepartment.innerHTML = `<i class="ph ${icon} icon"></i>`+department
+
+        // document.querySelector(".header").classList.toggle("hidden");
     }
+
     
     
     return {
@@ -856,27 +1022,60 @@ const UIModule = (() => {
     const submitBtn = document.getElementById("form-submit");
     const applyForm = document.querySelector(".form");
     const formInputs = document.querySelectorAll("input");
+    const descriptionContainer = document.querySelector(".job-description");
     const applyFormContainer = document.querySelector(".job-apply")
-
-
-    const scrollFunction = (entries) => {
+    const cards = document.querySelectorAll(".info-card");
+    const card1 = document.querySelector(".info-card.result");
+    const card2 = document.querySelector(".info-card.list");
+    const card3 = document.querySelector(".info-card.contact");
+    
+    const showApplyForm = (entries, observe) => {
         const [entry] = entries
-        if(entry.isIntersecting){
-            console.log(entry)
-        }
+        // console.log(entry)
+        if(!entry.isIntersecting) return
+            
+        entry.target.classList.remove("section_hidden");
+        // observe.unobserve(entry.target);
     }
 
-     const backToTopObserver = new IntersectionObserver(scrollFunction, {
+    const slideBottomUp = (entries, observe) => {
+        const [entry] = entries
+        if(!entry.isIntersecting) return
+            
+        entry.target.classList.remove("section_hidden")
+        observe.unobserve(entry.target);
+    }
+
+     const applicationFormObserver = new IntersectionObserver(showApplyForm, {
         root:null,
-        threshold: 1
+        threshold: 0.3
      })
 
-  
+     const informationCard1Observer = new IntersectionObserver(slideBottomUp, {
+        root:null,
+        threshold: 0.05
+     })
+
+     const informationCard2Observer = new IntersectionObserver(slideBottomUp, {
+        root:null,
+        threshold: 0.05
+     })
+
+     const informationCard3Observer = new IntersectionObserver(slideBottomUp, {
+        root:null,
+        threshold: 0.05
+     })  
   
   
     const handlePageLoad = async () => {
+      uiModule.startLoading();
       const job = await dataModule.getJobById();
       uiModule.paintJobDetailsViewer(job);
+      uiModule.stopLoading();
+      document.body.style.overflow = 'auto';
+      applyFormContainer.classList.add("section_hidden");
+      document.querySelectorAll(".tag").forEach(tag => tag.classList.add("zoom-out-animation"))
+      descriptionContainer.classList.add("zoom-out-animation");
       formInputs.forEach(input => { input.addEventListener("input", removeErrorMessage); });
     };
 
@@ -989,10 +1188,16 @@ const UIModule = (() => {
     return {
       init: () => {
         window.addEventListener('DOMContentLoaded', handlePageLoad);
+        cards.forEach(card => card.classList.add("section_hidden"))
+        
         applyBtnTop.addEventListener('click', handleApplyBtnTopClick);
         backBtnTop.addEventListener('click', handleBackBtnTopClick);
         submitBtn.addEventListener('click', handleSubmitBtnClick);
-        // backToTopObserver.observe(nextPageButton);
+        applicationFormObserver.observe(applyFormContainer);
+        console.log(card1);
+        informationCard1Observer.observe(card1);
+        informationCard2Observer.observe(card2);
+        informationCard3Observer.observe(card3);
       },
     };
   })(DataModule, UIModule, StorageModule);
