@@ -94,6 +94,7 @@
             margin-bottom: 1rem;
             margin-left: 0.5rem;
             color: var(--color-text-light-1);
+            max-width: 100rem;
         }
 
 
@@ -304,12 +305,7 @@
             font-weight: 300;
         }
         .result{
-            /* background: linear-gradient(130deg, #e16e93 11%, #9d2e7d 69%);   */
-            background: #ff416da6;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #ff4b2bb2, #ff416dac);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #ff4b2bbb, #ff416dae); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-        
+            background: linear-gradient(69deg, #D80606 54.6875%, #FD6262 100%);
         
         }
 
@@ -553,8 +549,35 @@ background: linear-gradient(to right, #ff4b2bbb, #ff416dae); /* W3C, IE 10+/ Edg
 
 
 .resume-label {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 200;
+    padding: 0.6rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: var(--color-grey-light-4);
+    transition: all 0.2s ease;
+}
+.resume-label:hover {
+ background-color: var(--color-primary);
+ color: var(--color-background-light-2);
+}
+
+.resume-file-input{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    border-bottom: 2px solid #9b9b9b;
+    padding: 1rem 0;
+}
+
+.file-name{
+    font-size: 1.6rem;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide any overflow */
+    text-overflow: ellipsis;
+    display: inline-block;
+    margin-left: 1rem;
+    max-width: 40vw;
 }
 
 .small-text{
@@ -567,31 +590,7 @@ background: linear-gradient(to right, #ff4b2bbb, #ff416dae); /* W3C, IE 10+/ Edg
 .hidden{
     display: none;
 }
- 
-.resume-file-input {
-    width: 100%;
-    color: var(--color-text-dark-2);
-    background: var(--color-light-1);
-    margin-top: 1.2rem;
-    border-bottom: 2px solid #9b9b9b;
-    padding-bottom: 0.8rem;
-}
 
-input[type=file]::file-selector-button {
-  margin-right: 2rem;
-  border: none;
-  background: #5183f0;
-  padding: 0.6rem 2rem;
-  border-radius: 4px;
-  color: var(--color-light-1);
-  cursor: pointer;
-  transition: background .2s ease-in-out;
-  
-}
-
-input[type=file]::file-selector-button:hover {
-  background: #4d7ce1;
-}
 .form-submit-row{
     display: flex;
     justify-content:center;
@@ -808,7 +807,6 @@ input[type=file]::file-selector-button:hover {
             </div>
         </div>
     </header>
-    <!-- <hr class="divider divider-large"> -->
     <main class="container">
         <div class="container-small job-description">
             
@@ -822,7 +820,7 @@ input[type=file]::file-selector-button:hover {
             <div class="form-row">
                 <div class="form__group field">
                     <input type="input" class="form__field" placeholder="First Name" name="firstname" id='firstname' minlength="1" required/>
-                    <label for="firstname" class="form__label">Name</label>
+                    <label for="firstname" class="form__label">First Name</label>
                     <span class="small-text hidden">First Name field is required</span>
                 </div>
                 <div class="form__group field">
@@ -852,10 +850,13 @@ input[type=file]::file-selector-button:hover {
             </div>   
             <div class="form-row">
                 <div class="form__group resume">
-                    <input type="file" id="file" name="resume" title="resume" class="resume-file-input"
+                    <input type="file" id="file" name="resume" title="resume"
                     accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                    required>
-                    <label for="resume" class="form__label resume-label">Resume</label>
+                    hidden required>
+                    <div class="resume-file-input">
+                        <label for="file" class="resume-label">Resume</label>
+                        <span class="file-name"></span>
+                    </div>
                     <span class="small-text hidden">Resume field is required</span>
                 </div>
             </div>
@@ -989,7 +990,7 @@ const UIModule = (() => {
         jobName.innerHTML = job.name.replace(/\s*\([^)]*\)\s*/g, '');
         jobLocation.innerHTML = '<i class="ph ph-globe-hemisphere-east icon"></i>' + job.city
         jobType.innerHTML = '<i class="ph ph-briefcase icon"></i>' + job.job_type
-        jobIndustry.innerHTML = '<i class="ph ph-factory icon"></i>' + job.company.industry.label
+        jobIndustry.innerHTML = '<i class="ph ph-factory icon"></i>' + job.custom_fields.find(field => field.field_name === 'Industry').value
         jobDescriptionContainer.innerHTML = job.job_description_text;
         
         let department = job.custom_fields.find(field => field.field_id === '4').value.toLowerCase();
@@ -1003,7 +1004,7 @@ const UIModule = (() => {
         } else if (department === 'sales') {
             icon = 'ph-chart-line-up';
         }
-        jobDepartment.innerHTML = `<i class="ph ${icon} icon"></i>`+department
+        jobDepartment.innerHTML = `<i class="ph ${icon} icon"></i>` + department
 
         // document.querySelector(".header").classList.toggle("hidden");
     }
@@ -1047,6 +1048,7 @@ const UIModule = (() => {
     const formInputs = document.querySelectorAll("input");
     const descriptionContainer = document.querySelector(".job-description");
     const applyFormContainer = document.querySelector(".job-apply")
+    const file = document.getElementById("file");
     const cards = document.querySelectorAll(".info-card");
     const card1 = document.querySelector(".info-card.result");
     const card2 = document.querySelector(".info-card.list");
@@ -1143,12 +1145,15 @@ const UIModule = (() => {
     const validateResume = () => {
 
         const file = document.getElementById("file");
+        const fileNameHolder = document.querySelector(".file-name");
+        const fileInput = document.querySelector(".resume-file-input");
         const errorLabel = file.nextElementSibling.nextElementSibling;
 
         if (file.value === "") {
             errorLabel.textContent = "Resume field is required";
             errorLabel.className = "small-text";
-            file.classList.add("danger")
+            fileInput.classList.add("danger")
+            fileNameHolder.textContent = ''
             return false;
         }
 
@@ -1157,8 +1162,13 @@ const UIModule = (() => {
         if (fileMb > 8) {
             errorLabel.textContent = "Resume size should be less than 8MB";
             errorLabel.className = "small-text";
-            email.classList.add("danger")
+            fileInput.classList.add("danger")
+            fileNameHolder.textContent = ''
             return false;
+        }else{
+            fileNameHolder.textContent = resume.name // resume.name.length > 30 ? resume.name.slice(0, 15) + '...' + resume.name.slice(-8) : resume.name;
+            fileInput.classList.remove("danger")
+            fileNameHolder.className = "file-name";
         }
 
         return true;
@@ -1188,7 +1198,7 @@ const UIModule = (() => {
         const formFields = {
             "firstname": validateInput("firstname") , 
             "lastname": validateInput("lastname") , 
-            "file": validateResume() , 
+            "file": validateResume(), 
             "email": isEmailValid()
         }
 
@@ -1217,10 +1227,10 @@ const UIModule = (() => {
         backBtnTop.addEventListener('click', handleBackBtnTopClick);
         submitBtn.addEventListener('click', handleSubmitBtnClick);
         applicationFormObserver.observe(applyFormContainer);
-        console.log(card1);
         informationCard1Observer.observe(card1);
         informationCard2Observer.observe(card2);
         informationCard3Observer.observe(card3);
+        file.addEventListener("change", validateResume)
       },
     };
   })(DataModule, UIModule, StorageModule);
