@@ -94,6 +94,7 @@
             margin-bottom: 1rem;
             margin-left: 0.5rem;
             color: var(--color-text-light-1);
+            max-width: 100rem;
         }
 
 
@@ -132,7 +133,7 @@
             width: 20rem;
             height: 4rem;
             color: var(--color-light-1);
-            border-radius: 0.5rem;
+            border-radius: 0.2rem;
             padding: 1rem 2.5rem;
             font-size: 1.6rem;
             font-weight: 400;
@@ -142,17 +143,11 @@
             position: relative;
             display: inline-block;
             outline: none;
-        }
-
-        .btn-apply {
-            background: var(--color-tertiary);
-            border: 1px solid var(--color-text-light-1);
             z-index: 1;
-            color: var(--color-light-1);
             overflow: hidden;
         }
 
-        .btn-apply:after {
+        .custom-btn:after {
             position: absolute;
             content: "";
             width: 0;
@@ -160,99 +155,71 @@
             top: 0;
             right: 0;
             z-index: -2;
-            background-color: var(--color-light-1);
             transition: all 0.5s ease;
+        }
+
+        .custom-btn:hover:after {
+            left: 0;
+            width: 100%;
+        }
             
+        .custom-btn:active {
+            top: 2px;
+        }
+
+        .btn-apply {
+            background: var(--color-tertiary);
+            border: 1px solid var(--color-text-light-1);
+            color: var(--color-light-1);
+        }
+
+        .btn-apply:after {
+            background-color: var(--color-light-1); 
         }
 
         .btn-apply:hover {
             color: var(--color-text-dark-3);
         }
             
-        .btn-apply:hover:after {
-            left: 0;
-            width: 100%;
-        }
-            
-        .btn-apply:active {
-            top: 2px;
-        }
+        
 
         .btn-back {
             background: transparent;
             border: 1px solid var(--color-text-light-1);
-            z-index: 1;
             color: var(--color-text-light-1);
             overflow: hidden;
         }
 
         .btn-back:after {
-            position: absolute;
-            content: "";
-            width: 0;
-            height: 100%;
-            top: 0;
-            right: 0;
-            z-index: -1;
             background-color: var(--color-tertiary);
-            transition: all 0.5s ease;
         }
 
         .btn-back:hover {
             color: var(--color-light-1);
-        }
-            
-        .btn-back:hover:after {
-            left: 0;
-            width: 100%;
-        }
-            
-        .btn-back:active {
-            top: 2px;
         }
 
 
         .btn-submit {
             background: var(--color-background-light-1);
             border: 1px solid var(--color-text-dark-3);
-            z-index: 1;
             color: var(--color-text-dark-3);
         }
 
         .btn-submit:after {
-            position: absolute;
-            content: "";
-            width: 0;
-            height: 100%;
-            top: 0;
-            right: 0;
-            z-index: -1;
             background-color: var(--color-text-dark-2);
-            transition: all 0.5s ease;
         }
 
         .btn-submit:hover {
             color: var(--color-light-1);
         }
-            
-        .btn-submit:hover:after {
-            left: 0;
-            width: 100%;
-        }
-            
-        .btn-submit:active {
-            top: 2px;
-        }
 
         .container{
-            
             max-width: 130rem;
             margin: 0rem auto;
             padding: 6rem 2rem;
             display: grid;
             grid-template-rows: min-content min-content repeat(3, min-content) ;
             grid-template-columns: [full-start] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
-
         }
 
         .job-description > *{
@@ -261,10 +228,7 @@
 
         .job-description{
             grid-column: full-start / col-end 5;
-            /* padding: 0rem 0rem 0 2rem; */
-            /* font-size: 3rem; */
             color: var(--color-text-dark-2);
-            /* animation-delay: 0s; */
             text-align: justify;
         }
 
@@ -304,12 +268,7 @@
             font-weight: 300;
         }
         .result{
-            /* background: linear-gradient(130deg, #e16e93 11%, #9d2e7d 69%);   */
-            background: #ff416da6;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #ff4b2bb2, #ff416dac);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #ff4b2bbb, #ff416dae); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-        
+            background: linear-gradient(69deg, #D80606 54.6875%, #FD6262 100%);
         
         }
 
@@ -496,7 +455,7 @@ background: linear-gradient(to right, #ff4b2bbb, #ff416dae); /* W3C, IE 10+/ Edg
      min-width: 24rem;
 }
 .form__group:not(last-child){
-    margin: 0 1.5rem;
+    margin: 0.3rem 1.5rem;
 }
 
  .form__field {
@@ -553,8 +512,35 @@ background: linear-gradient(to right, #ff4b2bbb, #ff416dae); /* W3C, IE 10+/ Edg
 
 
 .resume-label {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 200;
+    padding: 0.7rem 2rem 0.6rem 2rem;
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: var(--color-grey-light-4);
+    transition: all 0.2s ease;
+}
+.resume-label:hover {
+ background-color: var(--color-primary);
+ color: var(--color-background-light-2);
+}
+
+.resume-file-input{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    border-bottom: 2px solid #9b9b9b;
+    padding: 0.6rem 0;
+}
+
+.file-name{
+    font-size: 1.6rem;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide any overflow */
+    text-overflow: ellipsis;
+    display: inline-block;
+    margin-left: 1rem;
+    max-width: 40vw;
 }
 
 .small-text{
@@ -567,38 +553,14 @@ background: linear-gradient(to right, #ff4b2bbb, #ff416dae); /* W3C, IE 10+/ Edg
 .hidden{
     display: none;
 }
- 
-.resume-file-input {
-    width: 100%;
-    color: var(--color-text-dark-2);
-    background: var(--color-light-1);
-    margin-top: 1.2rem;
-    border-bottom: 2px solid #9b9b9b;
-    padding-bottom: 0.8rem;
-}
 
-input[type=file]::file-selector-button {
-  margin-right: 2rem;
-  border: none;
-  background: #5183f0;
-  padding: 0.6rem 2rem;
-  border-radius: 4px;
-  color: var(--color-light-1);
-  cursor: pointer;
-  transition: background .2s ease-in-out;
-  
-}
-
-input[type=file]::file-selector-button:hover {
-  background: #4d7ce1;
-}
 .form-submit-row{
     display: flex;
     justify-content:center;
 }
 .submit{
     align-self: center;
-    margin: 4rem 2rem 2rem 2rem;  
+    margin: 3rem 2rem;  
 }
 
 .danger{
@@ -648,7 +610,7 @@ input[type=file]::file-selector-button:hover {
   }
 }
 
-.zoom-out-animation {
+.bottom-up {
   animation-name: popUp;
   animation-duration: 0.3s;
   animation-timing-function: ease-out;
@@ -670,6 +632,34 @@ input[type=file]::file-selector-button:hover {
 
 .tag:nth-child(4) {
   animation-delay: 0.9s;
+}
+
+
+.landing-element {
+    animation-name: land;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    }
+
+    @keyframes land {
+      0% {
+        transform: scale(1.3);
+        opacity: 0; /* Starting position, completely hidden outside the right edge */
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;/* Ending position, lands on the left edge */
+      }
+    }
+
+    .landing-element:nth-child(1) {
+  animation-delay: 0.4s;
+}
+
+.landing-element:nth-child(2) {
+  animation-delay: 0.6s;
 }
 
 #bs64_img_0{
@@ -764,6 +754,11 @@ input[type=file]::file-selector-button:hover {
         margin: 0;
     }
 
+    .form{
+        /* max-width: auto; */
+        width: 100%;
+    }
+
 }
 
 
@@ -772,6 +767,8 @@ input[type=file]::file-selector-button:hover {
         font-size: 2.6rem;
         margin: 3rem 0 0 0;
     }
+
+    
 
 
 }
@@ -803,12 +800,11 @@ input[type=file]::file-selector-button:hover {
                 </div> 
             </div>
             <div class="action-btns">
-                <button type="button" class="custom-btn btn-apply" title="Apply" id="apply-button-top">Apply</button>
-                <button type="button" class="custom-btn btn-back" title="Back" id="back-button-top">Back</button>
+                <button type="button" class="custom-btn btn-apply landing-element" title="Apply" id="apply-button-top">Apply</button>
+                <button type="button" class="custom-btn btn-back landing-element" title="Back" id="back-button-top">Back</button>
             </div>
         </div>
     </header>
-    <!-- <hr class="divider divider-large"> -->
     <main class="container">
         <div class="container-small job-description">
             
@@ -822,7 +818,7 @@ input[type=file]::file-selector-button:hover {
             <div class="form-row">
                 <div class="form__group field">
                     <input type="input" class="form__field" placeholder="First Name" name="firstname" id='firstname' minlength="1" required/>
-                    <label for="firstname" class="form__label">Name</label>
+                    <label for="firstname" class="form__label">First Name</label>
                     <span class="small-text hidden">First Name field is required</span>
                 </div>
                 <div class="form__group field">
@@ -852,10 +848,13 @@ input[type=file]::file-selector-button:hover {
             </div>   
             <div class="form-row">
                 <div class="form__group resume">
-                    <input type="file" id="file" name="resume" title="resume" class="resume-file-input"
+                    <input type="file" id="file" name="resume" title="resume"
                     accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                    required>
-                    <label for="resume" class="form__label resume-label">Resume</label>
+                    hidden required>
+                    <div class="resume-file-input">
+                        <label for="file" class="resume-label">Resume</label>
+                        <span class="file-name"></span>
+                    </div>
                     <span class="small-text hidden">Resume field is required</span>
                 </div>
             </div>
@@ -989,7 +988,7 @@ const UIModule = (() => {
         jobName.innerHTML = job.name.replace(/\s*\([^)]*\)\s*/g, '');
         jobLocation.innerHTML = '<i class="ph ph-globe-hemisphere-east icon"></i>' + job.city
         jobType.innerHTML = '<i class="ph ph-briefcase icon"></i>' + job.job_type
-        jobIndustry.innerHTML = '<i class="ph ph-factory icon"></i>' + job.company.industry.label
+        jobIndustry.innerHTML = '<i class="ph ph-factory icon"></i>' + job.custom_fields.find(field => field.field_name === 'Industry').value
         jobDescriptionContainer.innerHTML = job.job_description_text;
         
         let department = job.custom_fields.find(field => field.field_id === '4').value.toLowerCase();
@@ -1003,7 +1002,7 @@ const UIModule = (() => {
         } else if (department === 'sales') {
             icon = 'ph-chart-line-up';
         }
-        jobDepartment.innerHTML = `<i class="ph ${icon} icon"></i>`+department
+        jobDepartment.innerHTML = `<i class="ph ${icon} icon"></i>` + department
 
         // document.querySelector(".header").classList.toggle("hidden");
     }
@@ -1047,6 +1046,7 @@ const UIModule = (() => {
     const formInputs = document.querySelectorAll("input");
     const descriptionContainer = document.querySelector(".job-description");
     const applyFormContainer = document.querySelector(".job-apply")
+    const file = document.getElementById("file");
     const cards = document.querySelectorAll(".info-card");
     const card1 = document.querySelector(".info-card.result");
     const card2 = document.querySelector(".info-card.list");
@@ -1097,8 +1097,8 @@ const UIModule = (() => {
       uiModule.stopLoading();
       document.body.style.overflow = 'auto';
       applyFormContainer.classList.add("section_hidden");
-      document.querySelectorAll(".tag").forEach(tag => tag.classList.add("zoom-out-animation"))
-      descriptionContainer.classList.add("zoom-out-animation");
+      document.querySelectorAll(".tag").forEach(tag => tag.classList.add("bottom-up"))
+      descriptionContainer.classList.add("bottom-up");
       formInputs.forEach(input => { input.addEventListener("input", removeErrorMessage); });
     };
 
@@ -1143,12 +1143,15 @@ const UIModule = (() => {
     const validateResume = () => {
 
         const file = document.getElementById("file");
+        const fileNameHolder = document.querySelector(".file-name");
+        const fileInput = document.querySelector(".resume-file-input");
         const errorLabel = file.nextElementSibling.nextElementSibling;
 
         if (file.value === "") {
             errorLabel.textContent = "Resume field is required";
             errorLabel.className = "small-text";
-            file.classList.add("danger")
+            fileInput.classList.add("danger")
+            fileNameHolder.textContent = ''
             return false;
         }
 
@@ -1157,8 +1160,13 @@ const UIModule = (() => {
         if (fileMb > 8) {
             errorLabel.textContent = "Resume size should be less than 8MB";
             errorLabel.className = "small-text";
-            email.classList.add("danger")
+            fileInput.classList.add("danger")
+            fileNameHolder.textContent = ''
             return false;
+        }else{
+            fileNameHolder.textContent = resume.name // resume.name.length > 30 ? resume.name.slice(0, 15) + '...' + resume.name.slice(-8) : resume.name;
+            fileInput.classList.remove("danger")
+            fileNameHolder.className = "file-name";
         }
 
         return true;
@@ -1188,7 +1196,7 @@ const UIModule = (() => {
         const formFields = {
             "firstname": validateInput("firstname") , 
             "lastname": validateInput("lastname") , 
-            "file": validateResume() , 
+            "file": validateResume(), 
             "email": isEmailValid()
         }
 
@@ -1217,10 +1225,10 @@ const UIModule = (() => {
         backBtnTop.addEventListener('click', handleBackBtnTopClick);
         submitBtn.addEventListener('click', handleSubmitBtnClick);
         applicationFormObserver.observe(applyFormContainer);
-        console.log(card1);
         informationCard1Observer.observe(card1);
         informationCard2Observer.observe(card2);
         informationCard3Observer.observe(card3);
+        file.addEventListener("change", validateResume)
       },
     };
   })(DataModule, UIModule, StorageModule);
