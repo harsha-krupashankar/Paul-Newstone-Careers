@@ -117,6 +117,7 @@ function createJobCards(data) {
         jobCardAnchor.href = `/apply.html?job_id=${job.job_id}`;
         jobCardAnchor.classList.add('job-card-anchor');
         jobCardAnchor.target = '_blank';
+        jobCardAnchor.id = job.job_id;
 
         // Add department-specific class to the job card
         if (department === 'office support') {
@@ -176,7 +177,7 @@ function createJobCards(data) {
         var viewMoreContainer = document.createElement('div');
         viewMoreContainer.classList.add('view-more');
         viewMoreContainer.innerHTML = `
-                    <button type="button" class="custom-btn btn--outline-black view-more-btn"  onclick="fetchNextPageJobs()">View More</button>
+                    <button type="button" class="custom-btn btn--outline-black view-more-btn" id="viewMore"  onclick="fetchNextPageJobs()">View More</button>
                 `;
         jobCardsContainer.appendChild(viewMoreContainer);
 
@@ -308,8 +309,6 @@ function fetchNextPageJobs() {
         .catch(error => {
             console.error(error);
         });
-
-    createJobCards(nextPageResponse);
 }
 
 function generateIds(inputString) {
@@ -403,6 +402,8 @@ function filter() {
         .catch(error => {
             console.error(error);
         });
+
+    scrollToSection();
 }
 
 function generateSearchParams(filterObject) {
@@ -516,3 +517,15 @@ function resetFilters() {
     animateJobCards();
 }
 
+
+function scrollToSection() {
+    debugger
+    if (window.matchMedia('(max-width: 575px)').matches) {
+      document.getElementById('jobListings').scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+  }
+  
+  
+  
