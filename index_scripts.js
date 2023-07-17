@@ -117,7 +117,7 @@ function createJobCards(data) {
         jobCardAnchor.href = `/apply.html?job_id=${job.job_id}`;
         jobCardAnchor.classList.add('job-card-anchor');
         jobCardAnchor.target = '_blank';
-        
+
         // Add department-specific class to the job card
         if (department === 'office support') {
             jobCard.classList.add('card-office-support');
@@ -137,31 +137,32 @@ function createJobCards(data) {
         jobCard.innerHTML = `
                     <div class="info-div">
                         <div class="job-name">
-                        <h4>${jobName}</h4>
+                            <h4 class="job-name-text">${jobName}</h4>
                         </div>
                         <div class="job-info">
-                        <div class="location">
-                            <i class="ph ph-globe-hemisphere-west"></i>
-                            <p>${job.city} - ${job.country}</p>
-                        </div>
-                        <div class="division">
-                            <i class="ph ${icon}"></i>
-                            <p>${job.custom_fields.find(field => field.field_id === '4').value}</p>
-                        </div>
-                        ${job.custom_fields.find(field => field.field_name === 'Industry' && field.value !== 'None') ? `
-                            <div class="industry">
-                            <i class="ph ph-factory"></i>
-                            <p>${job.custom_fields.find(field => field.field_name === 'Industry').value}</p>
+                            <div class="location">
+                                <i class="ph ph-globe-hemisphere-west"></i>
+                                <p>${job.city} - ${job.country}</p>
                             </div>
-                        ` : ''}
+                            <div class="division">
+                                <i class="ph ${icon}"></i>
+                                <p>${job.custom_fields.find(field => field.field_id === '4').value}</p>
+                            </div>
                         </div>
                     </div>
                     <div class="btn-div">
-                        <div class="apply-btn">
-                        <a type="button" target="_blank" href="/apply.html?job_id=${job.job_id}" class="custom-btn btn--outline-black btn-block">Apply Now</a>
+                        <div class="apply-btn text-center">
+                        <a type="button" target="_blank" href="/apply.html?job_id=${job.job_id}" class="custom-btn btn--outline-black btn-block">Apply</a>
                         </div>
                     </div>
                     `;
+
+        // ${job.custom_fields.find(field => field.field_name === 'Industry' && field.value !== 'None') ? `
+        //     <div class="industry">
+        //     <i class="ph ph-factory"></i>
+        //     <p>${job.custom_fields.find(field => field.field_name === 'Industry').value}</p>
+        //     </div>
+        // ` : ''}
 
         // Append the job card to the job-cards container
         jobCardAnchor.appendChild(jobCard);
@@ -500,7 +501,7 @@ function resetFilters() {
         resetButton.style.display = 'none';
     }
 
-    var checkboxes = document.querySelectorAll('.form-check-input'); 
+    var checkboxes = document.querySelectorAll('.form-check-input');
 
     checkboxes.forEach(function (checkbox) {
         checkbox.checked = false;

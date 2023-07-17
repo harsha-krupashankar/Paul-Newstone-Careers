@@ -23,16 +23,20 @@
         <div id="bg">
 
         </div>
-        <div class="overlay d-flex align-items-center justify-content-center">
+        <div class="overlay">
+            <div class="banner-text">
+                <h1>Find your Dream <span class="col-red">Job</span></h1>
+            </div>
+            <hr class="red-line">
             <div class="container filter-box">
                 <div class="row align-items-center justify-content-center">
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-3">
                         <div class="input-group">
                             <input type="text" class="form-control search-box" placeholder="Search Jobs"
                                 aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-3">
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle dropdowns btn-block bg--white"
                                 type="button" id="cityDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,7 +47,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-3">
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle dropdowns btn-block bg--white"
                                 type="button" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,7 +58,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-sm-2">
                         <button type="button" class="custom-btn btn--red btn-block" onclick="filter()">Search</button>
                     </div>
                 </div>
@@ -93,16 +97,16 @@
                     <button type="button" class="custom-btn btn--black btn-block" onclick="filter()">Apply
                         Filter</button>
                 </div>
-            </div>
-
-            <div class="job-listings">
-                <div class="jobs-count">
-                    <h3>Showing <span id="displayedJobsCount">0</span> / <span id="totalJobsCount">0</span> Jobs</h3>
                 </div>
-                <div class="job-cards">
 
+                <div class="job-listings">
+                    <div class="jobs-count">
+                        <h3>Showing <span id="displayedJobsCount">0</span> / <span id="totalJobsCount">0</span> Jobs</h3>
+                    </div>
+                    <div class="job-cards">
+
+                    </div>
                 </div>
-            </div>
     </main>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="index_scripts.js"></script>
