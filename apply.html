@@ -579,15 +579,6 @@
     height: 100%;
     transition: opacity 0.3s ease-out;
   }
-
-  #submit-loading{
-    display: none;
-    position: absolute;
-    width: 100%;
-    z-index: 2;
-    background-color: #00000075;
-    transition: opacity 0.3s ease-out;
-  }
   
   .loading-icon {
     width: 50px;
@@ -597,6 +588,22 @@
     border-top: 0.5rem solid var(--color-primary);
     animation: spin 1s linear infinite;
     margin: 50vh auto;
+  }
+
+  #submit-loading{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: #00000075;
+    transition: opacity 0.3s ease-out;
+  }
+
+  .submit-loading-icon {
+    margin: 0;
   }
   
   @keyframes spin {
@@ -701,6 +708,7 @@
 .closed-text{
     font-size: 1.6rem;
     margin: 0.3rem;
+    text-align: center;
     color: var(--color-secondary);
 }
 
@@ -751,6 +759,9 @@
         flex-direction: column;
         align-items: flex-start;
         
+    }
+    .job-closed-heading{
+        font-size: 2.4rem;
     }
 
     .header-main{
@@ -808,6 +819,10 @@
     .job-name{
         font-size: 2.6rem;
         margin: 3rem 0 0 0;
+    }
+
+    .job-closed-heading{
+        font-size: 1.8rem;
     }
 
     
@@ -907,7 +922,7 @@
             </div>
         </form>
         <div id="submit-loading">
-            <div class="loading-icon"></div>
+            <div class="loading-icon submit-loading-icon"></div>
         </div>
         </div>
         <div class="cards">
@@ -1070,7 +1085,7 @@ const UIModule = (() => {
     const startSubmitLoading = () => {
       const loading = document.getElementById('submit-loading');
       loading.style.opacity = '1';
-      loading.style.display = 'block';
+      loading.style.display = 'flex';
     }
     
     const stopSubmitLoading = () => {
@@ -1383,6 +1398,8 @@ const UIModule = (() => {
         uiModule.thankYou();
         return
         uiModule.startSubmitLoading();
+        return
+        
         const jobApplicationForm = new FormData(applyForm);
         const objCandidate = Object.fromEntries(jobApplicationForm);
         const formInputs = Array.from(document.querySelectorAll('input[name]:not([name="resume"])'));
