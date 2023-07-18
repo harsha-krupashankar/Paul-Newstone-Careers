@@ -28,11 +28,11 @@
                 <h1>Find your Dream <span class="col-red">Job</span></h1>
             </div>
             <hr class="red-line">
-            <div class="container filter-box">
+            <div class="container filter-box" id="bannerFilterBox">
                 <div class="row align-items-center justify-content-center filter-container">
                     <div class="col-md-3 col-sm-3 filter col-12">
                         <div class="input-group">
-                            <input type="text" class="form-control search-box" placeholder="Search Jobs"
+                            <input type="text" class="form-control search-box" placeholder="Search by Job name"
                                 aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                     </div>
@@ -67,7 +67,7 @@
     </section>
     <main>
         <div class="container d-flex jobs">
-            <div class="left-panel">
+            <div class="left-panel" id="bodyFilterBox">
                 <div class="section-heading">
                     <h3>Filter Jobs</h3>
                 </div>
@@ -106,6 +106,12 @@
                     <div class="job-cards">
 
                     </div>
+                </div>
+
+                <div class="scroll-to-top">
+                    <button class="cutom-btn btn--outline-black" onclick="scrollButton()">
+                        <i class="ph ph-arrow-up"></i>
+                    </button>
                 </div>
     </main>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>

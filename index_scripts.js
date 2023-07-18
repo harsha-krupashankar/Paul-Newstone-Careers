@@ -496,7 +496,7 @@ function addResetFilterButton() {
 }
 
 function resetFilters() {
-    debugger
+    
     var resetButton = document.querySelector('.reset-filter-btn');
     if (resetButton) {
         resetButton.style.display = 'none';
@@ -519,13 +519,28 @@ function resetFilters() {
 
 
 function scrollToSection() {
-    debugger
+    
     if (window.matchMedia('(max-width: 575px)').matches) {
       document.getElementById('jobListings').scrollIntoView({
         behavior: 'smooth'
       });
     }
   }
+
+function scrollButton() {
+    document.getElementById("bannerFilterBox").scrollIntoView({ behavior: "smooth" });
+}
+
+window.addEventListener("scroll", function () {
+    const scrollButton = document.querySelector(".scroll-to-top button");
+    const section = document.getElementById("bodyFilterBox"); // Replace "targetSection" with the section where the button should appear
+
+    if (window.scrollY > section.offsetTop && window.matchMedia('(min-width: 800px)').matches) {
+        scrollButton.style.display = "block";
+    } else {
+        scrollButton.style.display = "none";
+    }
+});
   
   
   

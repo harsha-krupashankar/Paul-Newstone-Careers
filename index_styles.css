@@ -164,7 +164,9 @@ main {
 
 .search-box::placeholder {
     font-size: 1.4rem !important;
-    font-weight: 500 !important;
+    /* font-weight: 400 !important; */
+    color: #343a3f !important;
+    text-align: center;
 }
 
 .search-box:focus {
@@ -656,7 +658,31 @@ p {
 
 
 
+.scroll-to-top {
+    position: fixed;
+    bottom: 90px;
+    left: 180px;
+    z-index: 1;
+}
 
+.scroll-to-top button {
+    display: none;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 2px;
+    background-color: transparent !important;
+    transition: all .5s ease;
+}
+
+.scroll-to-top button:active {
+    transform: translateY(20px);
+}
+
+.scroll-to-top button:hover {
+    .ph-arrow-up {
+        color: #fff;
+    }
+}
 
 
 
