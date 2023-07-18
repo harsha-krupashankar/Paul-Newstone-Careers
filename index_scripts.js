@@ -1,8 +1,6 @@
 var displayedJobCount = 0;
 var nextPageUrl = '';
 var totalCount = 0;
-var scrollCount = 0;
-var endOfPageMessageDisplayed = false;
 var initialData = {}
 var initialTotalCount = 0;
 
@@ -43,13 +41,6 @@ function animateJobCards() {
             jobCards[i].classList.add('slide-up');
         }
     }
-
-    // Increment scrollCount on each scroll event
-
-    // Check if user has reached the end of the page and still scrolling
-    if (isEndOfPage()) {
-        scrollCount++;
-    }
 }
 
 // Function to check if user has reached the end of the pag
@@ -59,14 +50,6 @@ function isEndOfPage() {
     var threshold = 100; // Adjust the threshold value as needed
 
     return scrollPosition >= bodyHeight - threshold;
-}
-
-// Function to show end of page message
-function showEndOfPageMessage() {
-    var endOfPageMessage = document.createElement('div');
-    endOfPageMessage.classList.add('end-of-page-message');
-    endOfPageMessage.innerHTML = 'You have reached the end of the page.';
-    document.body.appendChild(endOfPageMessage);
 }
 
 // Add event listener to animate job cards on scroll
@@ -182,11 +165,6 @@ function createJobCards(data) {
         jobCardsContainer.appendChild(viewMoreContainer);
 
         nextPageUrl = data.next_page_url;
-    } else {
-        if (scrollCount >= 30 && !document.querySelector('.view-more') && !endOfPageMessageDisplayed) {
-            showEndOfPageMessage();
-            endOfPageMessageDisplayed = true;
-        }
     }
     updateNumbers();
 }
@@ -205,12 +183,6 @@ function clearJobCards() {
 
     // Reset the nextPageUrl variable
     nextPageUrl = null;
-
-    // Reset the scrollCount variable
-    scrollCount = 0;
-
-    // Reset the endOfPageMessageDisplayed variable
-    endOfPageMessageDisplayed = false;
 }
 
 function updateNumbers() {
@@ -455,15 +427,17 @@ function hideLoader() {
 function showNoJobsMessage() {
     displayedJobCount = 0;
     updateNumbers();
+  
     // Create the div for the "No jobs found" message
     var noJobsDiv = document.createElement('div');
     noJobsDiv.classList.add('no-jobs-message');
-    noJobsDiv.innerHTML = '<h3>No jobs found</h3>';
-
+    noJobsDiv.innerHTML = '<img src="no-results-icon.svg" class="no-jobs-image" alt="No jobs icon"><h3>No jobs found</h3><p>Unfortunately, there are no available jobs matching your criteria at the moment.';
+  
     // Append the div to the job-cards container
     var jobCardsContainer = document.querySelector('.job-cards');
     jobCardsContainer.appendChild(noJobsDiv);
-}
+  }
+  
 
 function hideNoJobsMessage() {
     // Remove the "No jobs found" message div
@@ -496,7 +470,7 @@ function addResetFilterButton() {
 }
 
 function resetFilters() {
-    
+
     var resetButton = document.querySelector('.reset-filter-btn');
     if (resetButton) {
         resetButton.style.display = 'none';
@@ -519,13 +493,13 @@ function resetFilters() {
 
 
 function scrollToSection() {
-    
+
     if (window.matchMedia('(max-width: 575px)').matches) {
-      document.getElementById('jobListings').scrollIntoView({
-        behavior: 'smooth'
-      });
+        document.getElementById('jobListings').scrollIntoView({
+            behavior: 'smooth'
+        });
     }
-  }
+}
 
 function scrollButton() {
     document.getElementById("bannerFilterBox").scrollIntoView({ behavior: "smooth" });
@@ -541,6 +515,5 @@ window.addEventListener("scroll", function () {
         scrollButton.style.display = "none";
     }
 });
-  
-  
-  
+
+

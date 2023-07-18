@@ -27,7 +27,7 @@
             <div class="banner-text">
                 <h1>Find your Dream <span class="col-red">Job</span></h1>
             </div>
-            <hr class="red-line">
+            <div class="red-line"></div>
             <div class="container filter-box" id="bannerFilterBox">
                 <div class="row align-items-center justify-content-center filter-container">
                     <div class="col-md-3 col-sm-3 filter col-12">
@@ -94,25 +94,26 @@
                     </div>
                 </div>
                 <div class="clear-all">
-                    <button type="button" class="custom-btn btn--black btn-block" id="applyFilter" onclick="filter()">Apply
+                    <button type="button" class="custom-btn btn--black btn-block" id="applyFilter"
+                        onclick="filter()">Apply
                         Filter</button>
                 </div>
-                </div>
+            </div>
 
-                <div class="job-listings" id="jobListings">
-                    <div class="jobs-count">
-                        <h3>Showing <span id="displayedJobsCount">0</span> / <span id="totalJobsCount">0</span> Jobs</h3>
-                    </div>
-                    <div class="job-cards">
-
-                    </div>
+            <div class="job-listings" id="jobListings">
+                <div class="jobs-count">
+                    <h3>Showing <span id="displayedJobsCount">0</span> / <span id="totalJobsCount">0</span> Jobs</h3>
                 </div>
+                <div class="job-cards">
 
-                <div class="scroll-to-top">
-                    <button class="cutom-btn btn--outline-black" onclick="scrollButton()">
-                        <i class="ph ph-arrow-up"></i>
-                    </button>
                 </div>
+            </div>
+
+            <div class="scroll-to-top">
+                <button class="cutom-btn btn--outline-black" onclick="scrollButton()">
+                    <i class="ph ph-arrow-up"></i>
+                </button>
+            </div>
     </main>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="index_scripts.js"></script>
