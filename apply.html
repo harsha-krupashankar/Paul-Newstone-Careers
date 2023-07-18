@@ -1183,7 +1183,7 @@ const UIModule = (() => {
         const animation = lottie.loadAnimation({
         container: animationContainer,
         renderer: 'canvas', // You can choose 'svg', 'canvas', or 'html'
-        loop: true,
+        loop: false,
         autoplay: true,
         path: animationData
         });
@@ -1394,12 +1394,7 @@ const UIModule = (() => {
     };
 
     const handleSubmitBtnClick = async (e) => {
-        e.preventDefault();
-        uiModule.thankYou();
-        return
-        uiModule.startSubmitLoading();
-        return
-        
+        e.preventDefault();        
         const jobApplicationForm = new FormData(applyForm);
         const objCandidate = Object.fromEntries(jobApplicationForm);
         const formInputs = Array.from(document.querySelectorAll('input[name]:not([name="resume"])'));
