@@ -678,16 +678,33 @@
 }
 
 .job-closed-heading{
-    font-size: 5rem;
-    color: var(--color-secondary);
+    font-size: 4rem;
+    font-weight: 600;
+    color: var(--color-text-dark-2);
     margin: 0;
+    text-transform: uppercase;
 }
 
 .info-secondary{
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 2rem;
 }
+
+.info-secondary-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.closed-text{
+    font-size: 1.6rem;
+    margin: 0.3rem;
+    color: var(--color-secondary);
+}
+
+
 #bs64_img_0{
         max-width: 100%;
         height: auto;
@@ -1109,6 +1126,23 @@ const UIModule = (() => {
         closedHeading.className = 'job-closed-heading'
         info.appendChild(closedHeading);
 
+        //text
+        let closedText = document.createElement('div');
+        closedText.className='info-secondary-text'
+
+        let line1 = document.createElement('p');
+        line1.textContent = 'We\'re sorry, but the job you were looking for has been filled.'
+        line1.className = 'closed-text'
+        closedText.appendChild(line1);
+
+        let line2 = document.createElement('p');
+        line2.textContent = 'Thank you for your interest.'
+        line2.className = 'closed-text'
+        closedText.appendChild(line2);
+
+
+        info.appendChild(closedText);
+
         //button
         const button = document.createElement('button');
 
@@ -1127,7 +1161,60 @@ const UIModule = (() => {
     }
 
     const thankYou = () => {
-      document.getElementById('parent-container').innerHTML = '<h1>thankYou</h1>'
+        document.getElementById('parent-container').innerHTML = '<div id="lottie-container"></div>'
+        const animationContainer = document.getElementById('lottie-container');
+        const animationData = './thankyou.json'
+
+        const animation = lottie.loadAnimation({
+        container: animationContainer,
+        renderer: 'canvas', // You can choose 'svg', 'canvas', or 'html'
+        loop: true,
+        autoplay: true,
+        path: animationData
+        });
+
+        const info = document.createElement('div');
+        info.className = 'info-secondary';
+        document.getElementById('parent-container').appendChild(info);
+
+        //heading
+        let closedHeading = document.createElement('h1');
+        closedHeading.textContent = 'Thank you for Applying'
+        closedHeading.className = 'job-closed-heading'
+        info.appendChild(closedHeading);
+
+        //text
+        let closedText = document.createElement('div');
+        closedText.className='info-secondary-text'
+
+        let line1 = document.createElement('p');
+        line1.textContent = 'We\'re sorry, but the job you were looking for has been filled.'
+        line1.className = 'closed-text'
+        closedText.appendChild(line1);
+
+        let line2 = document.createElement('p');
+        line2.textContent = 'Thank you for your interest.'
+        line2.className = 'closed-text'
+        closedText.appendChild(line2);
+
+
+        info.appendChild(closedText);
+
+        //button
+        const button = document.createElement('button');
+
+        // Set the button attributes
+        button.setAttribute('type', 'button');
+        button.setAttribute('class', 'custom-btn btn-submit');
+        button.setAttribute('title', 'Back');
+        button.setAttribute('id', 'back-button-top');
+        button.onclick = () => {
+            window.location = '/index.html'
+        }
+
+        // Set the button text
+        button.innerText = 'Back';
+        info.appendChild(button);
     }
     
     return {
@@ -1293,6 +1380,8 @@ const UIModule = (() => {
 
     const handleSubmitBtnClick = async (e) => {
         e.preventDefault();
+        uiModule.thankYou();
+        return
         uiModule.startSubmitLoading();
         const jobApplicationForm = new FormData(applyForm);
         const objCandidate = Object.fromEntries(jobApplicationForm);
