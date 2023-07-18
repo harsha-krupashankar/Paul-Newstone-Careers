@@ -1,9 +1,8 @@
 var displayedJobCount = 0;
-var nextPageUrl = '';
+var nextPageUrl = "";
 var totalCount = 0;
-var initialData = {}
+var initialData = {};
 var initialTotalCount = 0;
-
 
 // To add overlay on the background image on scroll
 let headerBg = document.getElementById("bg");
@@ -12,11 +11,11 @@ window.addEventListener("scroll", function () {
     headerBg.style.top = +window.pageYOffset + "px";
 });
 
-
 // Function to check if an element is in the viewport with an offset
 function isInViewport(element, offset) {
     var rect = element.getBoundingClientRect();
-    var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    var windowHeight =
+        window.innerHeight || document.documentElement.clientHeight;
     var windowWidth = window.innerWidth || document.documentElement.clientWidth;
 
     // Adjust the top and bottom boundaries with the offset
@@ -33,12 +32,12 @@ function isInViewport(element, offset) {
 
 // Function to add the slide-up class to job cards in the viewport with an offset
 function animateJobCards() {
-    var jobCards = document.getElementsByClassName('job-card');
+    var jobCards = document.getElementsByClassName("job-card");
     var offset = 150; // Adjust the offset value as needed
 
     for (var i = 0; i < jobCards.length; i++) {
         if (isInViewport(jobCards[i], offset)) {
-            jobCards[i].classList.add('slide-up');
+            jobCards[i].classList.add("slide-up");
         }
     }
 }
@@ -53,9 +52,8 @@ function isEndOfPage() {
 }
 
 // Add event listener to animate job cards on scroll
-window.addEventListener('scroll', animateJobCards);
-window.addEventListener('resize', animateJobCards);
-
+window.addEventListener("scroll", animateJobCards);
+window.addEventListener("resize", animateJobCards);
 
 // Animate job cards on initial page load
 animateJobCards();
@@ -66,13 +64,13 @@ async function makeApiCall(url) {
         const response = await fetch(url);
 
         if (!response.ok) {
-            throw new Error('API request failed');
+            throw new Error("API request failed");
         }
 
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
         return null;
     }
 }
@@ -80,41 +78,43 @@ async function makeApiCall(url) {
 function createJobCards(data) {
     hideLoader();
     // Get the job-cards container
-    var jobCardsContainer = document.querySelector('.job-cards');
+    var jobCardsContainer = document.querySelector(".job-cards");
 
     // Loop through the data array
     data["data"].forEach(function (job) {
         // Extract job name without the content inside parentheses
-        var jobName = job.name.replace(/\s*\([^)]*\)\s*/g, '');
-        var icon = '';
+        var jobName = job.name.replace(/\s*\([^)]*\)\s*/g, "");
+        var icon = "";
 
         // Get department value and convert to lowercase
-        var department = job.custom_fields.find(field => field.field_id === '4').value.toLowerCase();
+        var department = job.custom_fields
+            .find((field) => field.field_id === "4")
+            .value.toLowerCase();
 
         // Create a new job card element
-        var jobCard = document.createElement('div');
-        jobCard.classList.add('job-card');
+        var jobCard = document.createElement("div");
+        jobCard.classList.add("job-card");
 
         // Create anchor tag
-        var jobCardAnchor = document.createElement('a');
+        var jobCardAnchor = document.createElement("a");
         jobCardAnchor.href = `/apply.html?job_id=${job.job_id}`;
-        jobCardAnchor.classList.add('job-card-anchor');
-        jobCardAnchor.target = '_blank';
+        jobCardAnchor.classList.add("job-card-anchor");
+        jobCardAnchor.target = "_blank";
         jobCardAnchor.id = job.job_id;
 
         // Add department-specific class to the job card
-        if (department === 'office support') {
-            jobCard.classList.add('card-office-support');
-            icon = 'ph-archive';
-        } else if (department === 'finance & accounting') {
-            jobCard.classList.add('card-finance-accounting');
-            icon = 'ph-wallet';
-        } else if (department === 'human resources') {
-            jobCard.classList.add('card-human-resource');
-            icon = 'ph-users';
-        } else if (department === 'sales') {
-            jobCard.classList.add('card-sales-marketing');
-            icon = 'ph-chart-line-up';
+        if (department === "office support") {
+            jobCard.classList.add("card-office-support");
+            icon = "ph-archive";
+        } else if (department === "finance & accounting") {
+            jobCard.classList.add("card-finance-accounting");
+            icon = "ph-wallet";
+        } else if (department === "human resources") {
+            jobCard.classList.add("card-human-resource");
+            icon = "ph-users";
+        } else if (department === "sales") {
+            jobCard.classList.add("card-sales-marketing");
+            icon = "ph-chart-line-up";
         }
 
         // Add the job card HTML content
@@ -130,13 +130,19 @@ function createJobCards(data) {
                             </div>
                             <div class="division">
                                 <i class="ph ${icon}"></i>
-                                <p>${job.custom_fields.find(field => field.field_id === '4').value}</p>
+                                <p>${
+                                    job.custom_fields.find(
+                                        (field) => field.field_id === "4"
+                                    ).value
+                                }</p>
                             </div>
                         </div>
                     </div>
                     <div class="btn-div">
                         <div class="apply-btn text-center">
-                        <a type="button" target="_blank" href="/apply.html?job_id=${job.job_id}" class="custom-btn btn--outline-black btn-block">Apply</a>
+                        <a type="button" target="_blank" href="/apply.html?job_id=${
+                            job.job_id
+                        }" class="custom-btn btn--outline-black btn-block">Apply</a>
                         </div>
                     </div>
                     `;
@@ -154,11 +160,14 @@ function createJobCards(data) {
     });
     displayedJobCount += data.count;
 
-
     // Add .view-more div if 'next_page_url' exists
-    if (data.hasOwnProperty('next_page_url') && data.next_page_url != null && !document.querySelector('.view-more')) {
-        var viewMoreContainer = document.createElement('div');
-        viewMoreContainer.classList.add('view-more');
+    if (
+        data.hasOwnProperty("next_page_url") &&
+        data.next_page_url != null &&
+        !document.querySelector(".view-more")
+    ) {
+        var viewMoreContainer = document.createElement("div");
+        viewMoreContainer.classList.add("view-more");
         viewMoreContainer.innerHTML = `
                     <button type="button" class="custom-btn btn--outline-black view-more-btn" id="viewMore"  onclick="fetchNextPageJobs()">View More</button>
                 `;
@@ -171,7 +180,7 @@ function createJobCards(data) {
 
 function clearJobCards() {
     // Get the job-cards container
-    var jobCardsContainer = document.querySelector('.job-cards');
+    var jobCardsContainer = document.querySelector(".job-cards");
 
     // Remove all child elements
     while (jobCardsContainer.firstChild) {
@@ -186,8 +195,8 @@ function clearJobCards() {
 }
 
 function updateNumbers() {
-    document.querySelector('#displayedJobsCount').innerHTML = displayedJobCount
-    document.querySelector('#totalJobsCount').innerHTML = totalCount
+    document.querySelector("#displayedJobsCount").innerHTML = displayedJobCount;
+    document.querySelector("#totalJobsCount").innerHTML = totalCount;
 }
 
 function updateAdditionalInfo(data) {
@@ -201,17 +210,17 @@ function updateAdditionalInfo(data) {
     industryArray = [];
 
     data["unique_values"].forEach(function (item) {
-        if (JSON.parse(item).hasOwnProperty('city')) {
+        if (JSON.parse(item).hasOwnProperty("city")) {
             cityArray.push(JSON.parse(item).city.S);
         }
-        if (JSON.parse(item).hasOwnProperty('country')) {
+        if (JSON.parse(item).hasOwnProperty("country")) {
             countryArray.push(JSON.parse(item).country.S);
         }
-        if (JSON.parse(item).hasOwnProperty('custom_field[4]')) {
-            divisionArray.push(JSON.parse(item)['custom_field[4]']);
+        if (JSON.parse(item).hasOwnProperty("custom_field[4]")) {
+            divisionArray.push(JSON.parse(item)["custom_field[4]"]);
         }
-        if (JSON.parse(item).hasOwnProperty('custom_field[5]')) {
-            industryArray.push(JSON.parse(item)['custom_field[5]']);
+        if (JSON.parse(item).hasOwnProperty("custom_field[5]")) {
+            industryArray.push(JSON.parse(item)["custom_field[5]"]);
         }
     });
 
@@ -225,7 +234,9 @@ function updateAdditionalInfo(data) {
                             ${item}
                         </label>
                     </div>`;
-        document.getElementById("countryDropdownValues").appendChild(listElement);
+        document
+            .getElementById("countryDropdownValues")
+            .appendChild(listElement);
     });
 
     cityArray.forEach(function (item) {
@@ -233,7 +244,9 @@ function updateAdditionalInfo(data) {
         inputId = generateIds(item);
         listElement.innerHTML = `
                     <div class="dropdown-option">
-                        <input class="form-check-input" type="checkbox" value="${item}" id="${generateIds(item)}">
+                        <input class="form-check-input" type="checkbox" value="${item}" id="${generateIds(
+            item
+        )}">
                         <label class="form-check-label" for="flexCheckDefault">
                             ${item}
                         </label>
@@ -251,7 +264,9 @@ function updateAdditionalInfo(data) {
                             ${item}
                         </label>
                     </div>`;
-        document.getElementById("departmentDropdownValues").appendChild(listElement);
+        document
+            .getElementById("departmentDropdownValues")
+            .appendChild(listElement);
     });
 
     industryArray.forEach(function (item) {
@@ -264,101 +279,118 @@ function updateAdditionalInfo(data) {
                             ${item}
                         </label>
                     </div>`;
-        document.getElementById("industryDropdownValues").appendChild(listElement);
+        document
+            .getElementById("industryDropdownValues")
+            .appendChild(listElement);
     });
 }
 
 function fetchNextPageJobs() {
-    var viewMoreDiv = document.querySelector('.view-more');
+    var viewMoreDiv = document.querySelector(".view-more");
     if (viewMoreDiv) {
         viewMoreDiv.parentNode.removeChild(viewMoreDiv);
     }
     makeApiCall(nextPageUrl)
-        .then(data => {
+        .then((data) => {
             createJobCards(data);
             animateJobCards();
         })
-        .catch(error => {
+        .catch((error) => {
             console.error(error);
         });
 }
 
 function generateIds(inputString) {
-    var words = inputString.split(' ');
-    var convertedString = words.map(function (word) {
-        return word.charAt(0).toUpperCase() + word.slice(1);
-    }).join('');
+    var words = inputString.split(" ");
+    var convertedString = words
+        .map(function (word) {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        .join("");
     return convertedString;
 }
 
 // Call the combined function to fetch jobs and create job cards
-makeApiCall('https://solutions-test.recruitcrm.io/jobs/20390?limit=10&keys=custom_field[4],custom_field[5]')
-    .then(data => {
+makeApiCall(
+    "https://solutions-test.recruitcrm.io/jobs/20390?limit=10&keys=custom_field[4],custom_field[5]"
+)
+    .then((data) => {
         initialData = data;
         createJobCards(initialData);
-        makeApiCall('https://solutions-test.recruitcrm.io/jobs/additional-info/20390?keys=custom_field[4],custom_field[5],city,country')
-            .then(data => {
+        makeApiCall(
+            "https://solutions-test.recruitcrm.io/jobs/additional-info/20390?keys=custom_field[4],custom_field[5],city,country"
+        )
+            .then((data) => {
                 updateAdditionalInfo(data);
                 initialTotalCount = data.total_count;
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error(error);
             });
     })
-    .catch(error => {
+    .catch((error) => {
         console.error(error);
     });
 
-searchParams = ''
+searchParams = "";
 
 function filter() {
-
     hideNoJobsMessage();
     filterObject = {};
 
-    var searchValue = document.querySelector('.search-box').value;
-    if (searchValue != '') {
-        filterObject['search_keyword'] = searchValue;
+    var searchValue = document.querySelector(".search-box").value;
+    if (searchValue != "") {
+        filterObject["search_keyword"] = searchValue;
     }
 
-    var checkboxes = document.querySelectorAll('#departmentDropdownValues input[type="checkbox"]:checked');
+    var checkboxes = document.querySelectorAll(
+        '#departmentDropdownValues input[type="checkbox"]:checked'
+    );
     var departmentsSelected = Array.from(checkboxes).map(function (checkbox) {
         return checkbox.value;
     });
     if (departmentsSelected.length > 0) {
-        filterObject['4'] = departmentsSelected.toString();
+        filterObject["4"] = departmentsSelected.toString();
     }
 
-    var checkboxes = document.querySelectorAll('#industryDropdownValues input[type="checkbox"]:checked');
+    var checkboxes = document.querySelectorAll(
+        '#industryDropdownValues input[type="checkbox"]:checked'
+    );
     var industriesSelected = Array.from(checkboxes).map(function (checkbox) {
         return checkbox.value;
     });
     if (industriesSelected.length > 0) {
-        filterObject['5'] = industriesSelected.toString();
+        filterObject["5"] = industriesSelected.toString();
     }
 
-    var checkboxes = document.querySelectorAll('#cityDropdownValues input[type="checkbox"]:checked');
+    var checkboxes = document.querySelectorAll(
+        '#cityDropdownValues input[type="checkbox"]:checked'
+    );
     var citiesSelected = Array.from(checkboxes).map(function (checkbox) {
         return checkbox.value;
     });
     if (citiesSelected.length > 0) {
-        filterObject['city'] = citiesSelected.toString();
+        filterObject["city"] = citiesSelected.toString();
     }
 
-    var checkboxes = document.querySelectorAll('#countryDropdownValues input[type="checkbox"]:checked');
+    var checkboxes = document.querySelectorAll(
+        '#countryDropdownValues input[type="checkbox"]:checked'
+    );
     var countriesSelected = Array.from(checkboxes).map(function (checkbox) {
         return checkbox.value;
     });
     if (countriesSelected.length > 0) {
-        filterObject['country'] = countriesSelected.toString();
+        filterObject["country"] = countriesSelected.toString();
     }
-
 
     searchParams = generateSearchParams(filterObject);
 
-
-    makeApiCall('https://solutions-test.recruitcrm.io/jobs/search/20390' + searchParams + '&keys=custom_field[4],custom_field[5]')
-        .then(data => {
+    makeApiCall(
+        "https://solutions-test.recruitcrm.io/jobs/search/20390" +
+            searchParams +
+            "&keys=custom_field[4],custom_field[5]"
+    )
+        .then((data) => {
             clearJobCards();
             if (data.data.length > 0) {
                 showLoader();
@@ -371,7 +403,7 @@ function filter() {
                 showNoJobsMessage();
             }
         })
-        .catch(error => {
+        .catch((error) => {
             console.error(error);
         });
 
@@ -379,26 +411,33 @@ function filter() {
 }
 
 function generateSearchParams(filterObject) {
-    var param = '?';
-    var customFields = '';
-    var customFieldPram = ''
+    var param = "?";
+    var customFields = "";
+    var customFieldPram = "";
     for (key in filterObject) {
         if (!isNaN(key)) {
-            customFields += `{"field_id": ${Number(key)},"filter_type": "equals","value": "${filterObject[key]}"},`
+            customFields += `{"field_id": ${Number(
+                key
+            )},"filter_type": "equals","value": "${filterObject[key]}"},`;
         } else {
-            param += key + '=' + filterObject[key] + '&';
+            param += key + "=" + filterObject[key] + "&";
         }
     }
-    if (customFields != '') {
-        customFieldPram = `custom_field=[` + encodeURIComponent(customFields.substring(0, customFields.length - 1)) + `]`
+    if (customFields != "") {
+        customFieldPram =
+            `custom_field=[` +
+            encodeURIComponent(
+                customFields.substring(0, customFields.length - 1)
+            ) +
+            `]`;
     }
     return param + customFieldPram;
 }
 
 function showLoader() {
     // Create a loader div element
-    var loaderDiv = document.createElement('div');
-    loaderDiv.classList.add('loader');
+    var loaderDiv = document.createElement("div");
+    loaderDiv.classList.add("loader");
 
     // Add the loader HTML content
     loaderDiv.innerHTML = `
@@ -406,19 +445,18 @@ function showLoader() {
             `;
 
     // Get the job-cards container
-    var jobCardsContainer = document.querySelector('.job-cards');
+    var jobCardsContainer = document.querySelector(".job-cards");
 
     // Clear the job-cards container
-    jobCardsContainer.innerHTML = '';
+    jobCardsContainer.innerHTML = "";
 
     // Append the loader div to the job-cards container
     jobCardsContainer.appendChild(loaderDiv);
 }
 
-
 function hideLoader() {
     // Remove the loader div from the document body
-    var loaderDiv = document.querySelector('.loader');
+    var loaderDiv = document.querySelector(".loader");
     if (loaderDiv) {
         loaderDiv.remove();
     }
@@ -427,63 +465,64 @@ function hideLoader() {
 function showNoJobsMessage() {
     displayedJobCount = 0;
     updateNumbers();
-  
+
     // Create the div for the "No jobs found" message
-    var noJobsDiv = document.createElement('div');
-    noJobsDiv.classList.add('no-jobs-message');
-    noJobsDiv.innerHTML = '<img src="no-results-icon.svg" class="no-jobs-image" alt="No jobs icon"><h3>No jobs found</h3><p>Unfortunately, there are no available jobs matching your criteria at the moment.';
-  
+    var noJobsDiv = document.createElement("div");
+    noJobsDiv.classList.add("no-jobs-message");
+    noJobsDiv.innerHTML =
+        '<img src="no-results-icon.svg" class="no-jobs-image" alt="No jobs icon"><h3>No jobs found</h3><p>Unfortunately, there are no available jobs matching your criteria at the moment.';
+
     // Append the div to the job-cards container
-    var jobCardsContainer = document.querySelector('.job-cards');
+    var jobCardsContainer = document.querySelector(".job-cards");
     jobCardsContainer.appendChild(noJobsDiv);
-  }
-  
+}
 
 function hideNoJobsMessage() {
     // Remove the "No jobs found" message div
-    var noJobsDiv = document.querySelector('.no-jobs-message');
+    var noJobsDiv = document.querySelector(".no-jobs-message");
     if (noJobsDiv) {
         noJobsDiv.remove();
     }
 }
 
 function addResetFilterButton() {
-
-    var isResetButton = document.querySelector('.reset-filter-btn');
+    var isResetButton = document.querySelector(".reset-filter-btn");
     if (isResetButton) {
-        isResetButton.style.display = 'block';
+        isResetButton.style.display = "block";
         return;
     }
     // Create the reset filter button element
-    var resetButton = document.createElement('button');
-    resetButton.classList.add('custom-btn', 'btn--outline-black', 'reset-filter-btn');
-    resetButton.textContent = 'Reset Filters';
+    var resetButton = document.createElement("button");
+    resetButton.classList.add(
+        "custom-btn",
+        "btn--outline-black",
+        "reset-filter-btn"
+    );
+    resetButton.textContent = "Reset Filters";
 
     // Add event listener to the reset button
-    resetButton.addEventListener('click', resetFilters);
+    resetButton.addEventListener("click", resetFilters);
 
     // Insert the reset button after the jobs-count div
-    var jobsCountDiv = document.querySelector('.jobs-count');
+    var jobsCountDiv = document.querySelector(".jobs-count");
     jobsCountDiv.append(resetButton);
 
-    resetButton.classList.add('bounce-animation');
+    resetButton.classList.add("bounce-animation");
 }
 
 function resetFilters() {
-
-    var resetButton = document.querySelector('.reset-filter-btn');
+    var resetButton = document.querySelector(".reset-filter-btn");
     if (resetButton) {
-        resetButton.style.display = 'none';
+        resetButton.style.display = "none";
     }
 
-    var checkboxes = document.querySelectorAll('.form-check-input');
+    var checkboxes = document.querySelectorAll(".form-check-input");
 
     checkboxes.forEach(function (checkbox) {
         checkbox.checked = false;
     });
 
-    document.querySelector('.search-box').value = '';
-
+    document.querySelector(".search-box").value = "";
 
     clearJobCards();
     totalCount = initialTotalCount;
@@ -491,51 +530,51 @@ function resetFilters() {
     animateJobCards();
 }
 
-
 function scrollToSection() {
-
-    if (window.matchMedia('(max-width: 575px)').matches) {
-        document.getElementById('jobListings').scrollIntoView({
-            behavior: 'smooth'
+    if (window.matchMedia("(max-width: 575px)").matches) {
+        document.getElementById("jobListings").scrollIntoView({
+            behavior: "smooth",
         });
     }
 }
 
 function scrollButton() {
-    document.getElementById("bannerFilterBox").scrollIntoView({ behavior: "smooth" });
+    document
+        .getElementById("bannerFilterBox")
+        .scrollIntoView({ behavior: "smooth" });
 }
 
 window.addEventListener("scroll", function () {
     const scrollButton = document.querySelector(".scroll-to-top button");
     const section = document.getElementById("bodyFilterBox"); // Replace "targetSection" with the section where the button should appear
 
-    if (window.scrollY > section.offsetTop && window.matchMedia('(min-width: 800px)').matches) {
+    if (
+        window.scrollY > section.offsetTop &&
+        window.matchMedia("(min-width: 800px)").matches
+    ) {
         scrollButton.style.display = "block";
     } else {
         scrollButton.style.display = "none";
     }
 });
 
-window.addEventListener('load', function() {
-    var bannerText = document.querySelector('.banner-text');
-    var filterBox = document.querySelector('.filter-box');
-    var leftPanel = document.querySelector('.left-panel');
-    var jobsCount = document.querySelector('.jobs-count');
-  
-    bannerText.classList.add('animate');
-  
-    setTimeout(function() {
-      filterBox.classList.add('animate');
+window.addEventListener("load", function () {
+    var bannerText = document.querySelector(".banner-text");
+    var filterBox = document.querySelector(".filter-box");
+    var leftPanel = document.querySelector(".left-panel");
+    var jobsCount = document.querySelector(".jobs-count");
+
+    bannerText.classList.add("animate");
+
+    setTimeout(function () {
+        filterBox.classList.add("animate");
     }, 500);
-  
-    setTimeout(function() {
-      leftPanel.classList.add('animate');
+
+    setTimeout(function () {
+        leftPanel.classList.add("animate");
     }, 1000);
-  
-    setTimeout(function() {
-      jobsCount.classList.add('animate');
+
+    setTimeout(function () {
+        jobsCount.classList.add("animate");
     }, 1500);
-  });
-  
-
-
+});
