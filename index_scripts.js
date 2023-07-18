@@ -544,19 +544,14 @@ function scrollButton() {
         .scrollIntoView({ behavior: "smooth" });
 }
 
-window.addEventListener("scroll", function () {
+function scrollFunction(entries) {
+    const [entry] = entries
     const scrollButton = document.querySelector(".scroll-to-top button");
-    const section = document.getElementById("bodyFilterBox"); // Replace "targetSection" with the section where the button should appear
-
-    if (
-        window.scrollY > section.offsetTop &&
-        window.matchMedia("(min-width: 800px)").matches
-    ) {
-        scrollButton.style.display = "block";
-    } else {
-        scrollButton.style.display = "none";
-    }
-});
+    if(entry.isIntersecting)
+       scrollButton.style.display = "none";
+    else
+       scrollButton.style.display = "block";
+}
 
 window.addEventListener("load", function () {
         document.querySelector(".banner-text").classList.add("animate");
@@ -578,4 +573,12 @@ window.addEventListener("load", function () {
                 .querySelector(".red-line")
                 .classList.add("red-line-animate");
         }, 2000);
+
+        const backToTopObserver = new IntersectionObserver(scrollFunction, {
+            root:null,
+            threshold: 0
+        })
+        const displayedJobsCount = document.getElementById("displayedJobsCount"); // Replace "targetSection" with the section where the button should appear
+
+        backToTopObserver.observe(displayedJobsCount);
 });

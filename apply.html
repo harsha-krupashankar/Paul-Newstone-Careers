@@ -569,6 +569,10 @@
     border-color: var(--color-background-tertiary-light);
 }
 
+.danger-text{
+    color:var(--color-background-tertiary-light);
+}
+
 
 #loading {
     position: absolute;
@@ -876,19 +880,19 @@
             <div class="form-row">
                 <div class="form__group field">
                     <input type="input" class="form__field" placeholder="First Name" name="firstname" id='firstname' minlength="1" required/>
-                    <label for="firstname" class="form__label">First Name</label>
+                    <label for="firstname" class="form__label">First Name<span class="danger-text">*</span></label>
                     <span class="small-text hidden">First Name field is required</span>
                 </div>
                 <div class="form__group field">
                     <input type="input" class="form__field" placeholder="Last Name" name="lastname" id='lastname' minlength="1" required/>
-                    <label for="lastname" class="form__label">Last Name</label>
+                    <label for="lastname" class="form__label">Last Name<span class="danger-text">*</span></label>
                     <span class="small-text hidden">Last Name field is required</span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form__group field">
                     <input type="input" class="form__field" placeholder="Email" name="email" id='email' minlength="1" required/>
-                    <label for="email" class="form__label">Email</label>
+                    <label for="email" class="form__label">Email<span class="danger-text">*</span></label>
                     <span class="small-text hidden">Email field is required</span>
                 </div>
                 <div class="form__group field">
@@ -910,7 +914,7 @@
                     accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                     hidden required>
                     <div class="resume-file-input">
-                        <label for="file" class="resume-label">Resume</label>
+                        <label for="file" class="resume-label">Resume<span class="danger-text">*</span></label>
                         <span class="file-name"></span>
                     </div>
                     <span class="small-text hidden">Resume field is required</span>
