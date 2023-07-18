@@ -144,13 +144,10 @@ i {
 
 @keyframes zoomInOut {
     0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.5);
+      width: 0;
     }
     100% {
-      transform: scale(1);
+      width: 25rem;
     }
   }
 
@@ -516,8 +513,8 @@ i {
 
 .scroll-to-top {
     position: fixed;
-    bottom: 90px;
-    left: 180px;
+    bottom: 50px;
+    right: 50px;
     z-index: 1;
 }
 
@@ -575,7 +572,7 @@ i {
 }
 
 .red-line-animate {
-    animation: zoomInOut 1s ease;
+    animation: zoomInOut .7s ease;
     opacity: 1;
     visibility: visible;
 }
