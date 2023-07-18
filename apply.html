@@ -239,6 +239,7 @@
             flex-direction: column;
             align-items: center;
             margin: 4rem;
+            position: relative;
             transition: transform 0.5s, opacity 0.5s;
         }
 
@@ -254,7 +255,7 @@
         
         .info-card{
             padding: 2rem 2rem;
-            border-radius: 0rem;
+            border-radius: 2px;
             background-color: var(--color-background-light-2);
             /* display: hidden; */
             transition: transform 1s, opacity 1s;
@@ -492,7 +493,7 @@
 	 padding-bottom: 0.6rem;
 	 font-weight: 400;
 	 border-width: 2px;
-	 border-image: linear-gradient(to right, #11998e, #38ef7d);
+	 border-image: linear-gradient(to right, var(--color-grey-dark-1), var(--color-grey-dark-1));
 	 border-image-slice: 1;
 }
  .form__field:focus ~ .form__label {
@@ -501,7 +502,7 @@
 	 display: block;
 	 transition: 0.2s;
 	 font-size: 1.4rem;
-	 color: #11998e;
+	 color: var(--color-grey-dark-1);
 	 font-weight: 400;
 }
 
@@ -569,13 +570,21 @@
 
 
 #loading {
-    /* display: none; */
     position: absolute;
     top: 0;
     background-color: #ffffff;
     z-index: 10;
     width: 100%;
     height: 100%;
+    transition: opacity 0.3s ease-out;
+  }
+
+  #submit-loading{
+    display: none;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+    background-color: #00000075;
     transition: opacity 0.3s ease-out;
   }
   
@@ -682,7 +691,6 @@
     .job-description {
         grid-column: full-start / full-end;
         padding: 2rem;
-        /* grid-template-rows: 6rem calc(100vh - 6rem);  */
     } 
 
     .cards{
@@ -777,6 +785,7 @@
     
 </head>
 <body>
+    <div id="parent-container">
     <script>
         window.scrollTo(0, 0);
         document.body.style.overflow = 'hidden';
@@ -862,7 +871,10 @@
             <div class="form-submit-row">
                 <button type="submit" class="custom-btn btn-submit submit" id="form-submit">Submit</button>
             </div>
-            </form>
+        </form>
+        <div id="submit-loading">
+            <div class="loading-icon"></div>
+        </div>
         </div>
         <div class="cards">
             <div class="info-card result">
@@ -933,15 +945,18 @@
         </div>
     </main>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    </div>
     <script>
         
         // Data Module
 const DataModule = (() => {
-    let job = {};
-    let SOLUTION_API_BASE_URL = 'https://solutions-test.recruitcrm.io'
-    let accountId = 20390;
     const urlParams = new URLSearchParams(window.location.search);
+    let job = {};
+    let accountId = 20390;
+    const allowDuplicates = "False"
     let jobId = urlParams.get('job_id');
+    let SOLUTION_API_BASE_URL = 'https://solutions-test.recruitcrm.io'
+    
     const getJobById = async () => {
       try {
         const response = await fetch(`${SOLUTION_API_BASE_URL}/jobs/by-id/${accountId}?job_id=${jobId}`);
@@ -954,8 +969,43 @@ const DataModule = (() => {
       }
     };
 
+    const applyToJob = async (candidateData) => {
+        let applyUrl = SOLUTION_API_BASE_URL + "/candidates/apply-job/"
+        applyUrl += accountId;
+        applyUrl += "?job_slug=" + job.job_slug;
+        applyUrl += "&allow_duplicates=" + allowDuplicates;
+        applyUrl += "&updated_by=" + job.owner;
+        const objTemp = {
+            'first_name' : candidateData.firstname,
+            'last_name' : candidateData.lastname,
+            'email' : candidateData.email,
+            'contact_number' : candidateData.phone,
+            'city' : candidateData.city,
+            'source' : 'website'
+        }
+
+        let candidate = new FormData();
+
+        candidate.append("candidate_data", JSON.stringify(objTemp));
+        candidate.append("candidate_resume", candidateData.resume);
+        
+        
+        console.log(applyUrl);
+        console.log(Object.fromEntries(candidate));
+
+    //   try {
+    //     const response = await fetch(applyUrl);
+    //     const data = await response.json();
+    //     return data;
+    //   } catch (error) {
+    //     console.log('Error occured:', error);
+    //     return
+    //   }
+    };
+
     return {
       getJobById,
+      applyToJob,
     };
   })();
   
@@ -982,16 +1032,30 @@ const UIModule = (() => {
             loading.style.display = 'none';
       }, 300);
     }
+
+    const startSubmitLoading = () => {
+      const loading = document.getElementById('submit-loading');
+      loading.style.opacity = '1';
+      loading.style.display = 'block';
+    }
+    
+    const stopSubmitLoading = () => {
+      const loading = document.getElementById('submit-loading');
+      loading.style.opacity = '0';
+      setTimeout(function() {
+            loading.style.display = 'none';
+      }, 300);
+    }
   
 
     const paintJobDetailsViewer = (job) => {
-        jobName.innerHTML = job.name.replace(/\s*\([^)]*\)\s*/g, '');
+        jobName.innerHTML = job.name?.replace(/\s*\([^)]*\)\s*/g, '');
         jobLocation.innerHTML = '<i class="ph ph-globe-hemisphere-east icon"></i>' + job.city
         jobType.innerHTML = '<i class="ph ph-briefcase icon"></i>' + job.job_type
-        jobIndustry.innerHTML = '<i class="ph ph-factory icon"></i>' + job.custom_fields.find(field => field.field_name === 'Industry').value
+        jobIndustry.innerHTML = '<i class="ph ph-factory icon"></i>' + job.custom_fields?.find(field => field.field_name === 'Industry').value
         jobDescriptionContainer.innerHTML = job.job_description_text;
         
-        let department = job.custom_fields.find(field => field.field_id === '4').value.toLowerCase();
+        let department = job.custom_fields?.find(field => field.field_id === '4').value.toLowerCase();
         let icon = 'ph-buildings';
         if (department === 'office support') {
             icon = 'ph-archive';
@@ -1003,42 +1067,30 @@ const UIModule = (() => {
             icon = 'ph-chart-line-up';
         }
         jobDepartment.innerHTML = `<i class="ph ${icon} icon"></i>` + department
-
-        // document.querySelector(".header").classList.toggle("hidden");
     }
 
-    
+    const jobNotFound = () => {
+      document.getElementById('parent-container').innerHTML = '<h1>Job is closed</h1>'
+    }
+
+    const thankYou = () => {
+      document.getElementById('parent-container').innerHTML = '<h1>thankYou</h1>'
+    }
     
     return {
       startLoading,
       stopLoading,
+      startSubmitLoading,
+      stopSubmitLoading,
       paintJobDetailsViewer,
+      jobNotFound,
+      thankYou,
     };
   })();
   
-  
-  // Storage Module
-  const StorageModule = (() => {
-    const USER_PREFS_KEY = 'user_preferences';
-  
-    const saveUserPreferences = (prefs) => {
-      localStorage.setItem(USER_PREFS_KEY, JSON.stringify(prefs));
-    };
-  
-    const loadUserPreferences = () => {
-      const storedPrefs = localStorage.getItem(USER_PREFS_KEY);
-      return storedPrefs ? JSON.parse(storedPrefs) : {};
-    };
-  
-    return {
-      saveUserPreferences,
-      loadUserPreferences,
-    };
-  })();
-  
-  
+
   // Event Module
-  const EventModule = ((dataModule, uiModule, store) => {
+  const EventModule = ((dataModule, uiModule) => {
     const applyBtnTop = document.getElementById("apply-button-top");
     const backBtnTop = document.getElementById("back-button-top");
     const submitBtn = document.getElementById("form-submit");
@@ -1054,17 +1106,14 @@ const UIModule = (() => {
     
     const showApplyForm = (entries, observe) => {
         const [entry] = entries
-        // console.log(entry)
         if(!entry.isIntersecting) return
-            
         entry.target.classList.remove("section_hidden");
         // observe.unobserve(entry.target);
     }
 
     const slideBottomUp = (entries, observe) => {
         const [entry] = entries
-        if(!entry.isIntersecting) return
-            
+        if(!entry.isIntersecting) return 
         entry.target.classList.remove("section_hidden")
         observe.unobserve(entry.target);
     }
@@ -1093,8 +1142,15 @@ const UIModule = (() => {
     const handlePageLoad = async () => {
       uiModule.startLoading();
       const job = await dataModule.getJobById();
-      uiModule.paintJobDetailsViewer(job);
       uiModule.stopLoading();
+      if(job.job_id){
+        uiModule.paintJobDetailsViewer(job);
+      } else {
+        //closed job code
+        UIModule.jobNotFound();
+      }
+      
+     
       document.body.style.overflow = 'auto';
       applyFormContainer.classList.add("section_hidden");
       document.querySelectorAll(".tag").forEach(tag => tag.classList.add("bottom-up"))
@@ -1182,7 +1238,7 @@ const UIModule = (() => {
         return true;
     };
 
-    const handleSubmitBtnClick = (e) => {
+    const handleSubmitBtnClick = async (e) => {
         e.preventDefault();
         const jobApplicationForm = new FormData(applyForm);
         const objCandidate = Object.fromEntries(jobApplicationForm);
@@ -1213,7 +1269,18 @@ const UIModule = (() => {
             return;
         }
 
+        //handle form submit 
         console.log(objCandidate);
+        uiModule.startSubmitLoading();
+        // const submitResponse = await dataModule.applyToJob(objCandidate);
+        uiModule.stopSubmitLoading();
+        uiModule.thankYou();
+        // if(submitResponse && submitResponse.status == 201) {
+        //     uiModule.thankYou();
+        // }else{
+        //     console.log('Error: ' + submitResponse);
+        // }
+        
     };
 
     return {
@@ -1231,7 +1298,7 @@ const UIModule = (() => {
         file.addEventListener("change", validateResume)
       },
     };
-  })(DataModule, UIModule, StorageModule);
+  })(DataModule, UIModule);
   
 
   
