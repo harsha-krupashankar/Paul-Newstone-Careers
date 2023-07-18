@@ -1394,7 +1394,7 @@ const UIModule = (() => {
     };
 
     const handleSubmitBtnClick = async (e) => {
-        e.preventDefault();        
+        e.preventDefault();       
         const jobApplicationForm = new FormData(applyForm);
         const objCandidate = Object.fromEntries(jobApplicationForm);
         const formInputs = Array.from(document.querySelectorAll('input[name]:not([name="resume"])'));
