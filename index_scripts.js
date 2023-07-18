@@ -559,22 +559,23 @@ window.addEventListener("scroll", function () {
 });
 
 window.addEventListener("load", function () {
-    var bannerText = document.querySelector(".banner-text");
-    var filterBox = document.querySelector(".filter-box");
-    var leftPanel = document.querySelector(".left-panel");
-    var jobsCount = document.querySelector(".jobs-count");
+        document.querySelector(".banner-text").classList.add("animate");
 
-    bannerText.classList.add("animate");
+        setTimeout(function () {
+            document.querySelector(".filter-box").classList.add("animate");
+        }, 500);
 
-    setTimeout(function () {
-        filterBox.classList.add("animate");
-    }, 500);
+        setTimeout(function () {
+            document.querySelector(".left-panel").classList.add("animate");
+        }, 1000);
 
-    setTimeout(function () {
-        leftPanel.classList.add("animate");
-    }, 1000);
+        setTimeout(function () {
+            document.querySelector(".jobs-count").classList.add("animate");
+        }, 1500);
 
-    setTimeout(function () {
-        jobsCount.classList.add("animate");
-    }, 1500);
+        setTimeout(function () {
+            document
+                .querySelector(".red-line")
+                .classList.add("red-line-animate");
+        }, 2000);
 });
