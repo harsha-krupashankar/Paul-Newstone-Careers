@@ -131,6 +131,17 @@ i {
     }
 }
 
+@keyframes slideIn {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 /* Button Styles */
 
 .custom-btn {
@@ -537,6 +548,18 @@ i {
 .bg--white {
     background-color: var(--color-light-1) !important;
 }
+.filter-box,
+.left-panel,
+.jobs-count,
+.banner-text {
+    opacity: 0;
+}
+
+.animate {
+    animation: slideIn 1s ease-in-out;
+    opacity: 1;
+    visibility: visible;
+}
 
 /* Media Queries */
 
@@ -615,8 +638,6 @@ i {
         margin: 1.5rem 0 1rem 0 !important;
         font-size: 4rem !important;
     }
-
-
 }
 
 @media (max-width: 350px) {

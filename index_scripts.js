@@ -516,4 +516,26 @@ window.addEventListener("scroll", function () {
     }
 });
 
+window.addEventListener('load', function() {
+    var bannerText = document.querySelector('.banner-text');
+    var filterBox = document.querySelector('.filter-box');
+    var leftPanel = document.querySelector('.left-panel');
+    var jobsCount = document.querySelector('.jobs-count');
+  
+    bannerText.classList.add('animate');
+  
+    setTimeout(function() {
+      filterBox.classList.add('animate');
+    }, 500);
+  
+    setTimeout(function() {
+      leftPanel.classList.add('animate');
+    }, 1000);
+  
+    setTimeout(function() {
+      jobsCount.classList.add('animate');
+    }, 1500);
+  });
+  
+
 
