@@ -306,8 +306,7 @@
         }
 
         .divider-large{
-            width: 90%;
-            margin: 2.4rem auto;
+            width: 85%;
         }
 
 
@@ -559,18 +558,18 @@
 .form-submit-row{
     display: flex;
     justify-content:center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
 }
 .submit{
     align-self: center;
-    margin: 3rem 2rem;  
+    margin: 2rem;
+    margin-bottom: 2px;  
 }
 
 .danger{
     border-color: var(--color-background-tertiary-light);
-}
-
-.danger-text{
-    color:var(--color-background-tertiary-light);
 }
 
 
@@ -715,6 +714,86 @@
     text-align: center;
     color: var(--color-secondary);
 }
+.form-check-label{
+    font-size:1.6rem;
+    color: var(--color-secondary);
+}
+.eeop{
+    font-size:1.2rem;
+}
+
+.custom-link, .custom-link:link, .custom-link:visited {
+    text-decoration:none;
+    display:inline-block;
+    color: var(--color-text-link);
+    cursor:pointer
+} 
+
+.custom-link:hover, .custom-link:active{
+    color: var(--color-primary);
+}
+
+input[type="radio"]:checked ~ label{
+    color: var(--color-primary);
+}
+
+.terms-warning {
+    margin: 0;
+    padding: 0;
+    margin-left: 25px;
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #00000075;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 2px;
+}
+
+.modal-header {
+    font-size: 2rem;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+}
+
+.modal-body {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    text-align: justify;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 24px;
+  font-weight: 300;
+  margin-top: -6px;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 
 
 #bs64_img_0{
@@ -880,19 +959,19 @@
             <div class="form-row">
                 <div class="form__group field">
                     <input type="input" class="form__field" placeholder="First Name" name="firstname" id='firstname' minlength="1" required/>
-                    <label for="firstname" class="form__label">First Name<span class="danger-text">*</span></label>
+                    <label for="firstname" class="form__label">First Name<span>*</span></label>
                     <span class="small-text hidden">First Name field is required</span>
                 </div>
                 <div class="form__group field">
                     <input type="input" class="form__field" placeholder="Last Name" name="lastname" id='lastname' minlength="1" required/>
-                    <label for="lastname" class="form__label">Last Name<span class="danger-text">*</span></label>
+                    <label for="lastname" class="form__label">Last Name<span>*</span></label>
                     <span class="small-text hidden">Last Name field is required</span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form__group field">
                     <input type="input" class="form__field" placeholder="Email" name="email" id='email' minlength="1" required/>
-                    <label for="email" class="form__label">Email<span class="danger-text">*</span></label>
+                    <label for="email" class="form__label">Email<span>*</span></label>
                     <span class="small-text hidden">Email field is required</span>
                 </div>
                 <div class="form__group field">
@@ -914,15 +993,24 @@
                     accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                     hidden required>
                     <div class="resume-file-input">
-                        <label for="file" class="resume-label">Resume<span class="danger-text">*</span></label>
+                        <label for="file" class="resume-label">Resume<span>*</span></label>
                         <span class="file-name"></span>
                     </div>
                     <span class="small-text hidden">Resume field is required</span>
                 </div>
             </div>
+            <div class="form-row">
+                <div class="form__group ">
+                    
+                    <input type="radio" class="" placeholder="candidate terms" name="terms" id='candidate-terms' required/>
+                    <label for="candidate-terms" class="form-check-label">I agree to <a href="#" class="custom-link modal-btn" id="terms">Candidate terms</a></label>
+                    <p class="small-text terms-warning hidden">Please agree to candidate terms</p>
+                </div>
+            </div> 
             
             <div class="form-submit-row">
                 <button type="submit" class="custom-btn btn-submit submit" id="form-submit">Submit</button>
+                <span class="form-check-label eeop">View Our <a href="#" class="custom-link modal-btn" id="eeop">Equal Employment Opportunity Policy</a></sp>
             </div>
         </form>
         <div id="submit-loading">
@@ -994,6 +1082,15 @@
                       </a>
                     </li>
                 </ul>
+            </div>
+        </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 class="modal-header"></h2>
+                <div class="modal-body">
+                    <p></p>
+                </div>
             </div>
         </div>
     </main>
@@ -1071,6 +1168,9 @@ const UIModule = (() => {
     const jobDepartment = document.querySelector('#job-department');
     const jobIndustry = document.querySelector('#job-industry');
     const jobDescriptionContainer = document.querySelector(".job-description");
+    const modal = document.getElementById('myModal');
+    const modalHeader = document.querySelector('.modal-header');
+    const modalBody = document.querySelector('.modal-body');
   
     const startLoading = () => {
       const loading = document.getElementById('loading');
@@ -1100,7 +1200,6 @@ const UIModule = (() => {
       }, 300);
     }
   
-
     const paintJobDetailsViewer = (job) => {
         jobName.innerHTML = job.name?.replace(/\s*\([^)]*\)\s*/g, '');
         jobLocation.innerHTML = '<i class="ph ph-globe-hemisphere-east icon"></i>' + job.city
@@ -1236,6 +1335,35 @@ const UIModule = (() => {
         info.appendChild(button);
     }
     
+    const showModal = (e) => {
+        e.preventDefault();
+        
+        if(e.target.id == 'eeop'){
+            modalHeader.textContent = "Equal Employment Opportunity Policy"
+            modalBody.innerHTML = `<p>Equal Employment Opportunity Policy here</p>`;
+        }
+        if(e.target.id == 'terms'){
+            modalHeader.textContent = "Candidate Terms"
+            modalBody.innerHTML = `<p>
+                We will be storing your data in the Recruit CRM application to manage your information and send your profile to companies for potential job opportunities in the future.
+                We are a software system that helps recruitment firms manage their relationship with their clients. You can view our privacy policy or GDPR commitment on our website.
+                Recruit CRM may store your data in a data centre inside or outside Europe.
+                You can request us at any point to delete your data or simply ask your recruiters for an “update resume link” which you can use to either update your profile information/resume or choose to delete your data from our database yourself.
+        </p>`;
+        }
+        modal.style.display = 'block';
+    }
+
+    const hideModal = (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    const closeModal = () => {
+        modal.style.display = 'none';
+    }
+    
     return {
       startLoading,
       stopLoading,
@@ -1244,6 +1372,9 @@ const UIModule = (() => {
       paintJobDetailsViewer,
       jobNotFound,
       thankYou,
+      showModal,
+      hideModal,
+      closeModal,
     };
   })();
   
@@ -1262,6 +1393,8 @@ const UIModule = (() => {
     const card1 = document.querySelector(".info-card.result");
     const card2 = document.querySelector(".info-card.list");
     const card3 = document.querySelector(".info-card.contact");
+    const openModalBtns = document.querySelectorAll('.modal-btn');
+    const closeBtn = document.getElementsByClassName('close')[0];
     
     const showApplyForm = (entries, observe) => {
         const [entry] = entries
@@ -1428,10 +1561,19 @@ const UIModule = (() => {
             return;
         }
 
+        //candidate terms check 
+        console.log(document.getElementById('candidate-terms').checked)
+        if( document.getElementById('candidate-terms').checked == false){
+            document.querySelector('.terms-warning').classList.remove('hidden');
+            return;
+        }
+
         //handle form submit 
         console.log(objCandidate);
         uiModule.startSubmitLoading();
+        document.body.style.overflow = 'hidden';
         // const submitResponse = await dataModule.applyToJob(objCandidate);
+        document.body.style.overflow = 'suto';
         // uiModule.stopSubmitLoading();
         // uiModule.thankYou();
         // if(submitResponse && submitResponse.status == 201) {
@@ -1455,6 +1597,12 @@ const UIModule = (() => {
         informationCard2Observer.observe(card2);
         informationCard3Observer.observe(card3);
         file.addEventListener("change", validateResume)
+        openModalBtns.forEach(btn => {
+            console.log(btn);
+            btn.addEventListener('click', uiModule.showModal);
+        });
+        closeBtn.addEventListener('click', uiModule.closeModal);
+        window.addEventListener('click', uiModule.hideModal);
       },
     };
   })(DataModule, UIModule);
