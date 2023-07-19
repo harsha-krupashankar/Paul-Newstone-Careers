@@ -570,12 +570,13 @@
     justify-content:center;
     flex-direction: column;
     align-items: center;
+    margin-top: 2rem;
     margin-bottom: 2rem;
 }
 .submit{
     align-self: center;
     margin: 2rem;
-    margin-bottom: 2px;  
+    margin-bottom: 1rem;  
 }
 
 .danger{
@@ -725,11 +726,11 @@
     color: var(--color-secondary);
 }
 .form-check-label{
-    font-size:1.6rem;
+    font-size:1.4rem;
     color: var(--color-secondary);
 }
 .eeop{
-    font-size:1.2rem;
+    font-size:1rem;
 }
 
 .custom-link, .custom-link:link, .custom-link:visited {
@@ -743,7 +744,7 @@
     color: var(--color-primary);
 }
 
-input[type="radio"]:checked ~ label{
+input[type="checkbox"]:checked ~ label{
     color: var(--color-primary);
 }
 
@@ -1011,7 +1012,7 @@ input[type="radio"]:checked ~ label{
             <div class="form-row">
                 <div class="form__group ">
                     
-                    <input type="radio" class="" placeholder="candidate terms" name="terms" id='candidate-terms' required/>
+                    <input type="checkbox" class="" placeholder="candidate terms" name="terms" id='candidate-terms' required/>
                     <label for="candidate-terms" class="form-check-label">I agree to <a href="#" class="custom-link modal-btn" id="terms">Candidate terms</a></label>
                     <p class="small-text terms-warning hidden">Please agree to candidate terms</p>
                 </div>
@@ -1462,6 +1463,14 @@ const UIModule = (() => {
 
 
     const removeErrorMessage = (e) => {
+        if(e.target.id == 'candidate-terms'){
+            if( e.target.checked == true){
+                e.target.nextElementSibling.nextElementSibling.className = "small-text terms-warning hidden";
+            }else{
+                e.target.nextElementSibling.nextElementSibling.className = "small-text terms-warning";
+            }
+            return
+        }
         e.target.nextElementSibling.nextElementSibling.className = "small-text hidden";
         e.target.classList.remove("danger");
     }

@@ -377,6 +377,32 @@ i {
     margin: 2rem 0;
 }
 
+#loading {
+    position: absolute;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease-out;
+  }
+  
+  .loading-icon {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--color-red-1);
+    border-radius: 50%;
+    border-top: 0.5rem solid var(--color-grey-dark-3);
+    animation: spin 1s linear infinite;
+    margin: 50vh auto;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+
 .dropdowns {
     height: 4rem;
     background-color: transparent !important;
