@@ -516,8 +516,8 @@ i {
 
 .scroll-to-top {
     position: fixed;
-    bottom: 50px;
-    right: 50px;
+    bottom: 5rem;
+    right: 5rem;
     z-index: 1;
 }
 
@@ -580,7 +580,20 @@ i {
     visibility: visible;
 }
 
+.static {
+    position: static !important;
+    inset: 0 !important; 
+    transform: none !important;
+    margin: .5rem 0 1rem 0 !important;
+}
+
 /* Media Queries */
+
+@media (max-width: 1300px) {
+    .scroll-to-top {
+        right: 1vw;
+    }
+}
 
 @media (max-width: 1200px) {
     .header {

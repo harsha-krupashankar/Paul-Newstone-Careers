@@ -545,40 +545,40 @@ function scrollButton() {
 }
 
 function scrollFunction(entries) {
-    const [entry] = entries
+    const [entry] = entries;
     const scrollButton = document.querySelector(".scroll-to-top button");
-    if(entry.isIntersecting)
-       scrollButton.style.display = "none";
-    else
-       scrollButton.style.display = "block";
+    if (window.matchMedia("(min-width: 576px)").matches) {
+        if (entry.isIntersecting) scrollButton.style.display = "none";
+        else scrollButton.style.display = "block";
+    }
 }
 
 window.addEventListener("load", function () {
-        document.querySelector(".banner-text").classList.add("animate");
+    document.querySelector(".banner-text").classList.add("animate");
 
-        setTimeout(function () {
-            document.querySelector(".filter-box").classList.add("animate");
-        }, 500);
+    setTimeout(function () {
+        document.querySelector(".filter-box").classList.add("animate");
+    }, 500);
 
-        setTimeout(function () {
-            document.querySelector(".left-panel").classList.add("animate");
-        }, 1000);
+    setTimeout(function () {
+        document.querySelector(".left-panel").classList.add("animate");
+    }, 1000);
 
-        setTimeout(function () {
-            document.querySelector(".jobs-count").classList.add("animate");
-        }, 1500);
+    setTimeout(function () {
+        document.querySelector(".jobs-count").classList.add("animate");
+    }, 1500);
 
-        setTimeout(function () {
-            document
-                .querySelector(".red-line")
-                .classList.add("red-line-animate");
-        }, 2000);
+    setTimeout(function () {
+        document.querySelector(".red-line").classList.add("red-line-animate");
+    }, 2000);
 
-        const backToTopObserver = new IntersectionObserver(scrollFunction, {
-            root:null,
-            threshold: 0
-        })
-        const displayedJobsCount = document.getElementById("displayedJobsCount"); // Replace "targetSection" with the section where the button should appear
+    const backToTopObserver = new IntersectionObserver(scrollFunction, {
+        root: null,
+        threshold: 0,
+    });
+    const displayedJobsCount = document.getElementById("displayedJobsCount");
 
+    {
         backToTopObserver.observe(displayedJobsCount);
+    }
 });
