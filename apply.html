@@ -1316,12 +1316,12 @@ const UIModule = (() => {
         closedText.className='info-secondary-text'
 
         let line1 = document.createElement('p');
-        line1.textContent = 'We\'re sorry, but the job you were looking for has been filled.'
+        line1.textContent = 'Your application has been received and is being carefully reviewed.'
         line1.className = 'closed-text'
         closedText.appendChild(line1);
 
         let line2 = document.createElement('p');
-        line2.textContent = 'Thank you for your interest.'
+        line2.textContent = ' We appreciate your interest and will be in touch soon.'
         line2.className = 'closed-text'
         closedText.appendChild(line2);
 
@@ -1356,7 +1356,6 @@ const UIModule = (() => {
             modalHeader.textContent = "Candidate Terms"
             modalBody.innerHTML = `<p>
                 Application Submission: By submitting your application, you agree to provide accurate and truthful information about yourself. Any false or misleading information may result in the rejection of your application or termination of employment, if applicable.
-
 Privacy and Data Handling: We respect your privacy and handle your personal data in accordance with applicable privacy laws and our privacy policy. Your information will be used solely for recruitment purposes and will not be shared with any third parties without your consent.
         </p>`;
         }
