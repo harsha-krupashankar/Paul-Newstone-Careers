@@ -369,9 +369,12 @@ i {
 
 .department-dropdown,
 .industry-dropdown,
-.clear-all,
-.jobs-count {
+.clear-all {
     margin: 2rem;
+}
+
+.jobs-count {
+    margin: 2rem 0;
 }
 
 .dropdowns {
