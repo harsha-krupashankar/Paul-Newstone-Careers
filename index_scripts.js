@@ -578,19 +578,19 @@ function animateElements() {
 
     setTimeout(function () {
         document.querySelector(".filter-box").classList.add("animate");
-    }, 500);
+    }, 200);
 
     setTimeout(function () {
         document.querySelector(".left-panel").classList.add("animate");
-    }, 800);
+    }, 400);
 
     setTimeout(function () {
         document.querySelector(".jobs-count").classList.add("animate");
-    }, 1100);
+    }, 600);
 
     setTimeout(function () {
         document.querySelector(".red-line").classList.add("red-line-animate");
-    }, 1400);
+    }, 800);
 }
 
 window.addEventListener("load", function () {
