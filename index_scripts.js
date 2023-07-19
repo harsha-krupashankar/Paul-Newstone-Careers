@@ -341,6 +341,7 @@ makeApiCall(
                 updateAdditionalInfo(data);
                 initialTotalCount = data.total_count;
                 stopLoading();
+                animateElements();
             })
             .catch((error) => {
                 console.error(error);
@@ -571,7 +572,7 @@ function scrollFunction(entries) {
     }
 }
 
-window.addEventListener("load", function () {
+function animateElements() {
     document.querySelector(".banner-text").classList.add("animate");
 
     setTimeout(function () {
@@ -580,16 +581,18 @@ window.addEventListener("load", function () {
 
     setTimeout(function () {
         document.querySelector(".left-panel").classList.add("animate");
-    }, 1000);
+    }, 800);
 
     setTimeout(function () {
         document.querySelector(".jobs-count").classList.add("animate");
-    }, 1500);
+    }, 1100);
 
     setTimeout(function () {
         document.querySelector(".red-line").classList.add("red-line-animate");
-    }, 2000);
+    }, 1400);
+}
 
+window.addEventListener("load", function () {
     const backToTopObserver = new IntersectionObserver(scrollFunction, {
         root: null,
         threshold: 0,
