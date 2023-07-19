@@ -310,7 +310,24 @@ function generateIds(inputString) {
     return convertedString;
 }
 
+function startLoading() {
+    const loading = document.getElementById('loading');
+    document.body.style.overflow = 'hidden';
+    loading.style.opacity = '1';
+    loading.style.display = 'block';
+  }
+  
+function stopLoading() {
+    document.body.style.overflow = 'auto';
+    const loading = document.getElementById('loading');
+    loading.style.opacity = '0';
+    setTimeout(function() {
+          loading.style.display = 'none';
+    }, 300);
+  }
+
 // Call the combined function to fetch jobs and create job cards
+startLoading();
 makeApiCall(
     "https://solutions-test.recruitcrm.io/jobs/20390?limit=10&keys=custom_field[4],custom_field[5]"
 )
@@ -323,6 +340,7 @@ makeApiCall(
             .then((data) => {
                 updateAdditionalInfo(data);
                 initialTotalCount = data.total_count;
+                stopLoading();
             })
             .catch((error) => {
                 console.error(error);
