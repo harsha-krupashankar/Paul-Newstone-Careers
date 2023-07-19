@@ -370,7 +370,7 @@ i {
 .department-dropdown,
 .industry-dropdown,
 .clear-all {
-    margin: 2rem;
+    margin: 0 2rem;
 }
 
 .jobs-count {
@@ -430,6 +430,7 @@ i {
 
 .dropdown-option {
     margin-left: 3rem;
+    display: flex;
 }
 
 /* Job Listing Styles */
@@ -616,6 +617,34 @@ i {
     margin: 0.5rem 0 !important;
     float: none !important;
 }
+
+ul{
+    z-index: 2;
+    transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out !important;
+}
+
+button[aria-expanded="false"] ~ ul{
+    max-height:0;
+    margin: 0 !important;
+    opacity: 0 !important;
+    display: block !important;
+    overflow: hidden;
+    transition: none !important;
+}
+
+button[aria-expanded="false"] ~ ul li{
+    display: none !important;
+}
+
+button[aria-expanded="true"] ~ ul{
+    opacity: 1 !important;
+    max-height:30rem !important;
+    overflow-y: auto;
+    display: block !important;
+}
+
+
+
 
 /* Media Queries */
 

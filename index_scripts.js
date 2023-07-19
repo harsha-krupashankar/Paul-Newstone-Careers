@@ -259,11 +259,12 @@ function updateAdditionalInfo(data) {
         inputId = generateIds(item);
         listElement.innerHTML = `
                     <div class="dropdown-option">
-                        <input class="form-check-input" type="checkbox" value="${item}" id="${inputId}">
+                        <input class="" type="checkbox" value="${item}" id="${inputId}">
                         <label class="form-check-label" for="${inputId}">
                             ${item}
                         </label>
-                    </div>`;
+                    </div>
+                    `;
         document
             .getElementById("departmentDropdownValues")
             .appendChild(listElement);
@@ -274,7 +275,7 @@ function updateAdditionalInfo(data) {
         inputId = generateIds(item);
         listElement.innerHTML = `
                     <div class="dropdown-option">
-                        <input class="form-check-input" type="checkbox" value="${item}" id="${inputId}">
+                        <input class="" type="checkbox" value="${item}" id="${inputId}">
                         <label class="form-check-label" for="${inputId}">
                             ${item}
                         </label>
