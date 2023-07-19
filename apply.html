@@ -1588,6 +1588,8 @@ const UIModule = (() => {
 
         //handle form submit 
         console.log(objCandidate);
+        uiModule.thankYou();
+        return;
         uiModule.startSubmitLoading();
         document.body.style.overflow = 'hidden';
         // const submitResponse = await dataModule.applyToJob(objCandidate);
