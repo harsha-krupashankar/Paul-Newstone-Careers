@@ -23,7 +23,7 @@ const DataModule = (() => {
 
     const applyToJob = async (candidateData) => {
         let applyUrl = SOLUTION_API_BASE_URL + "/candidates/apply-job/";
-        applyUrl += accountId;
+        applyUrl += 1;
         applyUrl += "?job_slug=" + job.job_slug;
         applyUrl += "&allow_duplicates=" + allowDuplicates;
         applyUrl += "&updated_by=" + job.owner;
@@ -44,14 +44,11 @@ const DataModule = (() => {
         console.log(applyUrl);
         console.log(Object.fromEntries(candidate));
 
-        //   try {
-        //     const response = await fetch(applyUrl);
-        //     const data = await response.json();
-        //     return data;
-        //   } catch (error) {
-        //     console.log('Error occured:', error);
-        //     return
-        //   }
+        const response = await fetch(applyUrl, {
+            method: "POST",
+            body: candidate,
+        });
+        return response;
     };
 
     return {
@@ -87,17 +84,13 @@ const UIModule = (() => {
     };
 
     const startSubmitLoading = () => {
-        const loading = document.getElementById("submit-loading");
-        loading.style.opacity = "1";
-        loading.style.display = "flex";
+        document.getElementById("submit").style.display = "none";
+        document.getElementById("spinner").style.display = "inline-block";
     };
 
     const stopSubmitLoading = () => {
-        const loading = document.getElementById("submit-loading");
-        loading.style.opacity = "0";
-        setTimeout(function () {
-            loading.style.display = "none";
-        }, 300);
+        document.getElementById("submit").style.display = "block";
+        document.getElementById("spinner").style.display = "none";
     };
 
     const paintJobDetailsViewer = (job) => {
@@ -236,7 +229,7 @@ const UIModule = (() => {
 
         // Set the button attributes
         button.setAttribute("type", "button");
-        button.setAttribute("class", "custom-btn btn-submit");
+        button.setAttribute("class", "custom-btn btn--outline-black");
         button.setAttribute("title", "Back");
         button.setAttribute("id", "back-button-top");
         button.onclick = () => {
@@ -252,14 +245,14 @@ const UIModule = (() => {
         e.preventDefault();
 
         if (e.target.id == "eeop") {
-            modalHeader.textContent = "Equal Employment Opportunity Policy";
-            modalBody.innerHTML = `<p>Equal Employment Opportunity Policy here</p>`;
+            modalHeader.textContent =
+                "Richtlinen zu beruflichen Chancengleichheit";
+            modalBody.innerHTML = `<p>Unser Unternehmen und unsere Kunden diskriminieren bei der Einstellung nicht aufgrund von Rasse, Hautfarbe, Religion, Geschlecht (einschließlich Schwangerschaft und Geschlechtsidentität), nationaler Herkunft, politischer Zugehörigkeit, sexueller Orientierung, Familienstand, Behinderung, genetischen Informationen, Alter, Mitgliedschaft in einer Arbeitnehmerorganisation, Vergeltungsmaßnahmen, elterlichem Status, Militärdienst oder anderen nicht leistungsbezogenen Faktoren.</p>`;
         }
         if (e.target.id == "terms") {
-            modalHeader.textContent = "Candidate Terms";
+            modalHeader.textContent = "Kandidatenbedingungen";
             modalBody.innerHTML = `<p>
-        Application Submission: By submitting your application, you agree to provide accurate and truthful information about yourself. Any false or misleading information may result in the rejection of your application or termination of employment, if applicable.
-Privacy and Data Handling: We respect your privacy and handle your personal data in accordance with applicable privacy laws and our privacy policy. Your information will be used solely for recruitment purposes and will not be shared with any third parties without your consent.
+            Für die Be- und Verarbeitung Ihrer Bewerbungsdaten nutzen wir das CRM-System «recruit crm» des Anbieters Workforce Cloud Tech, Inc., 28 Mohawk Avenue, Norwood, NJ 07648, USA. Die für das CRM-System geltenden Datenschutzrichtlinien können unter folgendem Link eingesehen werden: <a href="https://recruitcrm.io/legal/privacy">https://recruitcrm.io/legal/privacy</a>. Die entsprechende GDPR-Verpflichtung finden Sie unter folgendem Link: <a href="https://recruitcrm.io/legal/gdpr">https://recruitcrm.io/legal/gdpr</a>. Ihre in «recruit crm» hochgeladenen Daten werden in der AWS Cloud (Anbieter: Amazon Web Services, Inc., USA) in und ausserhalb der EU gespeichert, d.h. ggf. auch in Drittstaaten ohne einem der EU angemessenen Datenschutzniveau. Sie können uns jederzeit bitten, Ihre Daten zu löschen. Nach Beendigung Ihrer Geschäftsbeziehung mit uns bewahren wir Ihre Personendaten mit Ihrer Einwilligung weiterhin auf, um Ihnen Angebote für Dienstleistungen zu unterbreiten. Ohne Ihre Einwilligung werden Ihre Bewerbungsdaten nach zwei Jahren nach Beendigung Ihrer Geschäftsbeziehung mit uns – gelöscht. Es gelten ausserdem unsere Datenschutzbedingungen: <a href="paulnewstone.com/datenschutz">paulnewstone.com/datenschutz</a> 
 </p>`;
         }
         modal.style.display = "block";
@@ -305,12 +298,35 @@ const EventModule = ((dataModule, uiModule) => {
     const card3 = document.querySelector(".info-card.contact");
     const openModalBtns = document.querySelectorAll(".modal-btn");
     const closeBtn = document.getElementsByClassName("close")[0];
+    const emailInput = document.getElementById("email");
+
 
     const showApplyForm = (entries, observe) => {
         const [entry] = entries;
         if (!entry.isIntersecting) return;
         entry.target.classList.remove("section_hidden");
         // observe.unobserve(entry.target);
+    };
+
+    const validateEmail = () => {
+        const email = emailInput.value;
+        console.log(email)
+        const isValid =
+            /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/.test(email);
+        if (!isValid || email == "") {
+            emailInput.setCustomValidity("Please enter a valid email address.");
+        } else {
+            emailInput.setCustomValidity("");
+        }
+    };
+
+    const showFileName = (input) => {
+        const fileNameSpan = document.getElementById("file-name-span");
+        if (input.files.length > 0) {
+            fileNameSpan.textContent = input.files[0].name;
+        } else {
+            fileNameSpan.textContent = "";
+        }
     };
 
     const slideBottomUp = (entries, observe) => {
@@ -362,26 +378,26 @@ const EventModule = ((dataModule, uiModule) => {
             .querySelectorAll(".tag")
             .forEach((tag) => tag.classList.add("bottom-up"));
         descriptionContainer.classList.add("bottom-up");
-        formInputs.forEach((input) => {
-            input.addEventListener("input", removeErrorMessage);
-        });
+        // formInputs.forEach((input) => {
+        //     input.addEventListener("input", removeErrorMessage);
+        // });
     };
 
-    const removeErrorMessage = (e) => {
-        if (e.target.id == "candidate-terms") {
-            if (e.target.checked == true) {
-                e.target.nextElementSibling.nextElementSibling.className =
-                    "small-text terms-warning hidden";
-            } else {
-                e.target.nextElementSibling.nextElementSibling.className =
-                    "small-text terms-warning";
-            }
-            return;
-        }
-        e.target.nextElementSibling.nextElementSibling.className =
-            "small-text hidden";
-        e.target.classList.remove("danger");
-    };
+    // const removeErrorMessage = (e) => {
+    //     if (e.target.id == "candidate-terms") {
+    //         if (e.target.checked == true) {
+    //             e.target.nextElementSibling.nextElementSibling.className =
+    //                 "small-text terms-warning hidden";
+    //         } else {
+    //             e.target.nextElementSibling.nextElementSibling.className =
+    //                 "small-text terms-warning";
+    //         }
+    //         return;
+    //     }
+    //     e.target.nextElementSibling.nextElementSibling.className =
+    //         "small-text hidden";
+    //     e.target.classList.remove("danger");
+    // };
 
     const handleApplyBtnTopClick = () => {
         applyFormContainer.scrollIntoView({ behavior: "smooth" });
@@ -416,15 +432,17 @@ const EventModule = ((dataModule, uiModule) => {
 
     const validateResume = () => {
         const file = document.getElementById("file");
-        const fileNameHolder = document.querySelector(".file-name");
+        // const fileNameHolder = document.querySelector(".file-name");
         const fileInput = document.querySelector(".resume-file-input");
-        const errorLabel = file.nextElementSibling.nextElementSibling;
+        const errorLabel = document.querySelector("#file-name-span");
+        const uploadButton = document.querySelector("#uploadButton");
 
         if (file.value === "") {
             errorLabel.textContent = "Resume field is required";
-            errorLabel.className = "small-text";
-            fileInput.classList.add("danger");
-            fileNameHolder.textContent = "";
+            errorLabel.className = "danger";
+            // uploadButton.classList.add("danger-border");
+            // fileInput.classList.add("danger");
+            // fileNameHolder.textContent = "";
             return false;
         }
 
@@ -432,14 +450,15 @@ const EventModule = ((dataModule, uiModule) => {
         const fileMb = resume.size / 1024 ** 2;
         if (fileMb > 8) {
             errorLabel.textContent = "Resume size should be less than 8MB";
-            errorLabel.className = "small-text";
-            fileInput.classList.add("danger");
-            fileNameHolder.textContent = "";
+            // errorLabel.className = "small-text";
+            errorLabel.className = "danger";
+            // uploadButton.classList.add("danger-border");
+            // fileNameHolder.textContent = "";
             return false;
         } else {
-            fileNameHolder.textContent = resume.name; // resume.name.length > 30 ? resume.name.slice(0, 15) + '...' + resume.name.slice(-8) : resume.name;
-            fileInput.classList.remove("danger");
-            fileNameHolder.className = "file-name";
+            errorLabel.textContent = resume.name; // resume.name.length > 30 ? resume.name.slice(0, 15) + '...' + resume.name.slice(-8) : resume.name;
+            errorLabel.classList.remove("danger");
+            // errorLabel.className = "file-name";
         }
 
         return true;
@@ -457,38 +476,42 @@ const EventModule = ((dataModule, uiModule) => {
     };
 
     const handleSubmitBtnClick = async (e) => {
-        debugger;
-        e.preventDefault();
+        // e.preventDefault();
+
         const jobApplicationForm = new FormData(applyForm);
         const objCandidate = Object.fromEntries(jobApplicationForm);
         const formInputs = Array.from(
             document.querySelectorAll('input[name]:not([name="resume"])')
         );
-        let isValid = true;
 
         formInputs.forEach((input) => {
             input.value = input.value.trim();
         });
 
-        const formFields = {
-            firstname: validateInput("firstName"),
-            lastname: validateInput("lastName"),
-            // file: validateResume(),
-            email: isEmailValid(),
-        };
+        // const formFields = {
+        //     firstname: validateInput("firstName"),
+        //     lastname: validateInput("lastName"),
+        //     // file: validateResume(),
+        //     email: isEmailValid(),
+        // };
 
-        isValid = !Object.values(formFields).includes(false);
+        // isValid = !Object.values(formFields).includes(false);
 
-        if (!isValid) {
-            for (let key in formFields) {
-                if (formFields[key] == false) {
-                    document
-                        .getElementById(key)
-                        .scrollIntoView({ behavior: "smooth", block: "start" });
-                    return;
-                }
-            }
+        // if (!isValid) {
+        //     for (let key in formFields) {
+        //         if (formFields[key] == false) {
+        //             document
+        //                 .getElementById(key)
+        //                 .scrollIntoView({ behavior: "smooth", block: "start" });
+        //             return;
+        //         }
+        //     }
+        //     return;
+        // }
+        if (!validateResume()) {
             return;
+        } else {
+            objCandidate.resume = document.getElementById("file").files[0];
         }
 
         //candidate terms check
@@ -500,19 +523,18 @@ const EventModule = ((dataModule, uiModule) => {
 
         //handle form submit
         console.log(objCandidate);
-        uiModule.thankYou();
-        return;
+        // uiModule.thankYou();
+        // return;
         uiModule.startSubmitLoading();
         document.body.style.overflow = "hidden";
-        // const submitResponse = await dataModule.applyToJob(objCandidate);
+        const submitResponse = await dataModule.applyToJob(objCandidate);
         document.body.style.overflow = "suto";
-        // uiModule.stopSubmitLoading();
-        // uiModule.thankYou();
-        // if(submitResponse && submitResponse.status == 201) {
-        //     uiModule.thankYou();
-        // }else{
-        //     console.log('Error: ' + submitResponse);
-        // }
+        uiModule.stopSubmitLoading();
+        if (submitResponse && submitResponse.status == 201) {
+            uiModule.thankYou();
+        } else {
+            console.log("Error: " + submitResponse);
+        }
     };
 
     return {
@@ -520,18 +542,20 @@ const EventModule = ((dataModule, uiModule) => {
             handlePageLoad();
             // window.addEventListener('DOMContentLoaded', handlePageLoad);
             cards.forEach((card) => card.classList.add("section_hidden"));
-            
 
             applyBtnTop.addEventListener("click", handleApplyBtnTopClick);
             backBtnTop.addEventListener("click", handleBackBtnTopClick);
-            submitBtn.addEventListener("click", handleSubmitBtnClick);
+            // submitBtn.addEventListener("click", handleSubmitBtnClick(event));
+            emailInput.addEventListener("input", validateEmail);
             submitBtn.addEventListener(
                 "click",
                 function (event) {
-                    debugger;
+                    validateEmail();
                     if (!applyForm.checkValidity()) {
                         event.preventDefault();
                         event.stopPropagation();
+                    } else {
+                        handleSubmitBtnClick(event);
                     }
 
                     applyForm.classList.add("was-validated");
@@ -562,25 +586,4 @@ const urlParams = new URLSearchParams(window.location.search);
 jobId = urlParams.get("job_id");
 EventModule.init();
 
-function showFileName(input) {
-    const fileNameSpan = document.getElementById("file-name-span");
-    if (input.files.length > 0) {
-        fileNameSpan.textContent = input.files[0].name;
-    } else {
-        fileNameSpan.textContent = "";
-    }
-}
 
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-    "use strict";
-    debugger;
-
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll(".needs-validation");
-
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms).forEach(function (form) {});
-})();
-
-// Initialize the application

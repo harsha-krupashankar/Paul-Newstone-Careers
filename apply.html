@@ -36,7 +36,6 @@
                         <h1 class="job-name"></h1>
                         <div class="tags">
                             <span class="tag" id="job-location"></span>
-                            <!-- <span class="tag" id="job-type"></span> -->
                             <span class="tag" id="job-department"></span>
                             <span class="tag" id="job-industry"></span>
                         </div>
@@ -53,28 +52,30 @@
         <main>
             <section class="cust-container">
                 <div class="container-small job-description">
-
                 </div>
+                <div class="application-form"></div>
                 <div class="container-small job-apply">
-
+                    <hr class="divider divider-large">
                     <div class="personal-info">
                         <div class="label">
                             <h5>Persönliche Informationen</h5>
                             <p>Your Name & Contact Information</p>
                         </div>
                         <div class="fields">
-                            <form class="form needs-validation">
+                            <form class="form needs-validation" novalidate>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="firstName">First Name</label>
-                                        <input type="text" class="form-control" id="firstName" placeholder="" required>
+                                        <label for="firstName">First Name <span class="danger">*</span></label>
+                                        <input type="text" class="form-control" id="firstName" name="firstName"
+                                            placeholder="" required>
                                         <div class="invalid-feedback">
                                             Please enter your first name.
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="lastName">Last Name</label>
-                                        <input type="text" class="form-control" id="lastName" placeholder="" required>
+                                        <label for="lastName">Last Name <span class="danger">*</span></label>
+                                        <input type="text" class="form-control" id="lastName" name="lastName"
+                                            placeholder="" required>
                                         <div class="invalid-feedback">
                                             Please enter your last name.
                                         </div>
@@ -82,21 +83,22 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" id="email" placeholder=""  required>
-                                        <div class="invalid-feedback">
-                                            Please enter your email.
-                                        </div>
+                                        <label for="email">Email <span class="danger">*</span></label>
+                                        <input type="email" class="form-control" id="email" placeholder="" name="email">
+<div class="invalid-feedback">
+    Please enter a valid email address.
+</div>
+
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="phone">Phone</label>
-                                        <input type="text" class="form-control" id="phone" placeholder="">
+                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="email">City</label>
-                                        <input type="text" class="form-control" id="email" placeholder="">
+                                        <label for="city">City</label>
+                                        <input type="text" class="form-control" id="city" name="city" placeholder="">
                                     </div>
                                 </div>
                             </form>
@@ -110,10 +112,12 @@
                                 sein darf)</p>
                         </div>
                         <div class="fields">
-                            <label for="file-input" class="btn btn-outline-dark"><i
-                                    class="ph ph-upload-simple mr-2"></i>Datei hochladen</label>
-                            <input type="file" id="file" class="file-input" onchange="showFileName(this)">
-                            <span id="file-name-span" style="margin-left: 10px;"></span>
+                            <label for="file" id="uploadButton" class="btn btn-outline-dark"><i
+                                    class="ph ph-upload-simple mr-2"></i>Datei hochladen <span
+                                    class="danger">*</span></label>
+                            <input type="file" id="file" class="file-input resume-file-input"
+                                onchange="showFileName(this)">
+                            <span id="file-name-span"></span>
                         </div>
                     </div>
 
@@ -130,8 +134,12 @@
                         </div>
                     </div>
                     <div class="form-row flex-direction-col">
-                        <button type="submit" class="custom-btn btn--outline-black submit"
-                            id="form-submit">Submit</button>
+                        <button type="submit" class="custom-btn btn--outline-black submit btn--small"
+                            id="form-submit"><span id="submit">Submit</span>
+                            <div class="spinner-border text-dark" role="status" id="spinner">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </button>
                         <span class="form-check-label eeop">View Our <a href="#" class="custom-link modal-btn"
                                 id="eeop">Equal Employment Opportunity Policy</a></sp>
                     </div>
