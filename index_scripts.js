@@ -229,7 +229,7 @@ function updateAdditionalInfo(data) {
         inputId = generateIds(item);
         listElement.innerHTML = `
                     <div class="dropdown-option">
-                        <input class="form-check-input" type="checkbox" value="${item}" id="${inputId}">
+                        <input class="checkbox" type="checkbox" value="${item}" id="${inputId}">
                         <label class="form-check-label" for="${inputId}">
                             ${item}
                         </label>
@@ -244,7 +244,7 @@ function updateAdditionalInfo(data) {
         inputId = generateIds(item);
         listElement.innerHTML = `
                     <div class="dropdown-option">
-                        <input class="form-check-input" type="checkbox" value="${item}" id="${generateIds(
+                        <input class="checkbox" type="checkbox" value="${item}" id="${generateIds(
             item
         )}">
                         <label class="form-check-label" for="flexCheckDefault">
@@ -259,7 +259,7 @@ function updateAdditionalInfo(data) {
         inputId = generateIds(item);
         listElement.innerHTML = `
                     <div class="dropdown-option">
-                        <input class="" type="checkbox" value="${item}" id="${inputId}">
+                        <input class="checkbox" type="checkbox" value="${item}" id="${inputId}">
                         <label class="form-check-label" for="${inputId}">
                             ${item}
                         </label>
@@ -275,7 +275,7 @@ function updateAdditionalInfo(data) {
         inputId = generateIds(item);
         listElement.innerHTML = `
                     <div class="dropdown-option">
-                        <input class="" type="checkbox" value="${item}" id="${inputId}">
+                        <input class="checkbox" type="checkbox" value="${item}" id="${inputId}">
                         <label class="form-check-label" for="${inputId}">
                             ${item}
                         </label>
@@ -536,7 +536,7 @@ function resetFilters() {
         resetButton.style.display = "none";
     }
 
-    var checkboxes = document.querySelectorAll(".form-check-input");
+    var checkboxes = document.querySelectorAll(".checkbox");
 
     checkboxes.forEach(function (checkbox) {
         checkbox.checked = false;
