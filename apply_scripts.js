@@ -94,34 +94,38 @@ const UIModule = (() => {
     };
 
     const paintJobDetailsViewer = (job) => {
+        debugger
+        const industryName = job.custom_fields?.find((field) => field.field_id === "5").value;
+        const departmentName = job.custom_fields?.find((field) => field.field_id === "4").value;
         jobName.innerHTML = job.name?.replace(/\s*\([^)]*\)\s*/g, "");
         jobLocation.innerHTML =
             '<i class="ph ph-globe-hemisphere-east icon"></i>' +
             job.city +
             " - " +
             job.country;
-        // jobType.innerHTML = '<i class="ph ph-briefcase icon"></i>' + job.job_type
-        jobIndustry.innerHTML =
-            '<i class="ph ph-factory icon"></i>' +
-            job.custom_fields?.find((field) => field.field_name === "Industry")
-                .value;
+        // jobType.innerHTML = '<i class="ph ph-briefcase icon"></i>' + job.job_type;
+        if (industryName != "None") {
+            jobIndustry.innerHTML =
+            '<i class="ph ph-factory icon"></i>' + industryName;
+        }
+
         jobDescriptionContainer.innerHTML = job.job_description_text;
 
-        let department = job.custom_fields
-            ?.find((field) => field.field_id === "4")
-            .value.toLowerCase();
         let icon = "ph-buildings";
-        if (department === "office support") {
-            icon = "ph-archive";
-        } else if (department === "finance & accounting") {
-            icon = "ph-wallet";
-        } else if (department === "human resources") {
-            icon = "ph-users";
-        } else if (department === "sales") {
-            icon = "ph-chart-line-up";
+        if (departmentName != "None") {
+            if (departmentName.toLowerCase() === "office support") {
+                icon = "ph-archive";
+            } else if (departmentName.toLowerCase() === "finance & accounting") {
+                icon = "ph-wallet";
+            } else if (departmentName.toLowerCase() === "human resources") {
+                icon = "ph-users";
+            } else if (departmentName.toLowerCase() === "sales") {
+                icon = "ph-chart-line-up";
+            }
+            jobDepartment.innerHTML =
+                `<i class="ph ${icon} icon"></i>` + departmentName;
         }
-        jobDepartment.innerHTML =
-            `<i class="ph ${icon} icon"></i>` + department;
+        
     };
 
     const jobNotFound = () => {
@@ -154,12 +158,12 @@ const UIModule = (() => {
 
         let line1 = document.createElement("p");
         line1.textContent =
-            "We're sorry, but the job you were looking for has been filled.";
+            "Es tut uns leid, aber die Stelle, nach der Sie gesucht haben, ist bereits besetzt.";
         line1.className = "closed-text";
         closedText.appendChild(line1);
 
         let line2 = document.createElement("p");
-        line2.textContent = "Thank you for your interest.";
+        line2.textContent = "Wir danken Ihnen für Ihr Interesse.";
         line2.className = "closed-text";
         closedText.appendChild(line2);
 
@@ -201,28 +205,28 @@ const UIModule = (() => {
         document.getElementById("parent-container").appendChild(info);
 
         //heading
-        let closedHeading = document.createElement("h1");
-        closedHeading.textContent = "Thank you for Applying";
-        closedHeading.className = "job-closed-heading";
-        info.appendChild(closedHeading);
+        let thankYouHeading = document.createElement("h1");
+        thankYouHeading.textContent = "DANKE FÜR IHRE BEWERBUNG";
+        thankYouHeading.className = "job-closed-heading";
+        info.appendChild(thankYouHeading);
 
         //text
-        let closedText = document.createElement("div");
-        closedText.className = "info-secondary-text";
+        let thankYouText = document.createElement("div");
+        thankYouText.className = "info-secondary-text";
 
         let line1 = document.createElement("p");
         line1.textContent =
-            "Your application has been received and is being carefully reviewed.";
+            "Ihre Bewerbung ist eingegangen und wird nun sorgfältig geprüft.";
         line1.className = "closed-text";
-        closedText.appendChild(line1);
+        thankYouText.appendChild(line1);
 
         let line2 = document.createElement("p");
         line2.textContent =
-            " We appreciate your interest and will be in touch soon.";
+            " Wir freuen uns über Ihr Interesse und werden uns in Kürze bei Ihnen melden.";
         line2.className = "closed-text";
-        closedText.appendChild(line2);
+        thankYouText.appendChild(line2);
 
-        info.appendChild(closedText);
+        info.appendChild(thankYouText);
 
         //button
         const button = document.createElement("button");
@@ -237,7 +241,7 @@ const UIModule = (() => {
         };
 
         // Set the button text
-        button.innerText = "Back";
+        button.innerText = "Weitere Jobs";
         info.appendChild(button);
     };
 
@@ -314,7 +318,7 @@ const EventModule = ((dataModule, uiModule) => {
         const isValid =
             /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/.test(email);
         if (!isValid || email == "") {
-            emailInput.setCustomValidity("Please enter a valid email address.");
+            emailInput.setCustomValidity("Bitte geben Sie eine gültige E-Mail Adresse ein.");
         } else {
             emailInput.setCustomValidity("");
         }
@@ -527,14 +531,17 @@ const EventModule = ((dataModule, uiModule) => {
         // return;
         uiModule.startSubmitLoading();
         document.body.style.overflow = "hidden";
-        const submitResponse = await dataModule.applyToJob(objCandidate);
+        // const submitResponse = await dataModule.applyToJob(objCandidate);
         document.body.style.overflow = "suto";
-        uiModule.stopSubmitLoading();
-        if (submitResponse && submitResponse.status == 201) {
+        setTimeout(() => {
+            uiModule.stopSubmitLoading();
             uiModule.thankYou();
-        } else {
-            console.log("Error: " + submitResponse);
-        }
+        }, 3000);
+        // if (submitResponse && submitResponse.status == 201) {
+        //     uiModule.thankYou();
+        // } else {
+        //     console.log("Error: " + submitResponse);
+        // }
     };
 
     return {

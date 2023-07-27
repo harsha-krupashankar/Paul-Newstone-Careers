@@ -32,7 +32,7 @@
                 <div class="row align-items-center justify-content-center filter-container">
                     <div class="col-md-3 col-sm-3 filter col-12">
                         <div class="input-group">
-                            <input type="text" class="form-control search-box" placeholder="Search by Job name"
+                            <input type="text" class="form-control search-box" placeholder="Job-Titel"
                                 aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle dropdowns btn-block bg--white"
                                 type="button" id="cityDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                Select City
+                                Ort wählen
                             </button>
                             <ul class="dropdown-menu dropdown-values" aria-labelledby="cityDropdown"
                                 id="cityDropdownValues">
@@ -51,7 +51,7 @@
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle dropdowns btn-block bg--white"
                                 type="button" id="countryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                Select Country
+                                Land wählen
                             </button>
                             <ul class="dropdown-menu dropdown-values" aria-labelledby="countryDropdown"
                                 id="countryDropdownValues">
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-2 filter col-12">
-                        <button type="button" class="custom-btn btn--red btn-block" onclick="filter()">Search</button>
+                        <button type="button" class="custom-btn btn--red btn-block" onclick="filter()">Jobs finden</button>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle dropdowns btn-block" type="button"
                             id="departmentDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Select Division
+                            Berufsfeld wählen
                         </button>
                         <ul class="dropdown-menu dropdown-values static" aria-labelledby="departmentDropdown"
                             id="departmentDropdownValues">
@@ -86,7 +86,7 @@
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle dropdowns btn-block" type="button"
                             id="industryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Select Industry
+                            Branche wählen
                         </button>
                         <ul class="dropdown-menu dropdown-values static" aria-labelledby="industryDropdown"
                             id="industryDropdownValues">
@@ -95,14 +95,13 @@
                 </div>
                 <div class="clear-all">
                     <button type="button" class="custom-btn btn--black btn-block" id="applyFilter"
-                        onclick="filter()">Apply
-                        Filter</button>
+                        onclick="filter()">Filter bestätigen</button>
                 </div>
             </div>
 
             <div class="job-listings" id="jobListings">
                 <div class="jobs-count">
-                    <h3>Showing <span id="displayedJobsCount">0</span> / <span id="totalJobsCount">0</span> Jobs</h3>
+                    <h3>Zeige <span id="displayedJobsCount">0</span> / <span id="totalJobsCount">0</span> Jobs</h3>
                 </div>
                 <div class="job-cards">
 

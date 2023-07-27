@@ -51,7 +51,7 @@ body {
 h3 {
     font-size: 3rem !important;
     text-transform: uppercase;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
 }
 
 h4 {
@@ -374,7 +374,11 @@ i {
 }
 
 .jobs-count {
-    margin: 2rem 0;
+    margin: 2.5rem 0 2rem 0;
+}
+
+.jobs-count > h3 {
+    font-size: 2rem !important;
 }
 
 #loading {

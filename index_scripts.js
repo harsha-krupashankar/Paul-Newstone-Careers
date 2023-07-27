@@ -142,7 +142,7 @@ function createJobCards(data) {
                         <div class="apply-btn text-center">
                         <a type="button" target="_blank" href="/apply.html?job_id=${
                             job.job_id
-                        }" class="custom-btn btn--outline-black btn-block">Apply</a>
+                        }" class="custom-btn btn--outline-black btn-block">Bewerben</a>
                         </div>
                     </div>
                     `;
@@ -169,7 +169,7 @@ function createJobCards(data) {
         var viewMoreContainer = document.createElement("div");
         viewMoreContainer.classList.add("view-more");
         viewMoreContainer.innerHTML = `
-                    <button type="button" class="custom-btn btn--outline-black view-more-btn" id="viewMore"  onclick="fetchNextPageJobs()">View More</button>
+                    <button type="button" class="custom-btn btn--outline-black view-more-btn" id="viewMore"  onclick="fetchNextPageJobs()">Weitere Jobs</button>
                 `;
         jobCardsContainer.appendChild(viewMoreContainer);
 

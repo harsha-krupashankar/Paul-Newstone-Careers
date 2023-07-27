@@ -37,14 +37,15 @@
                         <div class="tags">
                             <span class="tag" id="job-location"></span>
                             <span class="tag" id="job-department"></span>
+                            <!-- <span class="tag" id="job-type"></span> -->
                             <span class="tag" id="job-industry"></span>
                         </div>
                     </div>
                     <div class="action-btns">
-                        <button type="button" class="custom-btn btn--apply landing-element" title="Apply"
-                            id="apply-button-top">Apply</button>
+                        <button type="button" class="custom-btn btn--red landing-element apply" title="Apply"
+                            id="apply-button-top">Jetzt bewerben</button>
                         <button type="button" class="custom-btn btn--outline-black landing-element" title="Back"
-                            id="back-button-top">Back</button>
+                            id="back-button-top">Zurück</button>
                     </div>
                 </div>
             </div>
@@ -59,25 +60,25 @@
                     <div class="personal-info">
                         <div class="label">
                             <h5>Persönliche Informationen</h5>
-                            <p>Your Name & Contact Information</p>
+                            <p>Ihr Name und Ihre Kontaktinformationen</p>
                         </div>
                         <div class="fields">
                             <form class="form needs-validation" novalidate>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="firstName">First Name <span class="danger">*</span></label>
+                                        <label for="firstName">Vorname <span class="danger">*</span></label>
                                         <input type="text" class="form-control" id="firstName" name="firstName"
                                             placeholder="" required>
                                         <div class="invalid-feedback">
-                                            Please enter your first name.
+                                            Bitte geben Sie Ihren Vornamen ein.
                                         </div>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="lastName">Last Name <span class="danger">*</span></label>
+                                        <label for="lastName">Nachname <span class="danger">*</span></label>
                                         <input type="text" class="form-control" id="lastName" name="lastName"
                                             placeholder="" required>
                                         <div class="invalid-feedback">
-                                            Please enter your last name.
+                                            Bitte geben Sie Ihren Nachnamen ein.
                                         </div>
                                     </div>
                                 </div>
@@ -85,19 +86,19 @@
                                     <div class="form-group col-md-6">
                                         <label for="email">Email <span class="danger">*</span></label>
                                         <input type="email" class="form-control" id="email" placeholder="" name="email">
-<div class="invalid-feedback">
-    Please enter a valid email address.
-</div>
+                                        <div class="invalid-feedback">
+                                            Bitte geben Sie eine gültige E-Mail Adresse ein.
+                                        </div>
 
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="phone">Phone</label>
+                                        <label for="phone">Telefonnummer</label>
                                         <input type="text" class="form-control" id="phone" name="phone" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="city">City</label>
+                                        <label for="city">Ort</label>
                                         <input type="text" class="form-control" id="city" name="city" placeholder="">
                                     </div>
                                 </div>
@@ -116,7 +117,7 @@
                                     class="ph ph-upload-simple mr-2"></i>Datei hochladen <span
                                     class="danger">*</span></label>
                             <input type="file" id="file" class="file-input resume-file-input"
-                                onchange="showFileName(this)">
+                                >
                             <span id="file-name-span"></span>
                         </div>
                     </div>
@@ -125,23 +126,23 @@
                     <div class="form-row">
                         <div class="form-group">
                             <div class="candidate-terms">
-                                <input type="checkbox" class="" placeholder="candidate terms" name="terms"
+                                <input type="checkbox" class="candidate-terms-checkbox" placeholder="candidate terms" name="terms"
                                     id='candidate-terms' required />
-                                <label for="candidate-terms" class="form-check-label">I agree to <a href="#"
-                                        class="custom-link modal-btn" id="terms">Candidate terms</a></label>
+                                <label for="candidate-terms" class="form-check-label">Ich akzeptiere die <a href="#"
+                                        class="custom-link modal-btn" id="terms">Kandidatenbedingungen</a> und erkläre, dass<br> ich die <a href="https://www.paulnewstone.com/datenschutz">Datenschutzerklärung</a> gelesen und verstanden habe</label>
                             </div>
                             <p class="small-text terms-warning hidden">Please agree to candidate terms</p>
                         </div>
                     </div>
                     <div class="form-row flex-direction-col">
-                        <button type="submit" class="custom-btn btn--outline-black submit btn--small"
-                            id="form-submit"><span id="submit">Submit</span>
+                        <button type="submit" class="custom-btn btn--red submit btn--small"
+                            id="form-submit"><span id="submit">Bewerbung einreichen</span>
                             <div class="spinner-border text-dark" role="status" id="spinner">
                                 <span class="sr-only">Loading...</span>
                             </div>
                         </button>
-                        <span class="form-check-label eeop">View Our <a href="#" class="custom-link modal-btn"
-                                id="eeop">Equal Employment Opportunity Policy</a></sp>
+                        <span class="form-check-label eeop"><a href="#" class="custom-link modal-btn"
+                                id="eeop">Richtlinen zu beruflichen Chancengleichheit</a></sp>
                     </div>
                     <div id="submit-loading">
                         <div class="loading-icon submit-loading-icon"></div>
@@ -158,7 +159,7 @@
                             welche die <a href="https://www.paulnewstone.com/unsere-werte">Kernwerte</a> jeden Tag
                             verkörpern,
                             führen zu hervorragenden Ergebnissen.</p>
-                        <div class="separator">Teile diesen Job</div>
+                        <div class="separator">Job teilen</div>
                         <ul class="social-icons">
                             <li>
                                 <a class="facebook" href="#">
@@ -202,13 +203,13 @@
 
                         <strong class="card-text  strong">Wie geht es nach Ihrer Bewerbung weiter?</strong>
                         <ul class="card-order-list">
-                            <li class="card-text"><span class="circle">1</span><span class="info-text"><strong>Wir
-                                        führen mit Ihnen ein persönliches oder virtuelles</strong>
-                                    Vorstellungsgespräch, um Ihre Ziele, Wünsche, sowie Anforderungen
+                            <li class="card-text"><span class="circle">1</span><span class="info-text"><strong class="fw-600">Wir
+                                        führen mit Ihnen ein persönliches oder virtuelles
+                                    Vorstellungsgespräch</strong>, um Ihre Ziele, Wünsche, sowie Anforderungen
                                     an den künftigen Arbeitgeber besser kennenzulernen und erläutern Ihnen alle
                                     wichtigen
                                     Details zur ausgeschriebenen Stelle.</span></li>
-                            <li class="card-text"><span class="circle">2</span><span class="info-text"><strong>Wir
+                            <li class="card-text"><span class="circle">2</span><span class="info-text"><strong class="fw-600">Wir
                                         begleiten Sie von Anfang bis Ende und darüber
                                         hinaus.</strong>
                                     Wir Briefen und
@@ -216,16 +217,16 @@
                                     sind.
                                     Auf Wunsch führen wir gerne ein
                                     kostenloses CV-Coaching mit Ihnen durch.</span></li>
-                            <li class="card-text"><span class="circle">3</span><span class="info-text"><strong>Wir
+                            <li class="card-text"><span class="circle">3</span><span class="info-text"><strong class="fw-600">Wir
                                         erzielen für Sie beste Ergebnisse.</strong> Dabei
                                     übernehmen
                                     wir die
                                     Vertragsverhandlung und stehen Ihnen kompetent zur Seite.</span></li>
                             <li class="card-text"><span class="circle">4</span><span
-                                    class="info-text"><strong>Herzlichen Glückwunsch zu Ihrem Traumjob!</strong> Wir
+                                    class="info-text"><strong class="fw-600">Herzlichen Glückwunsch zu Ihrem Traumjob!</strong> Wir
                                     stehen
                                     Ihnen selbstverständlich auch im Anschluss einer erfolgreichen Vermittlung zur
-                                    Verfügung</span>
+                                    Verfügung.</span>
                             </li>
                         </ul>
                     </div>
