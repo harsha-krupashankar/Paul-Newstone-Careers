@@ -812,6 +812,30 @@ input[type="checkbox"]:checked ~ label {
     font-weight: 600;
 }
 
+.w-100 {
+    width: 16rem !important;
+}
+
+.top-popup-container {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-block;
+    z-index: 99999;
+}
+
+.popup-toast {
+    font-size: 1.2rem;
+    padding: 15px;
+    margin: 5px;
+    background-color: rgb(34, 34, 34);
+    color: rgb(238, 238, 238);
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px 2px rgb(180 180 180 / 33%);
+    animation: append-animate 0.3s linear;
+}
+
 /* Social Media icons Styling */
 
 .social-icons {

@@ -84,17 +84,18 @@ const UIModule = (() => {
     };
 
     const startSubmitLoading = () => {
+        document.getElementById("form-submit").classList.add("w-100");
         document.getElementById("submit").style.display = "none";
         document.getElementById("spinner").style.display = "inline-block";
     };
 
     const stopSubmitLoading = () => {
+        document.getElementById("form-submit").classList.remove("w-100");
         document.getElementById("submit").style.display = "block";
         document.getElementById("spinner").style.display = "none";
     };
 
     const paintJobDetailsViewer = (job) => {
-        debugger
         const industryName = job.custom_fields?.find((field) => field.field_id === "5").value;
         const departmentName = job.custom_fields?.find((field) => field.field_id === "4").value;
         jobName.innerHTML = job.name?.replace(/\s*\([^)]*\)\s*/g, "");
@@ -174,7 +175,7 @@ const UIModule = (() => {
 
         // Set the button attributes
         button.setAttribute("type", "button");
-        button.setAttribute("class", "custom-btn btn-submit");
+        button.setAttribute("class", "custom-btn btn--outline-black");
         button.setAttribute("title", "Back");
         button.setAttribute("id", "back-button-top");
         button.onclick = () => {
@@ -479,6 +480,18 @@ const EventModule = ((dataModule, uiModule) => {
         return true;
     };
 
+    const showToast = (message) => {
+        const toast = document.createElement("span");
+        toast.classList.add("popup-toast", "text-nowrap");
+        toast.innerHTML = message;
+        let top_popup_container = document.getElementById("top-popup-container");
+        top_popup_container.prepend(toast);
+
+        setTimeout(function () {
+            toast.remove();
+        }, 3000);
+    }
+
     const handleSubmitBtnClick = async (e) => {
         // e.preventDefault();
 
@@ -492,26 +505,6 @@ const EventModule = ((dataModule, uiModule) => {
             input.value = input.value.trim();
         });
 
-        // const formFields = {
-        //     firstname: validateInput("firstName"),
-        //     lastname: validateInput("lastName"),
-        //     // file: validateResume(),
-        //     email: isEmailValid(),
-        // };
-
-        // isValid = !Object.values(formFields).includes(false);
-
-        // if (!isValid) {
-        //     for (let key in formFields) {
-        //         if (formFields[key] == false) {
-        //             document
-        //                 .getElementById(key)
-        //                 .scrollIntoView({ behavior: "smooth", block: "start" });
-        //             return;
-        //         }
-        //     }
-        //     return;
-        // }
         if (!validateResume()) {
             return;
         } else {
@@ -519,29 +512,30 @@ const EventModule = ((dataModule, uiModule) => {
         }
 
         //candidate terms check
-        console.log(document.getElementById("candidate-terms").checked);
         if (document.getElementById("candidate-terms").checked == false) {
             document.querySelector(".terms-warning").classList.remove("hidden");
             return;
         }
 
         //handle form submit
-        console.log(objCandidate);
         // uiModule.thankYou();
         // return;
         uiModule.startSubmitLoading();
         document.body.style.overflow = "hidden";
-        // const submitResponse = await dataModule.applyToJob(objCandidate);
+        const submitResponse = await dataModule.applyToJob(objCandidate);
         document.body.style.overflow = "suto";
-        setTimeout(() => {
-            uiModule.stopSubmitLoading();
-            uiModule.thankYou();
-        }, 3000);
-        // if (submitResponse && submitResponse.status == 201) {
+        // setTimeout(() => {
+        //     uiModule.stopSubmitLoading();
         //     uiModule.thankYou();
-        // } else {
-        //     console.log("Error: " + submitResponse);
-        // }
+        // }, 3000);
+        uiModule.stopSubmitLoading();
+        if (submitResponse && submitResponse.status == 201) {
+            uiModule.thankYou();
+        } else if (submitResponse && submitResponse.status == 429){
+            showToast("Wir bearbeiten zu viele Anfragen. Bitte versuchen Sie es nach einiger Zeit erneut.");
+        } else {
+            showToast("Etwas ist schief gelaufen. Bitte versuchen Sie es später noch einmal.");
+        }
     };
 
     return {
