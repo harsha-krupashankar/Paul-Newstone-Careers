@@ -83,7 +83,7 @@ function createJobCards(data) {
     // Loop through the data array
     data["data"].forEach(function (job) {
         // Extract job name without the content inside parentheses
-        var jobName = job.name.replace(/\s*\([^)]*\)\s*/g, "");
+        var jobName = job.name;
         var icon = "";
 
         // Get department value and convert to lowercase
@@ -112,7 +112,7 @@ function createJobCards(data) {
         } else if (department === "human resources") {
             jobCard.classList.add("card-human-resource");
             icon = "ph-users";
-        } else if (department === "sales") {
+        } else if (department === "sales & marketing") {
             jobCard.classList.add("card-sales-marketing");
             icon = "ph-chart-line-up";
         }
@@ -225,64 +225,72 @@ function updateAdditionalInfo(data) {
     });
 
     countryArray.forEach(function (item) {
-        var listElement = document.createElement("li");
-        inputId = generateIds(item);
-        listElement.innerHTML = `
-                    <div class="dropdown-option">
-                        <input class="checkbox" type="checkbox" value="${item}" id="${inputId}">
-                        <label class="form-check-label" for="${inputId}">
-                            ${item}
-                        </label>
-                    </div>`;
-        document
-            .getElementById("countryDropdownValues")
-            .appendChild(listElement);
+        if (item != "None") {
+            var listElement = document.createElement("li");
+            inputId = generateIds(item);
+            listElement.innerHTML = `
+                        <div class="dropdown-option">
+                            <input class="checkbox" type="checkbox" value="${item}" id="${inputId}">
+                            <label class="form-check-label" for="${inputId}">
+                                ${item}
+                            </label>
+                        </div>`;
+            document
+                .getElementById("countryDropdownValues")
+                .appendChild(listElement);
+        }
     });
 
     cityArray.forEach(function (item) {
-        var listElement = document.createElement("li");
-        inputId = generateIds(item);
-        listElement.innerHTML = `
-                    <div class="dropdown-option">
-                        <input class="checkbox" type="checkbox" value="${item}" id="${generateIds(
-            item
-        )}">
-                        <label class="form-check-label" for="flexCheckDefault">
-                            ${item}
-                        </label>
-                    </div>`;
-        document.getElementById("cityDropdownValues").appendChild(listElement);
+        if (item != "None") {
+            var listElement = document.createElement("li");
+            inputId = generateIds(item);
+            listElement.innerHTML = `
+                        <div class="dropdown-option">
+                            <input class="checkbox" type="checkbox" value="${item}" id="${generateIds(
+                item
+            )}">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                ${item}
+                            </label>
+                        </div>`;
+            document.getElementById("cityDropdownValues").appendChild(listElement);
+        }
     });
 
     divisionArray.forEach(function (item) {
-        var listElement = document.createElement("li");
-        inputId = generateIds(item);
-        listElement.innerHTML = `
-                    <div class="dropdown-option">
-                        <input class="checkbox" type="checkbox" value="${item}" id="${inputId}">
-                        <label class="form-check-label" for="${inputId}">
-                            ${item}
-                        </label>
-                    </div>
-                    `;
-        document
-            .getElementById("departmentDropdownValues")
-            .appendChild(listElement);
+        if (item != "None") {
+            var listElement = document.createElement("li");
+            inputId = generateIds(item);
+            listElement.innerHTML = `
+                        <div class="dropdown-option">
+                            <input class="checkbox" type="checkbox" value="${item}" id="${inputId}">
+                            <label class="form-check-label" for="${inputId}">
+                                ${item}
+                            </label>
+                        </div>
+                        `;
+            document
+                .getElementById("departmentDropdownValues")
+                .appendChild(listElement);
+        }
     });
 
     industryArray.forEach(function (item) {
-        var listElement = document.createElement("li");
-        inputId = generateIds(item);
-        listElement.innerHTML = `
-                    <div class="dropdown-option">
-                        <input class="checkbox" type="checkbox" value="${item}" id="${inputId}">
-                        <label class="form-check-label" for="${inputId}">
-                            ${item}
-                        </label>
-                    </div>`;
-        document
-            .getElementById("industryDropdownValues")
-            .appendChild(listElement);
+        if (item != "None") {
+            var listElement = document.createElement("li");
+            inputId = generateIds(item);
+            listElement.innerHTML = `
+                        <div class="dropdown-option">
+                            <input class="checkbox" type="checkbox" value="${item}" id="${inputId}">
+                            <label class="form-check-label" for="${inputId}">
+                                ${item}
+                            </label>
+                        </div>`;
+            document
+                .getElementById("industryDropdownValues")
+                .appendChild(listElement);
+        }
     });
 }
 

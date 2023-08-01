@@ -84,13 +84,13 @@ const UIModule = (() => {
     };
 
     const startSubmitLoading = () => {
-        document.getElementById("form-submit").classList.add("w-100");
+        document.getElementById("form-submit").classList.add("w-16r");
         document.getElementById("submit").style.display = "none";
         document.getElementById("spinner").style.display = "inline-block";
     };
 
     const stopSubmitLoading = () => {
-        document.getElementById("form-submit").classList.remove("w-100");
+        document.getElementById("form-submit").classList.remove("w-16r");
         document.getElementById("submit").style.display = "block";
         document.getElementById("spinner").style.display = "none";
     };
@@ -98,7 +98,7 @@ const UIModule = (() => {
     const paintJobDetailsViewer = (job) => {
         const industryName = job.custom_fields?.find((field) => field.field_id === "5").value;
         const departmentName = job.custom_fields?.find((field) => field.field_id === "4").value;
-        jobName.innerHTML = job.name?.replace(/\s*\([^)]*\)\s*/g, "");
+        jobName.innerHTML = job.name;
         jobLocation.innerHTML =
             '<i class="ph ph-globe-hemisphere-east icon"></i>' +
             job.city +
@@ -149,7 +149,7 @@ const UIModule = (() => {
 
         //heading
         let closedHeading = document.createElement("h1");
-        closedHeading.textContent = "Job is Closed";
+        closedHeading.textContent = "Job ist geschlossen";
         closedHeading.className = "job-closed-heading";
         info.appendChild(closedHeading);
 
@@ -176,14 +176,14 @@ const UIModule = (() => {
         // Set the button attributes
         button.setAttribute("type", "button");
         button.setAttribute("class", "custom-btn btn--outline-black");
-        button.setAttribute("title", "Back");
+        button.setAttribute("title", "Zurück");
         button.setAttribute("id", "back-button-top");
         button.onclick = () => {
             window.location = "/index.html";
         };
 
         // Set the button text
-        button.innerText = "Back";
+        button.innerText = "Zurück";
         info.appendChild(button);
     };
 
@@ -522,20 +522,20 @@ const EventModule = ((dataModule, uiModule) => {
         // return;
         uiModule.startSubmitLoading();
         document.body.style.overflow = "hidden";
-        const submitResponse = await dataModule.applyToJob(objCandidate);
+        // const submitResponse = await dataModule.applyToJob(objCandidate);
         document.body.style.overflow = "suto";
-        // setTimeout(() => {
-        //     uiModule.stopSubmitLoading();
-        //     uiModule.thankYou();
-        // }, 3000);
-        uiModule.stopSubmitLoading();
-        if (submitResponse && submitResponse.status == 201) {
+        setTimeout(() => {
+            uiModule.stopSubmitLoading();
             uiModule.thankYou();
-        } else if (submitResponse && submitResponse.status == 429){
-            showToast("Wir bearbeiten zu viele Anfragen. Bitte versuchen Sie es nach einiger Zeit erneut.");
-        } else {
-            showToast("Etwas ist schief gelaufen. Bitte versuchen Sie es später noch einmal.");
-        }
+        }, 3000);
+        // uiModule.stopSubmitLoading();
+        // if (submitResponse && submitResponse.status == 201) {
+        //     uiModule.thankYou();
+        // } else if (submitResponse && submitResponse.status == 429){
+        //     showToast("Wir bearbeiten zu viele Anfragen. Bitte versuchen Sie es nach einiger Zeit erneut.");
+        // } else {
+        //     showToast("Etwas ist schief gelaufen. Bitte versuchen Sie es später noch einmal.");
+        // }
     };
 
     return {

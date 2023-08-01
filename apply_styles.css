@@ -269,7 +269,7 @@ main {
 
 .tags .tag {
     font-size: 1.6rem;
-    font-weight: 300;
+    font-weight: 400;
     padding: 0;
     margin: 0.5rem;
     display: flex;
@@ -692,6 +692,7 @@ input[type="checkbox"]:checked ~ label {
     margin: 0;
     padding: 0;
     margin-left: 25px;
+    text-align: center;
 }
 
 .modal {
@@ -812,7 +813,7 @@ input[type="checkbox"]:checked ~ label {
     font-weight: 600;
 }
 
-.w-100 {
+.w-16r {
     width: 16rem !important;
 }
 
