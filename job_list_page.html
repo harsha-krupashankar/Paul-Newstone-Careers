@@ -910,6 +910,8 @@
         var totalCount = 0;
         var initialData = {};
         var initialTotalCount = 0;
+        const SOLUTION_API_BASE_URL = "https://solutions-api.recruitcrm.io"
+        const ACCOUNT_ID = 20390;
 
         // To add overlay on the background image on scroll
         let headerBg = document.getElementById("bg");
@@ -1243,13 +1245,13 @@
         // Call the combined function to fetch jobs and create job cards
         startLoading();
         makeApiCall(
-            "https://solutions-test.recruitcrm.io/jobs/20390?limit=10&keys=custom_field[4],custom_field[5]"
+            `${SOLUTION_API_BASE_URL}/jobs/${ACCOUNT_ID}?limit=10&keys=custom_field[4],custom_field[5]`
         )
             .then((data) => {
                 initialData = data;
                 createJobCards(initialData);
                 makeApiCall(
-                    "https://solutions-test.recruitcrm.io/jobs/additional-info/20390?keys=custom_field[4],custom_field[5],city,country"
+                    `${SOLUTION_API_BASE_URL}/jobs/additional-info/${ACCOUNT_ID}?keys=custom_field[4],custom_field[5],city,country`
                 )
                     .then((data) => {
                         updateAdditionalInfo(data);
@@ -1319,7 +1321,7 @@
             searchParams = generateSearchParams(filterObject);
 
             makeApiCall(
-                "https://solutions-test.recruitcrm.io/jobs/search/20390" +
+                SOLUTION_API_BASE_URL + "/jobs/search/" + ACCOUNT_ID +
                 searchParams +
                 "&keys=custom_field[4],custom_field[5]"
             )
@@ -1397,6 +1399,7 @@
 
         function showNoJobsMessage() {
             displayedJobCount = 0;
+            totalCount = 0;
             updateNumbers();
 
             // Create the div for the "No jobs found" message

@@ -468,9 +468,7 @@
         }
 
         .result {
-            background-image: linear-gradient(to right,
-                    rgb(242, 112, 156),
-                    rgb(255, 148, 114));
+            background-image: linear-gradient(69deg, #D80606 0%, #FD6262 100%);
         }
 
         .strong {
@@ -510,7 +508,7 @@
             border-radius: 50%;
             font-weight: bold;
             color: #fff;
-            background: linear-gradient(to bottom right, #ff5f6d, #ffc371);
+            background: linear-gradient(69deg, #D80606 0%, #FD6262 100%);
             margin-right: 1rem;
             margin-top: 0.4rem;
         }
@@ -1079,7 +1077,6 @@
             }
 
             .form {
-                /* max-width: auto; */
                 width: 100%;
             }
 
@@ -1217,7 +1214,7 @@
                                     name="terms" id='candidate-terms' required />
                                 <label for="candidate-terms" class="form-check-label">Ich akzeptiere die <a href="#"
                                         class="custom-link modal-btn" id="terms">Kandidatenbedingungen</a> und erkläre,
-                                    dass<br> ich die <a
+                                    dass<br> ich die <a target="_blank"
                                         href="https://www.paulnewstone.com/datenschutz">Datenschutzerklärung</a> gelesen
                                     und verstanden habe</label>
                             </div>
@@ -1247,13 +1244,13 @@
                             persönlichen Service,
                             welchen wir jedem Bewerber und Unternehmen bieten,
                             sowie dem Engagement unserer Mitarbeiter,
-                            welche die <a href="https://www.paulnewstone.com/unsere-werte">Kernwerte</a> jeden Tag
+                            welche die <a target="_blank" href="https://www.paulnewstone.com/unsere-werte">Kernwerte</a> jeden Tag
                             verkörpern,
                             führen zu hervorragenden Ergebnissen.</p>
                         <div class="separator">Job teilen</div>
                         <ul class="social-icons">
                             <li>
-                                <a class="facebook" href="#">
+                                <a target="_blank" class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://recruitcrm.io/apply/16726975666360032408nyo%3F1690892981%26source%3Dfacebook">
                                     <span></span>
                                     <span></span>
                                     <span></span>
@@ -1262,7 +1259,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="twitter" href="#">
+                                <a target="_blank" class="twitter" href="https://twitter.com/share?url=https://recruitcrm.io/apply/16726975666360032408nyo%3F1690892981%26source%3Dtwitter">
                                     <span></span>
                                     <span></span>
                                     <span></span>
@@ -1270,17 +1267,8 @@
                                     <i class="fab fa-twitter" aria-hidden="true"></i>
                                 </a>
                             </li>
-                            <!-- <li>
-                                <a class="instagram" href="#">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <i class="fab fa-instagram" aria-hidden="true"></i>
-                                </a>
-                            </li> -->
                             <li>
-                                <a class="linkedin" href="#">
+                                <a target="_blank" class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Senior Recruiter [w/m/d]&summary=sample description&url=https://recruitcrm.io/apply/16726975666360032408nyo%3F1690892981%26source%3Dlinkedin">
                                     <span></span>
                                     <span></span>
                                     <span></span>
@@ -1328,7 +1316,7 @@
                         <strong class="card-text strong">Ihre Bewerbung wird stets vertraulich behandelt.</strong>
                         <p class="card-text">Sie haben Fragen oder Anregungen? Zögern Sie nicht uns zu kontaktieren und
                             schreiben Sie uns: <br>
-                            <a class="contact-email"
+                            <a class="contact-email" target="_blank"
                                 href="mailto:candidate-service@paulnewstone.com">candidate-service@paulnewstone.com</a>
                         </p>
                     </div>
@@ -1353,11 +1341,10 @@
         var jobId = "";
         // Data Module
         const DataModule = (() => {
-            // const urlParams = new URLSearchParams(window.location.search);
             let job = {};
             let accountId = 20390;
             const allowDuplicates = "False";
-            let SOLUTION_API_BASE_URL = "https://solutions-test.recruitcrm.io";
+            let SOLUTION_API_BASE_URL = "https://solutions-api.recruitcrm.io";
 
             const getJobById = async () => {
                 try {
@@ -1375,13 +1362,13 @@
 
             const applyToJob = async (candidateData) => {
                 let applyUrl = SOLUTION_API_BASE_URL + "/candidates/apply-job/";
-                applyUrl += 1;
+                applyUrl += accountId;
                 applyUrl += "?job_slug=" + job.job_slug;
                 applyUrl += "&allow_duplicates=" + allowDuplicates;
                 applyUrl += "&updated_by=" + job.owner;
                 const objTemp = {
-                    first_name: candidateData.firstname,
-                    last_name: candidateData.lastname,
+                    first_name: candidateData.firstName,
+                    last_name: candidateData.lastName,
                     email: candidateData.email,
                     contact_number: candidateData.phone,
                     city: candidateData.city,
@@ -1531,7 +1518,7 @@
                 button.setAttribute("title", "Zurück");
                 button.setAttribute("id", "back-button-top");
                 button.onclick = () => {
-                    window.location = "/index.html";
+                    window.open("https://www.paulnewstone.com/sbojenotswenluap", '_blank');
                 };
 
                 // Set the button text
@@ -1590,7 +1577,7 @@
                 button.setAttribute("title", "Back");
                 button.setAttribute("id", "back-button-top");
                 button.onclick = () => {
-                    window.location = "/index.html";
+                    window.open("https://www.paulnewstone.com/sbojenotswenluap", '_blank');
                 };
 
                 // Set the button text
@@ -1609,7 +1596,7 @@
                 if (e.target.id == "terms") {
                     modalHeader.textContent = "Kandidatenbedingungen";
                     modalBody.innerHTML = `<p>
-            Für die Be- und Verarbeitung Ihrer Bewerbungsdaten nutzen wir das CRM-System «recruit crm» des Anbieters Workforce Cloud Tech, Inc., 28 Mohawk Avenue, Norwood, NJ 07648, USA. Die für das CRM-System geltenden Datenschutzrichtlinien können unter folgendem Link eingesehen werden: <a href="https://recruitcrm.io/legal/privacy">https://recruitcrm.io/legal/privacy</a>. Die entsprechende GDPR-Verpflichtung finden Sie unter folgendem Link: <a href="https://recruitcrm.io/legal/gdpr">https://recruitcrm.io/legal/gdpr</a>. Ihre in «recruit crm» hochgeladenen Daten werden in der AWS Cloud (Anbieter: Amazon Web Services, Inc., USA) in und ausserhalb der EU gespeichert, d.h. ggf. auch in Drittstaaten ohne einem der EU angemessenen Datenschutzniveau. Sie können uns jederzeit bitten, Ihre Daten zu löschen. Nach Beendigung Ihrer Geschäftsbeziehung mit uns bewahren wir Ihre Personendaten mit Ihrer Einwilligung weiterhin auf, um Ihnen Angebote für Dienstleistungen zu unterbreiten. Ohne Ihre Einwilligung werden Ihre Bewerbungsdaten nach zwei Jahren nach Beendigung Ihrer Geschäftsbeziehung mit uns – gelöscht. Es gelten ausserdem unsere Datenschutzbedingungen: <a href="paulnewstone.com/datenschutz">paulnewstone.com/datenschutz</a> 
+            Für die Be- und Verarbeitung Ihrer Bewerbungsdaten nutzen wir das CRM-System «recruit crm» des Anbieters Workforce Cloud Tech, Inc., 28 Mohawk Avenue, Norwood, NJ 07648, USA. Die für das CRM-System geltenden Datenschutzrichtlinien können unter folgendem Link eingesehen werden: <a target="_blank" href="https://recruitcrm.io/legal/privacy">https://recruitcrm.io/legal/privacy</a>. Die entsprechende GDPR-Verpflichtung finden Sie unter folgendem Link: <a target="_blank" href="https://recruitcrm.io/legal/gdpr">https://recruitcrm.io/legal/gdpr</a>. Ihre in «recruit crm» hochgeladenen Daten werden in der AWS Cloud (Anbieter: Amazon Web Services, Inc., USA) in und ausserhalb der EU gespeichert, d.h. ggf. auch in Drittstaaten ohne einem der EU angemessenen Datenschutzniveau. Sie können uns jederzeit bitten, Ihre Daten zu löschen. Nach Beendigung Ihrer Geschäftsbeziehung mit uns bewahren wir Ihre Personendaten mit Ihrer Einwilligung weiterhin auf, um Ihnen Angebote für Dienstleistungen zu unterbreiten. Ohne Ihre Einwilligung werden Ihre Bewerbungsdaten nach zwei Jahren nach Beendigung Ihrer Geschäftsbeziehung mit uns – gelöscht. Es gelten ausserdem unsere Datenschutzbedingungen: <a target="_blank" href="paulnewstone.com/datenschutz">paulnewstone.com/datenschutz</a> 
 </p>`;
                 }
                 modal.style.display = "block";
@@ -1735,33 +1722,15 @@
                     .querySelectorAll(".tag")
                     .forEach((tag) => tag.classList.add("bottom-up"));
                 descriptionContainer.classList.add("bottom-up");
-                // formInputs.forEach((input) => {
-                //     input.addEventListener("input", removeErrorMessage);
-                // });
             };
 
-            // const removeErrorMessage = (e) => {
-            //     if (e.target.id == "candidate-terms") {
-            //         if (e.target.checked == true) {
-            //             e.target.nextElementSibling.nextElementSibling.className =
-            //                 "small-text terms-warning hidden";
-            //         } else {
-            //             e.target.nextElementSibling.nextElementSibling.className =
-            //                 "small-text terms-warning";
-            //         }
-            //         return;
-            //     }
-            //     e.target.nextElementSibling.nextElementSibling.className =
-            //         "small-text hidden";
-            //     e.target.classList.remove("danger");
-            // };
-
             const handleApplyBtnTopClick = () => {
-                applyFormContainer.scrollIntoView({ behavior: "smooth" });
+                const targetPosition = applyFormContainer.scrollTop - 50;
+                applyFormContainer.scrollIntoView({ top: targetPosition, behavior: "smooth" });
             };
 
             const handleBackBtnTopClick = () => {
-                window.location = "/index.html";
+                window.open("https://www.paulnewstone.com/sbojenotswenluap", '_blank');
             };
 
             const isEmailValid = () => {
@@ -1789,33 +1758,25 @@
 
             const validateResume = () => {
                 const file = document.getElementById("file");
-                // const fileNameHolder = document.querySelector(".file-name");
                 const fileInput = document.querySelector(".resume-file-input");
                 const errorLabel = document.querySelector("#file-name-span");
                 const uploadButton = document.querySelector("#uploadButton");
 
                 if (file.value === "") {
-                    errorLabel.textContent = "Resume field is required";
+                    errorLabel.textContent = "Das Feld Lebenslauf ist erforderlich";
                     errorLabel.className = "danger";
-                    // uploadButton.classList.add("danger-border");
-                    // fileInput.classList.add("danger");
-                    // fileNameHolder.textContent = "";
                     return false;
                 }
 
                 resume = file.files[0];
                 const fileMb = resume.size / 1024 ** 2;
                 if (fileMb > 8) {
-                    errorLabel.textContent = "Resume size should be less than 8MB";
-                    // errorLabel.className = "small-text";
+                    errorLabel.textContent = "Die Größe des Lebenslaufs sollte weniger als 8 MB betragen.";
                     errorLabel.className = "danger";
-                    // uploadButton.classList.add("danger-border");
-                    // fileNameHolder.textContent = "";
                     return false;
                 } else {
                     errorLabel.textContent = resume.name; // resume.name.length > 30 ? resume.name.slice(0, 15) + '...' + resume.name.slice(-8) : resume.name;
                     errorLabel.classList.remove("danger");
-                    // errorLabel.className = "file-name";
                 }
 
                 return true;
@@ -1845,8 +1806,6 @@
             }
 
             const handleSubmitBtnClick = async (e) => {
-                // e.preventDefault();
-
                 const jobApplicationForm = new FormData(applyForm);
                 const objCandidate = Object.fromEntries(jobApplicationForm);
                 const formInputs = Array.from(
@@ -1870,24 +1829,18 @@
                 }
 
                 //handle form submit
-                // uiModule.thankYou();
-                // return;
                 uiModule.startSubmitLoading();
                 document.body.style.overflow = "hidden";
-                // const submitResponse = await dataModule.applyToJob(objCandidate);
+                const submitResponse = await dataModule.applyToJob(objCandidate);
                 document.body.style.overflow = "suto";
-                setTimeout(() => {
-                    uiModule.stopSubmitLoading();
+                uiModule.stopSubmitLoading();
+                if (submitResponse && submitResponse.status == 201) {
                     uiModule.thankYou();
-                }, 3000);
-                // uiModule.stopSubmitLoading();
-                // if (submitResponse && submitResponse.status == 201) {
-                //     uiModule.thankYou();
-                // } else if (submitResponse && submitResponse.status == 429){
-                //     showToast("Wir bearbeiten zu viele Anfragen. Bitte versuchen Sie es nach einiger Zeit erneut.");
-                // } else {
-                //     showToast("Etwas ist schief gelaufen. Bitte versuchen Sie es später noch einmal.");
-                // }
+                } else if (submitResponse && submitResponse.status == 429){
+                    showToast("Wir bearbeiten zu viele Anfragen. Bitte versuchen Sie es nach einiger Zeit erneut.");
+                } else {
+                    showToast("Etwas ist schief gelaufen. Bitte versuchen Sie es später noch einmal.");
+                }
             };
 
             return {
