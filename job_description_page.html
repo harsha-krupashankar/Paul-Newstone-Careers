@@ -1725,8 +1725,7 @@
             };
 
             const handleApplyBtnTopClick = () => {
-                const targetPosition = applyFormContainer.scrollTop - 50;
-                applyFormContainer.scrollIntoView({ top: targetPosition, behavior: "smooth" });
+                descriptionContainer.lastChild.scrollIntoView({ behavior: "smooth" });
             };
 
             const handleBackBtnTopClick = () => {
