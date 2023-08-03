@@ -454,6 +454,23 @@
             font-size: 1.4rem !important;
         }
 
+        .dropdown-values::-webkit-scrollbar {
+            width: 5px;
+            background-color: var(--color-light-1);
+        }
+
+        .dropdown-values::-webkit-scrollbar-thumb {
+            background-color: var(--color-grey-light-1);
+            /* Color of the thumb (scrollbar handle) */
+            border-radius: 3px;
+            /* Border radius of the thumb */
+        }
+
+        .dropdown-values::-webkit-scrollbar-thumb:hover {
+            background-color: var(--color-grey-dark-2);
+            /* Color of the thumb on hover */
+        }
+
         .dropdown-values li {
             margin: 0.6rem 0 !important;
         }
@@ -673,10 +690,15 @@
 
         button[aria-expanded="true"]~ul {
             opacity: 1 !important;
-            max-height: 30rem !important;
+            max-height: 20rem !important;
             overflow-y: auto;
             display: block !important;
         }
+
+        .top-dropdowns button[aria-expanded="true"]~ul {
+            max-height: 10rem !important;
+        }
+
 
 
         .pill {
@@ -833,7 +855,7 @@
             </div>
             <div class="red-line"></div>
             <div class="container filter-box" id="bannerFilterBox">
-                <div class="row align-items-center justify-content-center filter-container">
+                <div class="row align-items-center justify-content-center filter-container top-dropdowns">
                     <div class="col-md-3 col-sm-3 filter col-12">
                         <div class="input-group">
                             <input type="text" class="form-control search-box" placeholder="Job-Titel"
@@ -842,13 +864,13 @@
                     </div>
                     <div class="col-md-3 col-sm-3 filter col-6">
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle dropdowns btn-block bg--white"
+                            <button class="btn btn-secondary dropdown-toggle dropdowns btn-block bg--white top-dropdowns"
                                 type="button" id="cityDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 Ort wählen
                             </button>
                             <ul class="dropdown-menu dropdown-values" aria-labelledby="cityDropdown"
                                 id="cityDropdownValues">
-
+                                
                             </ul>
                         </div>
                     </div>
@@ -882,7 +904,7 @@
                 </div>
                 <div class="department-dropdown">
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle dropdowns btn-block" type="button"
+                        <button class="btn btn-secondary dropdown-toggle dropdowns btn-block " type="button"
                             id="departmentDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             Berufsfeld wählen
                         </button>
@@ -1298,6 +1320,7 @@
         function filter(addSearchKeyword = true) {
             hideNoJobsMessage();
             showLoader();
+            updatePills();
 
             var searchValue = document.querySelector(".search-box").value;
             if (searchValue != "" && filterObject['search_keyword'] != searchValue && addSearchKeyword) {
@@ -1478,6 +1501,7 @@
         }
 
         function resetFilters() {
+            updatePills();
             var resetButton = document.querySelector(".reset-filter-btn");
             if (resetButton) {
                 resetButton.style.display = "none";
@@ -1578,7 +1602,7 @@
                 filterObject[key] = value;
             }
 
-            updatePills(); // Update the pills after adding a value
+            // updatePills(); // Update the pills after adding a value
         }
 
         function removeFromFilterObject(key, value) {
@@ -1595,7 +1619,7 @@
                     delete filterObject[key];
                 }
 
-                updatePills(); // Update the pills after removing a value
+                // updatePills(); // Update the pills after removing a value
             }
         }
 
@@ -1655,7 +1679,7 @@
         }
 
         // Initial update of pills when the page loads
-        updatePills();
+        // updatePills();
 
     </script>
 
