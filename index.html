@@ -724,6 +724,26 @@
             cursor: pointer;
         }
 
+        .reset-filter-btn {
+            background-color: transparent;
+            color: var(--color-red-1);
+            font-size: 1.2rem;
+            padding: .5rem 0;
+            border: none;
+            border-bottom: 1px solid var(--color-red-1);
+            margin-left: .5rem;
+            transition: all .3s ease;
+        }
+
+        .reset-filter-btn:hover {
+            color: var(--color-grey-dark-2);
+            border-bottom: 1px solid var(--color-grey-dark-2);
+        }
+
+        .reset-filter-btn:active {
+            transform: translateY(10px);
+        }
+
         /* Media Queries */
 
         @media (max-width: 1300px) {
@@ -1318,6 +1338,10 @@
         searchParams = "";
 
         function filter(addSearchKeyword = true) {
+            if(Object.keys(filterObject).length < 1) {
+                return;
+            }
+
             hideNoJobsMessage();
             showLoader();
             updatePills();
@@ -1380,12 +1404,11 @@
             )
                 .then((data) => {
                     clearJobCards();
+                    addResetFilterButton();
                     if (data.data.length > 0) {
-                        // showLoader();
                         createJobCards(data);
                         totalCount = data.total_count;
                         updateNumbers();
-                        addResetFilterButton();
                         animateJobCards();
                     } else {
                         showNoJobsMessage();
@@ -1484,23 +1507,23 @@
             // Create the reset filter button element
             var resetButton = document.createElement("button");
             resetButton.classList.add(
-                "custom-btn",
-                "btn--outline-black",
+                
                 "reset-filter-btn"
             );
-            resetButton.textContent = "Reset Filters";
+            resetButton.textContent = "Clear Filters";
 
             // Add event listener to the reset button
             resetButton.addEventListener("click", resetFilters);
 
             // Insert the reset button after the jobs-count div
-            var jobsCountDiv = document.querySelector(".jobs-count");
+            var jobsCountDiv = document.querySelector("#pillsContainer");
             jobsCountDiv.append(resetButton);
 
             resetButton.classList.add("bounce-animation");
         }
 
         function resetFilters() {
+            filterObject = {};
             updatePills();
             var resetButton = document.querySelector(".reset-filter-btn");
             if (resetButton) {
