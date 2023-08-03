@@ -8,15 +8,819 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="index_styles.css">
+    <style>
+        /* Customize the scrollbar for webkit-based browsers */
+        ::-webkit-scrollbar {
+            width: 0;
+            /* Width of the scrollbar */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: transparent;
+            /* Color of the thumb (scrollbar handle) */
+            border-radius: 3px;
+            /* Border radius of the thumb */
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: transparent;
+            /* Color of the thumb on hover */
+        }
+
+        /* Variables */
+        :root {
+            --color-light-1: #ffffff;
+            --color-light-2: #f0f0f0;
+            --color-light-3: #f8f9fa;
+
+            --color-red-1: #d80606;
+
+            --color-grey-light-1: #868e96;
+            --color-grey-light-2: #f3f2ee4d;
+
+            --color-grey-dark-1: #343a3f;
+            --color-grey-dark-2: #212529;
+            --color-grey-dark-3: #495057;
+
+            --color-office-support: #d48481;
+            --color-finance-accounting: #9bd3d8;
+            --color-human-resource: #f9dc9d;
+            --color-sales-marketing: #809fa2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Reset Styles */
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit;
+        }
+
+        /* Global Styles */
+
+        html {
+            box-sizing: border-box;
+            font-size: 62.5%;
+            font-family: "Open Sans", sans-serif;
+            scroll-behavior: smooth;
+
+            @media only screen and (max-width: 75em) {
+                font-size: 50%;
+            }
+        }
+
+        body {
+            margin: 0;
+        }
+
+        h3 {
+            font-size: 3rem !important;
+            text-transform: uppercase;
+            font-weight: 500 !important;
+        }
+
+        h4 {
+            font-size: 2.6rem !important;
+            font-weight: 500 !important;
+        }
+
+        p {
+            font-size: 1.4rem !important;
+            color: var(--color-grey-light-1) !important;
+        }
+
+        main {
+            background-color: var(--color-light-2);
+        }
+
+        /* Icon Style */
+
+        i {
+            color: var(--color-grey-dark-3);
+            font-size: 2rem;
+        }
+
+        /* Department Border Styles */
+
+        .card-office-support {
+            border-left: 1rem solid var(--color-office-support);
+        }
+
+        .card-finance-accounting {
+            border-left: 1rem solid var(--color-finance-accounting);
+        }
+
+        .card-human-resource {
+            border-left: 1rem solid var(--color-human-resource);
+        }
+
+        .card-sales-marketing {
+            border-left: 1rem solid var(--color-sales-marketing);
+        }
+
+        /* Keyframes */
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+
+            20% {
+                transform: translateY(-20px);
+            }
+
+            40% {
+                transform: translateY(0);
+            }
+
+            60% {
+                transform: translateY(-10px);
+            }
+
+            80% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomInOut {
+            0% {
+                width: 0;
+            }
+
+            100% {
+                width: 25rem;
+            }
+        }
+
+        /* Button Styles */
+
+        .custom-btn {
+            width: 20rem;
+            color: var(--color-light-1);
+            border-radius: 2px;
+            padding: 1rem 2.5rem;
+            font-size: 1.4rem;
+            font-weight: 400;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+            outline: none;
+        }
+
+        .btn--red {
+            background: var(--color-red-1);
+            border: 1px solid var(--color-red-1);
+            z-index: 1;
+            color: var(--color-light-1);
+            overflow: hidden;
+        }
+
+        .btn--red:after {
+            position: absolute;
+            content: "";
+            width: 0;
+            height: 100%;
+            top: 0;
+            right: 0;
+            z-index: -2;
+            background-color: var(--color-light-1);
+            transition: all 0.5s ease;
+        }
+
+        .btn--red:hover {
+            color: var(--color-grey-dark-1);
+            border: 1px solid var(--color-grey-dark-1);
+        }
+
+        .btn--red:hover:after {
+            left: 0;
+            width: 100%;
+        }
+
+        .btn--red:active {
+            transform: translateY(10px);
+        }
+
+        .btn--outline-black {
+            background: transparent;
+            border: 1.2px solid var(--color-grey-dark-1);
+            z-index: 1;
+            color: var(--color-grey-dark-1);
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .btn--outline-black:after {
+            position: absolute;
+            content: "";
+            width: 0;
+            height: 100%;
+            top: 0;
+            right: 0;
+            z-index: -1;
+            background-color: var(--color-grey-dark-1);
+            transition: all 0.5s ease;
+        }
+
+        .btn--outline-black:hover {
+            color: var(--color-light-1) !important;
+            text-decoration: none;
+        }
+
+        .btn--outline-black:hover:after {
+            left: 0;
+            width: 100%;
+        }
+
+        .btn--outline-black:active {
+            transform: translateY(10px);
+        }
+
+        .btn--black {
+            background: var(--color-grey-dark-1);
+            border: 1px solid var(--color-grey-dark-2);
+            z-index: 1;
+            color: var(--color-light-1);
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .btn--black:after {
+            position: absolute;
+            content: "";
+            width: 0;
+            height: 100%;
+            top: 0;
+            right: 0;
+            z-index: -1;
+            background-color: var(--color-light-1);
+            transition: all 0.5s ease;
+        }
+
+        .btn--black:hover {
+            color: var(--color-grey-dark-1);
+        }
+
+        .btn--black:hover:after {
+            left: 0;
+            width: 100%;
+        }
+
+        .btn--black:active {
+            transform: translateY(10px);
+        }
+
+        /* Header */
+
+        .header {
+            position: relative;
+            width: 100%;
+            height: 60rem;
+            overflow: hidden;
+            background: var(--color-light-3);
+        }
+
+        .header #bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url(https://static.wixstatic.com/media/34a2e3_99e22a1ecd9240c38ce8cbb6b3d54a0a~mv2.jpg);
+            background-size: cover;
+            filter: brightness(0.6) contrast(1.1);
+        }
+
+        .overlay {
+            height: 60rem;
+            position: relative;
+            background: rgb(240, 240, 240);
+            background: linear-gradient(0deg,
+                    rgba(240, 240, 240, 1) 0%,
+                    rgba(240, 240, 240, 0.8001794467787114) 8%,
+                    rgba(240, 240, 240, 0.5984987745098039) 15%,
+                    rgba(240, 240, 240, 0.2987788865546218) 30%,
+                    rgba(240, 240, 240, 0.1503195028011205) 50%,
+                    rgba(240, 240, 240, 0) 100%);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 0 10rem 0;
+        }
+
+        /* Banner text Styles */
+
+        .red-line {
+            border: none;
+            height: 3px !important;
+            background-color: var(--color-red-1);
+            width: 25rem;
+            margin: 0 auto 3rem auto;
+        }
+
+        .banner-text h1 {
+            text-align: center;
+            color: var(--color-light-1);
+            font-size: 5rem !important;
+            text-transform: uppercase;
+            margin: 3rem 0 2rem 0;
+        }
+
+        /* Banner Filter Box Styles */
+
+        .filter-box {
+            background-color: var(--color-grey-light-2);
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+            font-size: 1.6rem;
+        }
+
+        .search-box {
+            height: 4rem !important;
+            border: 1px solid var(--color-grey-light-1) !important;
+            border-radius: 2px !important;
+            font-size: 1.4rem !important;
+        }
+
+        .overlay .col-md-3,
+        .overlay .col-md-2 {
+            padding: 0 0.7rem !important;
+        }
+
+        .search-box::placeholder {
+            font-size: 1.4rem !important;
+            color: var(--color-grey-dark-1) !important;
+            text-align: center;
+        }
+
+        .search-box:focus {
+            box-shadow: 0 0 0 0.2rem rgb(0 8 16 / 25%) !important;
+        }
+
+        /* Main Filter Box Styles */
+
+        .left-panel {
+            flex: 25%;
+        }
+
+        .department-dropdown,
+        .industry-dropdown,
+        .clear-all {
+            margin: 0 2rem;
+        }
+
+        .jobs-count {
+            margin: 2.5rem 0 2rem 0;
+        }
+
+        .jobs-count>h3 {
+            font-size: 2rem !important;
+        }
+
+        #loading {
+            position: absolute;
+            top: 0;
+            background-color: #ffffff;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            transition: opacity 0.3s ease-out;
+        }
+
+        .loading-icon {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--color-red-1);
+            border-radius: 50%;
+            border-top: 0.5rem solid var(--color-grey-dark-3);
+            animation: spin 1s linear infinite;
+            margin: 50vh auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .dropdowns {
+            height: 4rem;
+            background-color: transparent !important;
+            color: var(--color-grey-dark-1) !important;
+            font-size: 1.4rem !important;
+            border: 1px solid var(--color-grey-light-1) !important;
+        }
+
+        .dropdown-values {
+            width: 100% !important;
+            border: 1px solid var(--color-grey-dark-1) !important;
+            font-size: 1.4rem !important;
+        }
+
+        .dropdown-values li {
+            margin: 0.6rem 0 !important;
+        }
+
+        .form-check-label {
+            margin-left: 1rem !important;
+        }
+
+        .dropdown-option {
+            margin-left: 3rem;
+            display: flex;
+        }
+
+        /* Job Listing Styles */
+
+        .jobs {
+            gap: 5rem;
+        }
+
+        .job-listings {
+            flex: 75%;
+        }
+
+        .section-heading {
+            margin: 2rem 2rem 3rem 2rem;
+        }
+
+        .job-card {
+            background-color: var(--color-light-1);
+            margin: 1.5rem 0;
+            display: flex;
+            transform: scale(1) translateY(100px);
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .job-card:hover {
+            transform: scale(1.03) !important;
+        }
+
+        .job-card.slide-up {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .job-name {
+            padding: 2rem 2rem 1rem 2rem;
+        }
+
+        .job-name-text {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .job-info {
+            padding: 0.5rem 2rem 2rem 2rem;
+            display: flex;
+            gap: 1.6rem;
+        }
+
+        .job-info div {
+            display: flex;
+            gap: 0.7rem;
+        }
+
+        .info-div {
+            flex: 80%;
+        }
+
+        .btn-div {
+            flex: 20%;
+        }
+
+        .apply-btn {
+            margin: 3rem 2rem;
+        }
+
+        .view-more-btn {
+            width: 15rem;
+        }
+
+        .view-more {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 1rem 3rem 1rem;
+        }
+
+        .jobs-count {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .bounce-animation {
+            animation: bounce 1s ease-in-out 1s;
+        }
+
+        .job-card-anchor {
+            cursor: pointer;
+            text-decoration: none !important;
+            color: var(--color-grey-dark-1) !important;
+        }
+
+        /* No Jobs found Styles */
+
+        .no-jobs-message {
+            margin: 5rem 4rem;
+            text-align: center;
+        }
+
+        .no-jobs-image {
+            width: 20rem;
+            margin-bottom: 2rem;
+        }
+
+        .no-jobs-message p {
+            margin: 1rem 16rem;
+        }
+
+        /* Other Styles */
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 5rem;
+            right: 5rem;
+            z-index: 1;
+        }
+
+        .scroll-to-top button {
+            display: none;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 2px;
+            background-color: transparent !important;
+            transition: all 0.5s ease;
+        }
+
+        .scroll-to-top button:active {
+            transform: translateY(20px);
+        }
+
+        .scroll-to-top button:hover {
+            .ph-arrow-up {
+                color: var(--color-light-1);
+            }
+        }
+
+        .loader {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader .spinner {
+            border: 4px solid var(--color-light-1);
+            border-top: 4px solid var(--color-red-1);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-top: 5rem;
+        }
+
+        .bg--white {
+            background-color: var(--color-light-1) !important;
+        }
+
+        .filter-box,
+        .left-panel,
+        .jobs-count,
+        .banner-text,
+        .red-line {
+            opacity: 0;
+        }
+
+        .animate {
+            animation: slideIn 0.5s ease-in-out;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .red-line-animate {
+            animation: zoomInOut 0.5s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .static {
+            position: static !important;
+            inset: 0 !important;
+            transform: none !important;
+            margin: 0.5rem 0 !important;
+            float: none !important;
+        }
+
+        ul {
+            z-index: 2;
+            transition: max-height 0.5s ease, opacity 0.5s ease !important;
+        }
+
+        button[aria-expanded="false"]~ul {
+            max-height: 0;
+            margin: 0 !important;
+            opacity: 0 !important;
+            display: block !important;
+            overflow: hidden;
+            transition: none !important;
+        }
+
+        button[aria-expanded="false"]~ul li {
+            display: none !important;
+        }
+
+        button[aria-expanded="true"]~ul {
+            opacity: 1 !important;
+            max-height: 30rem !important;
+            overflow-y: auto;
+            display: block !important;
+        }
+
+
+        .pill {
+            display: inline-block;
+            margin: .5rem;
+            padding: .5rem 1rem;
+            background-color: #f3f2ee98;
+            border-radius: 2px;
+            font-size: 1.2rem;
+        }
+
+        .pills-container {
+            padding: .5rem 5rem !important;
+            /* max-height: 0; */
+            /* overflow: hidden; */
+            /* transition: all 1s ease; */
+        }
+
+        .pill button {
+            margin-left: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Media Queries */
+
+        @media (max-width: 1300px) {
+            .scroll-to-top {
+                right: 1vw;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header {
+                height: 55vw !important;
+            }
+
+            .overlay {
+                height: 55vw !important;
+            }
+        }
+
+        @media (max-width: 992px) {
+            h3 {
+                font-size: 2.5rem !important;
+            }
+        }
+
+        @media (max-width: 767px) {
+            html {
+                font-size: 35%;
+            }
+
+            .header {
+                height: 60vw !important;
+            }
+
+            .overlay {
+                height: 60vw !important;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .jobs {
+                flex-direction: column-reverse;
+                gap: 1rem;
+            }
+
+            .filter {
+                margin: 0.7rem 0;
+            }
+
+            .filter-box {
+                padding: 3rem 8rem !important;
+            }
+
+            .left-panel {
+                margin: 2rem 8rem;
+            }
+
+            .clear-all {
+                margin: 0 auto !important;
+                width: 30vw;
+            }
+
+            .header {
+                height: 100vw !important;
+            }
+
+            .overlay {
+                height: 100vw !important;
+            }
+
+            .no-jobs-message p {
+                margin: 1rem 8rem;
+            }
+
+            h3 {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .banner-text h1 {
+                margin: 1.5rem 0 1rem 0 !important;
+                font-size: 4rem !important;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .job-info {
+                flex-direction: column;
+                gap: 0.5rem !important;
+            }
+        }
+
+        @media (max-width: 300px) {
+            .header {
+                height: 120vw !important;
+            }
+
+            .overlay {
+                height: 120vw !important;
+            }
+        }
+
+        @media (max-width: 275px) {
+            .info-div {
+                flex: 50% !important;
+            }
+
+            html {
+                font-size: 30%;
+            }
+        }
+    </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-
 </head>
 
 <body>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
@@ -44,6 +848,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-values" aria-labelledby="cityDropdown"
                                 id="cityDropdownValues">
+
                             </ul>
                         </div>
                     </div>
@@ -59,8 +864,12 @@
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-2 filter col-12">
-                        <button type="button" class="custom-btn btn--red btn-block" onclick="filter()">Jobs finden</button>
+                        <button type="button" class="custom-btn btn--red btn-block" onclick="filter()">Jobs
+                            finden</button>
                     </div>
+                    <div id="pillsContainer" class="pills-container"></div>
+                    <div id="clearAllBtnContainer"></div>
+
                 </div>
             </div>
         </div>
@@ -114,13 +923,742 @@
                     <i class="ph ph-arrow-up"></i>
                 </button>
             </div>
+        </div>
 
     </main>
     <div id="loading">
         <div class="loading-icon"></div>
     </div>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <script src="index_scripts.js"></script>
+    <script>
+        var displayedJobCount = 0;
+        var nextPageUrl = "";
+        var totalCount = 0;
+        var initialData = {};
+        var initialTotalCount = 0;
+        var filterObject = {};
+
+
+        // To add overlay on the background image on scroll
+        let headerBg = document.getElementById("bg");
+        window.addEventListener("scroll", function () {
+            headerBg.style.opacity = 1 - +window.pageYOffset / 550 + "";
+            headerBg.style.top = +window.pageYOffset + "px";
+        });
+
+        // Function to check if an element is in the viewport with an offset
+        function isInViewport(element, offset) {
+            var rect = element.getBoundingClientRect();
+            var windowHeight =
+                window.innerHeight || document.documentElement.clientHeight;
+            var windowWidth = window.innerWidth || document.documentElement.clientWidth;
+
+            // Adjust the top and bottom boundaries with the offset
+            var topBound = 0 - offset;
+            var bottomBound = windowHeight + offset;
+
+            return (
+                rect.top >= topBound &&
+                rect.left >= 0 &&
+                rect.bottom <= bottomBound &&
+                rect.right <= windowWidth
+            );
+        }
+
+        // Function to add the slide-up class to job cards in the viewport with an offset
+        function animateJobCards() {
+            var jobCards = document.getElementsByClassName("job-card");
+            var offset = 150; // Adjust the offset value as needed
+
+            for (var i = 0; i < jobCards.length; i++) {
+                if (isInViewport(jobCards[i], offset)) {
+                    jobCards[i].classList.add("slide-up");
+                }
+            }
+        }
+
+        // Function to check if user has reached the end of the pag
+        function isEndOfPage() {
+            var scrollPosition = window.innerHeight + window.pageYOffset;
+            var bodyHeight = document.body.offsetHeight;
+            var threshold = 100; // Adjust the threshold value as needed
+
+            return scrollPosition >= bodyHeight - threshold;
+        }
+
+        // Add event listener to animate job cards on scroll
+        window.addEventListener("scroll", animateJobCards);
+        window.addEventListener("resize", animateJobCards);
+
+        // Animate job cards on initial page load
+        animateJobCards();
+
+        async function makeApiCall(url) {
+            // showLoader();
+            try {
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error("API request failed");
+                }
+
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error("Error:", error);
+                return null;
+            }
+        }
+
+        function createJobCards(data) {
+            hideLoader();
+            // Get the job-cards container
+            var jobCardsContainer = document.querySelector(".job-cards");
+
+            // Loop through the data array
+            data["data"].forEach(function (job) {
+                // Extract job name without the content inside parentheses
+                var jobName = job.name;
+                var icon = "";
+
+                // Get department value and convert to lowercase
+                var department = job.custom_fields
+                    .find((field) => field.field_id === "4")
+                    .value.toLowerCase();
+
+                // Create a new job card element
+                var jobCard = document.createElement("div");
+                jobCard.classList.add("job-card");
+
+                // Create anchor tag
+                var jobCardAnchor = document.createElement("a");
+                jobCardAnchor.href = `https://www.paulnewstone.com/csedbojenotswenluap?job_id=${job.job_id}`;
+                jobCardAnchor.classList.add("job-card-anchor");
+                jobCardAnchor.target = "_blank";
+                jobCardAnchor.id = job.job_id;
+
+                // Add department-specific class to the job card
+                if (department === "office support") {
+                    jobCard.classList.add("card-office-support");
+                    icon = "ph-archive";
+                } else if (department === "finance & accounting") {
+                    jobCard.classList.add("card-finance-accounting");
+                    icon = "ph-wallet";
+                } else if (department === "human resources") {
+                    jobCard.classList.add("card-human-resource");
+                    icon = "ph-users";
+                } else if (department === "sales & marketing") {
+                    jobCard.classList.add("card-sales-marketing");
+                    icon = "ph-chart-line-up";
+                }
+
+                // Add the job card HTML content
+                jobCard.innerHTML = `
+                    <div class="info-div">
+                        <div class="job-name">
+                            <h4 class="job-name-text">${jobName}</h4>
+                        </div>
+                        <div class="job-info">
+                            <div class="location">
+                                <i class="ph ph-globe-hemisphere-west"></i>
+                                <p>${job.city} - ${job.country}</p>
+                            </div>
+                            <div class="division">
+                                <i class="ph ${icon}"></i>
+                                <p>${job.custom_fields.find(
+                    (field) => field.field_id === "4"
+                ).value
+                    }</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn-div">
+                        <div class="apply-btn text-center">
+                        <a type="button" target="_blank" href="https://www.paulnewstone.com/csedbojenotswenluap?job_id=${job.job_id
+                    }" class="custom-btn btn--outline-black btn-block">Bewerben</a>
+                        </div>
+                    </div>
+                    `;
+
+                // ${job.custom_fields.find(field => field.field_name === 'Industry' && field.value !== 'None') ? `
+                //     <div class="industry">
+                //     <i class="ph ph-factory"></i>
+                //     <p>${job.custom_fields.find(field => field.field_name === 'Industry').value}</p>
+                //     </div>
+                // ` : ''}
+
+                // Append the job card to the job-cards container
+                jobCardAnchor.appendChild(jobCard);
+                jobCardsContainer.appendChild(jobCardAnchor);
+            });
+            displayedJobCount += data.count;
+
+            // Add .view-more div if 'next_page_url' exists
+            if (
+                data.hasOwnProperty("next_page_url") &&
+                data.next_page_url != null &&
+                !document.querySelector(".view-more")
+            ) {
+                var viewMoreContainer = document.createElement("div");
+                viewMoreContainer.classList.add("view-more");
+                viewMoreContainer.innerHTML = `
+                    <button type="button" class="custom-btn btn--outline-black view-more-btn" id="viewMore"  onclick="fetchNextPageJobs()">Weitere Jobs</button>
+                `;
+                jobCardsContainer.appendChild(viewMoreContainer);
+
+                nextPageUrl = data.next_page_url;
+            }
+            updateNumbers();
+        }
+
+        function clearJobCards() {
+            // Get the job-cards container
+            var jobCardsContainer = document.querySelector(".job-cards");
+
+            // Remove all child elements
+            while (jobCardsContainer.firstChild) {
+                jobCardsContainer.removeChild(jobCardsContainer.firstChild);
+            }
+
+            // Reset the displayedJobCount variable
+            displayedJobCount = 0;
+
+            // Reset the nextPageUrl variable
+            nextPageUrl = null;
+        }
+
+        function updateNumbers() {
+            document.querySelector("#displayedJobsCount").innerHTML = displayedJobCount;
+            document.querySelector("#totalJobsCount").innerHTML = totalCount;
+        }
+
+        function updateAdditionalInfo(data) {
+            hideLoader();
+            totalCount = data.total_count;
+            updateNumbers();
+
+            cityArray = [];
+            countryArray = [];
+            divisionArray = [];
+            industryArray = [];
+
+            data["unique_values"].forEach(function (item) {
+                if (JSON.parse(item).hasOwnProperty("city")) {
+                    cityArray.push(JSON.parse(item).city.S);
+                }
+                if (JSON.parse(item).hasOwnProperty("country")) {
+                    countryArray.push(JSON.parse(item).country.S);
+                }
+                if (JSON.parse(item).hasOwnProperty("custom_field[4]")) {
+                    divisionArray.push(JSON.parse(item)["custom_field[4]"]);
+                }
+                if (JSON.parse(item).hasOwnProperty("custom_field[5]")) {
+                    industryArray.push(JSON.parse(item)["custom_field[5]"]);
+                }
+            });
+
+            countryArray.forEach(function (item) {
+                if (item != "None") {
+                    var listElement = document.createElement("li");
+                    inputId = generateIds(item);
+                    listElement.innerHTML = `
+                        <div class="dropdown-option">
+                            <input class="checkbox" type="checkbox" value="${item}" id="${inputId}" onchange="handleCheckboxChange(this, 'country', '${item}')">
+                            <label class="form-check-label" for="${inputId}">
+                                ${item}
+                            </label>
+                        </div>`;
+                    document
+                        .getElementById("countryDropdownValues")
+                        .appendChild(listElement);
+                }
+            });
+
+            cityArray.forEach(function (item) {
+                if (item != "None") {
+                    var listElement = document.createElement("li");
+                    inputId = generateIds(item);
+                    listElement.innerHTML = `
+                        <div class="dropdown-option">
+                            <input class="checkbox" type="checkbox" value="${item}" id="${inputId}" onchange="handleCheckboxChange(this, 'city', '${item}')">
+                            <label class="form-check-label" for="${inputId}">
+                                ${item}
+                            </label>
+                        </div>`;
+                    document.getElementById("cityDropdownValues").appendChild(listElement);
+                }
+            });
+
+            divisionArray.forEach(function (item) {
+                if (item != "None") {
+                    var listElement = document.createElement("li");
+                    inputId = generateIds(item);
+                    listElement.innerHTML = `
+                        <div class="dropdown-option">
+                            <input class="checkbox" type="checkbox" value="${item}" id="${inputId}" onchange="handleCheckboxChange(this, 4, '${item}')">
+                            <label class="form-check-label" for="${inputId}">
+                                ${item}
+                            </label>
+                        </div>
+                        `;
+                    document
+                        .getElementById("departmentDropdownValues")
+                        .appendChild(listElement);
+                }
+            });
+
+            industryArray.forEach(function (item) {
+                if (item != "None") {
+                    var listElement = document.createElement("li");
+                    inputId = generateIds(item);
+                    listElement.innerHTML = `
+                        <div class="dropdown-option">
+                            <input class="checkbox" type="checkbox" value="${item}" id="${inputId}" onchange="handleCheckboxChange(this, 5, '${item}')">
+                            <label class="form-check-label" for="${inputId}">
+                                ${item}
+                            </label>
+                        </div>`;
+                    document
+                        .getElementById("industryDropdownValues")
+                        .appendChild(listElement);
+                }
+            });
+
+            fixDropdown();
+        }
+
+        function fetchNextPageJobs() {
+            var viewMoreDiv = document.querySelector(".view-more");
+            if (viewMoreDiv) {
+                viewMoreDiv.parentNode.removeChild(viewMoreDiv);
+            }
+            makeApiCall(nextPageUrl)
+                .then((data) => {
+                    createJobCards(data);
+                    animateJobCards();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+
+        function generateIds(inputString) {
+            var words = inputString.split(" ");
+            var convertedString = words
+                .map(function (word) {
+                    return word.charAt(0).toUpperCase() + word.slice(1);
+                })
+                .join("");
+            return convertedString;
+        }
+
+        function startLoading() {
+            const loading = document.getElementById('loading');
+            document.body.style.overflow = 'hidden';
+            loading.style.opacity = '1';
+            loading.style.display = 'block';
+        }
+
+        function stopLoading() {
+            document.body.style.overflow = 'auto';
+            const loading = document.getElementById('loading');
+            loading.style.opacity = '0';
+            setTimeout(function () {
+                loading.style.display = 'none';
+            }, 300);
+        }
+
+        // Call the combined function to fetch jobs and create job cards
+        startLoading();
+        makeApiCall(
+            "http://127.0.0.1:80/jobs/20390?limit=10&keys=custom_field[4],custom_field[5]"
+        )
+            .then((data) => {
+                initialData = data;
+                createJobCards(initialData);
+                makeApiCall(
+                    "http://127.0.0.1:80/jobs/additional-info/20390?keys=custom_field[4],custom_field[5],city,country"
+                )
+                    .then((data) => {
+                        updateAdditionalInfo(data);
+                        initialTotalCount = data.total_count;
+                        stopLoading();
+                        animateElements();
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+        searchParams = "";
+
+        function filter(addSearchKeyword = true) {
+            hideNoJobsMessage();
+            showLoader();
+
+            var searchValue = document.querySelector(".search-box").value;
+            if (searchValue != "" && filterObject['search_keyword'] != searchValue && addSearchKeyword) {
+                // filterObject["search_keyword"] = searchValue;
+                addToFilterObject('search_keyword', searchValue);
+            } else {
+                document.querySelector(".search-box").value = "";
+            }
+
+            // var checkboxes = document.querySelectorAll(
+            //     '#departmentDropdownValues input[type="checkbox"]:checked'
+            // );
+            // var departmentsSelected = Array.from(checkboxes).map(function (checkbox) {
+            //     return checkbox.value;
+            // });
+            // if (departmentsSelected.length > 0) {
+            //     filterObject["4"] = departmentsSelected.toString();
+            // }
+
+            // var checkboxes = document.querySelectorAll(
+            //     '#industryDropdownValues input[type="checkbox"]:checked'
+            // );
+            // var industriesSelected = Array.from(checkboxes).map(function (checkbox) {
+            //     return checkbox.value;
+            // });
+            // if (industriesSelected.length > 0) {
+            //     filterObject["5"] = industriesSelected.toString();
+            // }
+
+            // var checkboxes = document.querySelectorAll(
+            //     '#cityDropdownValues input[type="checkbox"]:checked'
+            // );
+            // var citiesSelected = Array.from(checkboxes).map(function (checkbox) {
+            //     return checkbox.value;
+            // });
+            // if (citiesSelected.length > 0) {
+            //     filterObject["city"] = citiesSelected.toString();
+            // }
+
+            // var checkboxes = document.querySelectorAll(
+            //     '#countryDropdownValues input[type="checkbox"]:checked'
+            // );
+            // var countriesSelected = Array.from(checkboxes).map(function (checkbox) {
+            //     return checkbox.value;
+            // });
+            // if (countriesSelected.length > 0) {
+            //     filterObject["country"] = countriesSelected.toString();
+            // }
+            // debugger
+
+            searchParams = generateSearchParams(filterObject);
+
+            makeApiCall(
+                "http://127.0.0.1:80/jobs/search/20390" +
+                searchParams +
+                "&keys=custom_field[4],custom_field[5]"
+            )
+                .then((data) => {
+                    clearJobCards();
+                    if (data.data.length > 0) {
+                        // showLoader();
+                        createJobCards(data);
+                        totalCount = data.total_count;
+                        updateNumbers();
+                        addResetFilterButton();
+                        animateJobCards();
+                    } else {
+                        showNoJobsMessage();
+                    }
+                    hideLoader();
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+
+            scrollToSection();
+        }
+
+        function generateSearchParams(filterObject) {
+            var param = "?";
+            var customFields = "";
+            var customFieldPram = "";
+            for (key in filterObject) {
+                if (!isNaN(key)) {
+                    customFields += `{"field_id": ${Number(
+                        key
+                    )},"filter_type": "equals","value": "${filterObject[key]}"},`;
+                } else {
+                    param += key + "=" + filterObject[key] + "&";
+                }
+            }
+            if (customFields != "") {
+                customFieldPram =
+                    `custom_field=[` +
+                    encodeURIComponent(
+                        customFields.substring(0, customFields.length - 1)
+                    ) +
+                    `]`;
+            }
+            return param + customFieldPram;
+        }
+
+        function showLoader() {
+            // Create a loader div element
+            var loaderDiv = document.createElement("div");
+            loaderDiv.classList.add("loader");
+
+            // Add the loader HTML content
+            loaderDiv.innerHTML = `
+                <div class="spinner"></div>
+            `;
+
+            // Get the job-cards container
+            var jobCardsContainer = document.querySelector(".job-cards");
+
+            // Clear the job-cards container
+            jobCardsContainer.innerHTML = "";
+
+            // Append the loader div to the job-cards container
+            jobCardsContainer.appendChild(loaderDiv);
+        }
+
+        function hideLoader() {
+            // Remove the loader div from the document body
+            var loaderDiv = document.querySelector(".loader");
+            if (loaderDiv) {
+                loaderDiv.remove();
+            }
+        }
+
+        function showNoJobsMessage() {
+            displayedJobCount = 0;
+            totalCount = 0;
+            updateNumbers();
+
+            // Create the div for the "No jobs found" message
+            var noJobsDiv = document.createElement("div");
+            noJobsDiv.classList.add("no-jobs-message");
+            noJobsDiv.innerHTML =
+                '<img src="https://static.wixstatic.com/shapes/34a2e3_fe08eaf49c1844b09ca1387b2d0192c6.svg" class="no-jobs-image" alt="No jobs icon"><h3>KEINE JOBS GEFUNDEN</h3><p>Leider gibt es im Moment keine Stellenangebote, die Ihren Kriterien entsprechen.';
+
+            // Append the div to the job-cards container
+            var jobCardsContainer = document.querySelector(".job-cards");
+            jobCardsContainer.appendChild(noJobsDiv);
+        }
+
+        function hideNoJobsMessage() {
+            // Remove the "No jobs found" message div
+            var noJobsDiv = document.querySelector(".no-jobs-message");
+            if (noJobsDiv) {
+                noJobsDiv.remove();
+            }
+        }
+
+        function addResetFilterButton() {
+            var isResetButton = document.querySelector(".reset-filter-btn");
+            if (isResetButton) {
+                isResetButton.style.display = "block";
+                return;
+            }
+            // Create the reset filter button element
+            var resetButton = document.createElement("button");
+            resetButton.classList.add(
+                "custom-btn",
+                "btn--outline-black",
+                "reset-filter-btn"
+            );
+            resetButton.textContent = "Reset Filters";
+
+            // Add event listener to the reset button
+            resetButton.addEventListener("click", resetFilters);
+
+            // Insert the reset button after the jobs-count div
+            var jobsCountDiv = document.querySelector(".jobs-count");
+            jobsCountDiv.append(resetButton);
+
+            resetButton.classList.add("bounce-animation");
+        }
+
+        function resetFilters() {
+            var resetButton = document.querySelector(".reset-filter-btn");
+            if (resetButton) {
+                resetButton.style.display = "none";
+            }
+
+            var checkboxes = document.querySelectorAll(".checkbox");
+
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = false;
+            });
+
+            document.querySelector(".search-box").value = "";
+
+            clearJobCards();
+            totalCount = initialTotalCount;
+            createJobCards(initialData);
+            animateJobCards();
+        }
+
+        function scrollToSection() {
+            if (window.matchMedia("(max-width: 575px)").matches) {
+                document.getElementById("jobListings").scrollIntoView({
+                    behavior: "smooth",
+                });
+            }
+        }
+
+        function scrollButton() {
+            document
+                .getElementById("bannerFilterBox")
+                .scrollIntoView({ behavior: "smooth" });
+        }
+
+        function scrollFunction(entries) {
+            const [entry] = entries;
+            const scrollButton = document.querySelector(".scroll-to-top button");
+            if (window.matchMedia("(min-width: 576px)").matches) {
+                if (entry.isIntersecting) scrollButton.style.display = "none";
+                else scrollButton.style.display = "block";
+            }
+        }
+
+        function animateElements() {
+            document.querySelector(".banner-text").classList.add("animate");
+
+            setTimeout(function () {
+                document.querySelector(".filter-box").classList.add("animate");
+            }, 200);
+
+            setTimeout(function () {
+                document.querySelector(".left-panel").classList.add("animate");
+            }, 400);
+
+            setTimeout(function () {
+                document.querySelector(".jobs-count").classList.add("animate");
+            }, 600);
+
+            setTimeout(function () {
+                document.querySelector(".red-line").classList.add("red-line-animate");
+            }, 800);
+        }
+
+        window.addEventListener("load", function () {
+            const backToTopObserver = new IntersectionObserver(scrollFunction, {
+                root: null,
+                threshold: 0,
+            });
+            const displayedJobsCount = document.getElementById("displayedJobsCount");
+
+            {
+                backToTopObserver.observe(displayedJobsCount);
+            }
+        });
+
+
+        function fixDropdown() {
+            // Get all dropdown containers with the common class
+            const dropdownContainers = document.querySelectorAll('.dropdown');
+            // Apply the same behavior to each dropdown
+            dropdownContainers.forEach(function (container) {
+                const dropdownValues = container.querySelector('.dropdown-menu');
+                dropdownValues.addEventListener('click', function (event) {
+                });
+
+                const labels = dropdownValues.querySelectorAll('.form-check-label');
+                labels.forEach(function (label) {
+                    label.addEventListener('click', function (event) {
+                        event.stopPropagation();
+                    });
+                });
+            });
+        }
+
+        function addToFilterObject(key, value) {
+            if (filterObject.hasOwnProperty(key)) {
+                filterObject[key] += ',' + value;
+            } else {
+                filterObject[key] = value;
+            }
+
+            updatePills(); // Update the pills after adding a value
+        }
+
+        function removeFromFilterObject(key, value) {
+            if (filterObject.hasOwnProperty(key)) {
+                const values = filterObject[key].split(',');
+                const index = values.indexOf(value);
+                if (index !== -1) {
+                    values.splice(index, 1);
+                    filterObject[key] = values.join(',');
+                }
+
+                // If the value is empty, remove the key from the filterObject
+                if (filterObject[key] === '') {
+                    delete filterObject[key];
+                }
+
+                updatePills(); // Update the pills after removing a value
+            }
+        }
+
+        function handleCheckboxChange(checkbox, key, value) {
+            if (checkbox.checked) {
+                addToFilterObject(key, value);
+            } else {
+                removeFromFilterObject(key, value);
+            }
+        }
+
+        function updatePills() {
+            const pillsContainer = document.getElementById('pillsContainer');
+            pillsContainer.innerHTML = ''; // Clear the container before re-creating pills
+
+            // Loop through the filterObject and create pills for each value
+            for (const key in filterObject) {
+                if (filterObject.hasOwnProperty(key)) {
+                    const values = filterObject[key].split(',');
+
+                    values.forEach(function (value) {
+                        const pill = document.createElement('span');
+                        pill.classList.add('pill');
+                        pill.innerText = value;
+
+                        const closeButton = document.createElement('button');
+                        closeButton.innerHTML = '&times;'; // Times symbol for cross-out
+                        closeButton.addEventListener('click', function () {
+                            removeFromFilterObject(key, value);
+                            var addSearchKeyword = true;
+                            debugger
+
+                            if (key != 'search_keyword') {
+                                const checkboxes = document.getElementsByClassName('checkbox');
+                                for (const checkbox of checkboxes) {
+                                    if (checkbox.id === generateIds(value)) {
+                                        checkbox.checked = false;
+                                        break;
+                                    }
+                                }
+                            } else {
+                                addSearchKeyword = false;
+                            }
+
+                            if (Object.keys(filterObject).length > 0) {
+                                filter(addSearchKeyword);
+                            } else {
+                                resetFilters();
+                            }
+                        });
+
+                        pill.appendChild(closeButton);
+                        pillsContainer.appendChild(pill);
+                    });
+                }
+            }
+        }
+
+        // Initial update of pills when the page loads
+        updatePills();
+
+    </script>
+
 </body>
 
 </html>
