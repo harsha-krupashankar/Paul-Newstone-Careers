@@ -1032,6 +1032,10 @@
                 align-items: flex-start;
             }
 
+            .cards {
+                margin-bottom: 5rem;
+            }
+
             .header-container {
                 padding-top: 5rem;
                 background: url(https://static.wixstatic.com/media/34a2e3_f93ab782dbf54b6b9caf0e581840c184~mv2.png) no-repeat;
@@ -1610,6 +1614,7 @@
 
             const showModal = (e) => {
                 e.preventDefault();
+                document.querySelector(".header-container").scrollIntoView({ behavior: 'smooth' });
 
                 if (e.target.id == "eeop") {
                     modalHeader.textContent =
@@ -1917,14 +1922,14 @@
             };
         })(DataModule, UIModule);
 
-        // window.onmessage = function (event) {
-        //     jobId = event.data;
-        //     EventModule.init();
-        // }
+        window.onmessage = function (event) {
+            jobId = event.data;
+            EventModule.init();
+        }
 
-        const urlParams = new URLSearchParams(window.location.search);
-        jobId = urlParams.get("job_id");
-        EventModule.init();
+        // const urlParams = new URLSearchParams(window.location.search);
+        // jobId = urlParams.get("job_id");
+        // EventModule.init();
 
 
 
