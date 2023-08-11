@@ -15,22 +15,17 @@
     <style>
         /* Configurations */
 
-        /* Customize the scrollbar for webkit-based browsers */
         ::-webkit-scrollbar {
             width: 0;
-            /* Width of the scrollbar */
         }
 
         ::-webkit-scrollbar-thumb {
             background-color: #ccc;
-            /* Color of the thumb (scrollbar handle) */
             border-radius: 0;
-            /* Border radius of the thumb */
         }
 
         ::-webkit-scrollbar-thumb:hover {
             background-color: #aaa;
-            /* Color of the thumb on hover */
         }
 
         :root {
@@ -1037,6 +1032,15 @@
                 align-items: flex-start;
             }
 
+            .cards {
+                margin-bottom: 5rem;
+            }
+
+            .header-container {
+                padding-top: 5rem;
+                background: url(https://static.wixstatic.com/media/34a2e3_f93ab782dbf54b6b9caf0e581840c184~mv2.png) no-repeat;
+            }
+
             .job-closed-heading {
                 font-size: 2.4rem;
             }
@@ -1044,6 +1048,7 @@
             .header-main {
                 width: 100%;
                 margin: 0;
+                padding: 2rem 0 1rem 0;
             }
 
             .action-btns {
@@ -1077,6 +1082,7 @@
             }
 
             .form {
+                /* max-width: auto; */
                 width: 100%;
             }
 
@@ -1094,8 +1100,20 @@
                 margin: 3rem 0 0 0;
             }
 
+            .action-btns {
+                flex-direction: column;
+            }
+
+            .action-btns button {
+                width: 100%;
+            }
+
             .job-closed-heading {
                 font-size: 1.8rem;
+            }
+
+            .header-container {
+                padding: 1rem;
             }
         }
     </style>
@@ -1244,13 +1262,15 @@
                             persönlichen Service,
                             welchen wir jedem Bewerber und Unternehmen bieten,
                             sowie dem Engagement unserer Mitarbeiter,
-                            welche die <a target="_blank" href="https://www.paulnewstone.com/unsere-werte">Kernwerte</a> jeden Tag
+                            welche die <a target="_blank" href="https://www.paulnewstone.com/unsere-werte">Kernwerte</a>
+                            jeden Tag
                             verkörpern,
                             führen zu hervorragenden Ergebnissen.</p>
                         <div class="separator">Job teilen</div>
                         <ul class="social-icons">
                             <li>
-                                <a target="_blank" class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://recruitcrm.io/apply/16726975666360032408nyo%3F1690892981%26source%3Dfacebook">
+                                <a target="_blank" class="facebook"
+                                    href="https://www.facebook.com/sharer/sharer.php?u=https://recruitcrm.io/apply/16726975666360032408nyo%3F1690892981%26source%3Dfacebook">
                                     <span></span>
                                     <span></span>
                                     <span></span>
@@ -1259,7 +1279,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a target="_blank" class="twitter" href="https://twitter.com/share?url=https://recruitcrm.io/apply/16726975666360032408nyo%3F1690892981%26source%3Dtwitter">
+                                <a target="_blank" class="twitter"
+                                    href="https://twitter.com/share?url=https://recruitcrm.io/apply/16726975666360032408nyo%3F1690892981%26source%3Dtwitter">
                                     <span></span>
                                     <span></span>
                                     <span></span>
@@ -1267,8 +1288,18 @@
                                     <i class="fab fa-twitter" aria-hidden="true"></i>
                                 </a>
                             </li>
+                            <!-- <li>
+                                <a class="instagram" href="#">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                                </a>
+                            </li> -->
                             <li>
-                                <a target="_blank" class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&title=Senior Recruiter [w/m/d]&summary=sample description&url=https://recruitcrm.io/apply/16726975666360032408nyo%3F1690892981%26source%3Dlinkedin">
+                                <a target="_blank" class="linkedin"
+                                    href="https://www.linkedin.com/shareArticle?mini=true&title=Senior Recruiter [w/m/d]&summary=sample description&url=https://recruitcrm.io/apply/16726975666360032408nyo%3F1690892981%26source%3Dlinkedin">
                                     <span></span>
                                     <span></span>
                                     <span></span>
@@ -1587,6 +1618,7 @@
 
             const showModal = (e) => {
                 e.preventDefault();
+                document.querySelector(".header-container").scrollIntoView({ behavior: 'smooth' });
 
                 if (e.target.id == "eeop") {
                     modalHeader.textContent =
@@ -1649,7 +1681,6 @@
                 const [entry] = entries;
                 if (!entry.isIntersecting) return;
                 entry.target.classList.remove("section_hidden");
-                // observe.unobserve(entry.target);
             };
 
             const validateEmail = () => {
@@ -1725,7 +1756,11 @@
             };
 
             const handleApplyBtnTopClick = () => {
-                descriptionContainer.lastChild.scrollIntoView({ behavior: "smooth" });
+                if (window.innerWidth > 400) {
+                    descriptionContainer.lastChild.scrollIntoView({ behavior: "smooth" });
+                } else {
+                    applyFormContainer.scrollIntoView({ behavior: "smooth" });
+                }
             };
 
             const handleBackBtnTopClick = () => {
@@ -1757,6 +1792,7 @@
 
             const validateResume = () => {
                 const file = document.getElementById("file");
+                // const fileNameHolder = document.querySelector(".file-name");
                 const fileInput = document.querySelector(".resume-file-input");
                 const errorLabel = document.querySelector("#file-name-span");
                 const uploadButton = document.querySelector("#uploadButton");
@@ -1816,6 +1852,7 @@
                 });
 
                 if (!validateResume()) {
+                    file.scrollIntoView({ behavior: "smooth" });
                     return;
                 } else {
                     objCandidate.resume = document.getElementById("file").files[0];
@@ -1827,15 +1864,18 @@
                     return;
                 }
 
-                //handle form submit
                 uiModule.startSubmitLoading();
                 document.body.style.overflow = "hidden";
                 const submitResponse = await dataModule.applyToJob(objCandidate);
                 document.body.style.overflow = "suto";
+                // setTimeout(() => {
+                //     uiModule.stopSubmitLoading();
+                //     uiModule.thankYou();
+                // }, 3000);
                 uiModule.stopSubmitLoading();
                 if (submitResponse && submitResponse.status == 201) {
                     uiModule.thankYou();
-                } else if (submitResponse && submitResponse.status == 429){
+                } else if (submitResponse && submitResponse.status == 429) {
                     showToast("Wir bearbeiten zu viele Anfragen. Bitte versuchen Sie es nach einiger Zeit erneut.");
                 } else {
                     showToast("Etwas ist schief gelaufen. Bitte versuchen Sie es später noch einmal.");
@@ -1850,7 +1890,6 @@
 
                     applyBtnTop.addEventListener("click", handleApplyBtnTopClick);
                     backBtnTop.addEventListener("click", handleBackBtnTopClick);
-                    // submitBtn.addEventListener("click", handleSubmitBtnClick(event));
                     emailInput.addEventListener("input", validateEmail);
                     submitBtn.addEventListener(
                         "click",
@@ -1859,6 +1898,11 @@
                             if (!applyForm.checkValidity()) {
                                 event.preventDefault();
                                 event.stopPropagation();
+                                if (window.height < 400) {
+                                    applyFormContainer.scrollIntoView({ behavior: "smooth" });
+                                } else  {
+                                    descriptionContainer.lastChild.scrollIntoView({ behavior: "smooth" });
+                                }
                             } else {
                                 handleSubmitBtnClick(event);
                             }
@@ -1887,9 +1931,9 @@
             EventModule.init();
         }
 
-// const urlParams = new URLSearchParams(window.location.search);
-// jobId = urlParams.get("job_id");
-// EventModule.init();
+        // const urlParams = new URLSearchParams(window.location.search);
+        // jobId = urlParams.get("job_id");
+        // EventModule.init();
 
 
 

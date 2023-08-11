@@ -12,19 +12,15 @@
         /* Customize the scrollbar for webkit-based browsers */
         ::-webkit-scrollbar {
             width: 0;
-            /* Width of the scrollbar */
         }
 
         ::-webkit-scrollbar-thumb {
             background-color: transparent;
-            /* Color of the thumb (scrollbar handle) */
             border-radius: 3px;
-            /* Border radius of the thumb */
         }
 
         ::-webkit-scrollbar-thumb:hover {
             background-color: transparent;
-            /* Color of the thumb on hover */
         }
 
         /* Variables */
@@ -76,6 +72,10 @@
         body {
             margin: 0;
         }
+
+        /* html, body {
+            overscroll-behavior: none;
+        } */
 
         h3 {
             font-size: 3rem !important;
@@ -454,6 +454,23 @@
             font-size: 1.4rem !important;
         }
 
+        .dropdown-values::-webkit-scrollbar {
+            width: 5px;
+            background-color: var(--color-light-1);
+        }
+
+        .dropdown-values::-webkit-scrollbar-thumb {
+            background-color: var(--color-grey-light-1);
+            /* Color of the thumb (scrollbar handle) */
+            border-radius: 3px;
+            /* Border radius of the thumb */
+        }
+
+        .dropdown-values::-webkit-scrollbar-thumb:hover {
+            background-color: var(--color-grey-dark-2);
+            /* Color of the thumb on hover */
+        }
+
         .dropdown-values li {
             margin: 0.6rem 0 !important;
         }
@@ -535,7 +552,7 @@
         }
 
         .view-more-btn {
-            width: 15rem;
+            width: 20rem;
         }
 
         .view-more {
@@ -673,13 +690,57 @@
 
         button[aria-expanded="true"]~ul {
             opacity: 1 !important;
-            max-height: 30rem !important;
+            max-height: 20rem !important;
             overflow-y: auto;
             display: block !important;
         }
 
+        .top-dropdowns button[aria-expanded="true"]~ul {
+            max-height: 10rem !important;
+        }
 
 
+
+        .pill {
+            display: inline-block;
+            margin: .5rem;
+            padding: .5rem 1rem;
+            background-color: #f3f2ee98;
+            border-radius: 2px;
+            font-size: 1.2rem;
+        }
+
+        .pills-container {
+            padding: .5rem 5rem !important;
+        }
+
+        .pill button {
+            margin-left: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .reset-filter-btn {
+            background-color: transparent;
+            color: var(--color-grey-dark-2);
+            font-size: 1.2rem;
+            padding: .5rem 0;
+            border: none;
+            border-bottom: 2px solid var(--color-grey-dark-2);
+            margin-left: .5rem;
+            transition: all .3s ease;
+            font-weight: 700;
+        }
+
+        .reset-filter-btn:hover {
+            color: var(--color-red-1);
+            border-bottom: 2px solid var(--color-red-1);
+        }
+
+        .reset-filter-btn:active {
+            transform: translateY(10px);
+        }
 
         /* Media Queries */
 
@@ -721,7 +782,7 @@
 
         @media (max-width: 576px) {
             .jobs {
-                flex-direction: column-reverse;
+                flex-direction: column;
                 gap: 1rem;
             }
 
@@ -729,17 +790,21 @@
                 margin: 0.7rem 0;
             }
 
+            .job-listings {
+                margin-bottom: 10rem;
+            }
+
+            .view-more-btn {
+                width: 100%;
+                padding: 2rem;
+            }
+
             .filter-box {
                 padding: 3rem 8rem !important;
             }
 
             .left-panel {
-                margin: 2rem 8rem;
-            }
-
-            .clear-all {
-                margin: 0 auto !important;
-                width: 30vw;
+                margin: 2rem 1rem;
             }
 
             .header {
@@ -748,6 +813,7 @@
 
             .overlay {
                 height: 100vw !important;
+                padding: 0;
             }
 
             .no-jobs-message p {
@@ -812,7 +878,7 @@
             </div>
             <div class="red-line"></div>
             <div class="container filter-box" id="bannerFilterBox">
-                <div class="row align-items-center justify-content-center filter-container">
+                <div class="row align-items-center justify-content-center filter-container top-dropdowns">
                     <div class="col-md-3 col-sm-3 filter col-12">
                         <div class="input-group">
                             <input type="text" class="form-control search-box" placeholder="Job-Titel"
@@ -821,12 +887,13 @@
                     </div>
                     <div class="col-md-3 col-sm-3 filter col-6">
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle dropdowns btn-block bg--white"
+                            <button class="btn btn-secondary dropdown-toggle dropdowns btn-block bg--white top-dropdowns"
                                 type="button" id="cityDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 Ort wählen
                             </button>
                             <ul class="dropdown-menu dropdown-values" aria-labelledby="cityDropdown"
                                 id="cityDropdownValues">
+                                
                             </ul>
                         </div>
                     </div>
@@ -845,6 +912,9 @@
                         <button type="button" class="custom-btn btn--red btn-block" onclick="filter()">Jobs
                             finden</button>
                     </div>
+                    <div id="pillsContainer" class="pills-container"></div>
+                    <div id="clearAllBtnContainer"></div>
+
                 </div>
             </div>
         </div>
@@ -857,7 +927,7 @@
                 </div>
                 <div class="department-dropdown">
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle dropdowns btn-block" type="button"
+                        <button class="btn btn-secondary dropdown-toggle dropdowns btn-block " type="button"
                             id="departmentDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             Berufsfeld wählen
                         </button>
@@ -898,6 +968,7 @@
                     <i class="ph ph-arrow-up"></i>
                 </button>
             </div>
+        </div>
 
     </main>
     <div id="loading">
@@ -910,8 +981,10 @@
         var totalCount = 0;
         var initialData = {};
         var initialTotalCount = 0;
+        var filterObject = {};
         const SOLUTION_API_BASE_URL = "https://solutions-api.recruitcrm.io"
         const ACCOUNT_ID = 20390;
+
 
         // To add overlay on the background image on scroll
         let headerBg = document.getElementById("bg");
@@ -1137,7 +1210,7 @@
                     inputId = generateIds(item);
                     listElement.innerHTML = `
                         <div class="dropdown-option">
-                            <input class="checkbox" type="checkbox" value="${item}" id="${inputId}">
+                            <input class="checkbox" type="checkbox" value="${item}" id="${inputId}" onchange="handleCheckboxChange(this, 'country', '${item}')">
                             <label class="form-check-label" for="${inputId}">
                                 ${item}
                             </label>
@@ -1154,10 +1227,8 @@
                     inputId = generateIds(item);
                     listElement.innerHTML = `
                         <div class="dropdown-option">
-                            <input class="checkbox" type="checkbox" value="${item}" id="${generateIds(
-                        item
-                    )}">
-                            <label class="form-check-label" for="flexCheckDefault">
+                            <input class="checkbox" type="checkbox" value="${item}" id="${inputId}" onchange="handleCheckboxChange(this, 'city', '${item}')">
+                            <label class="form-check-label" for="${inputId}">
                                 ${item}
                             </label>
                         </div>`;
@@ -1171,7 +1242,7 @@
                     inputId = generateIds(item);
                     listElement.innerHTML = `
                         <div class="dropdown-option">
-                            <input class="checkbox" type="checkbox" value="${item}" id="${inputId}">
+                            <input class="checkbox" type="checkbox" value="${item}" id="${inputId}" onchange="handleCheckboxChange(this, 4, '${item}')">
                             <label class="form-check-label" for="${inputId}">
                                 ${item}
                             </label>
@@ -1189,7 +1260,7 @@
                     inputId = generateIds(item);
                     listElement.innerHTML = `
                         <div class="dropdown-option">
-                            <input class="checkbox" type="checkbox" value="${item}" id="${inputId}">
+                            <input class="checkbox" type="checkbox" value="${item}" id="${inputId}" onchange="handleCheckboxChange(this, 5, '${item}')">
                             <label class="form-check-label" for="${inputId}">
                                 ${item}
                             </label>
@@ -1199,6 +1270,8 @@
                         .appendChild(listElement);
                 }
             });
+
+            fixDropdown();
         }
 
         function fetchNextPageJobs() {
@@ -1244,15 +1317,11 @@
 
         // Call the combined function to fetch jobs and create job cards
         startLoading();
-        makeApiCall(
-            `${SOLUTION_API_BASE_URL}/jobs/${ACCOUNT_ID}?limit=10&keys=custom_field[4],custom_field[5]`
-        )
+        makeApiCall(`${SOLUTION_API_BASE_URL}/jobs/${ACCOUNT_ID}?limit=10&keys=custom_field[4],custom_field[5]`)
             .then((data) => {
                 initialData = data;
                 createJobCards(initialData);
-                makeApiCall(
-                    `${SOLUTION_API_BASE_URL}/jobs/additional-info/${ACCOUNT_ID}?keys=custom_field[4],custom_field[5],city,country`
-                )
+                makeApiCall(`${SOLUTION_API_BASE_URL}/jobs/additional-info/${ACCOUNT_ID}?keys=custom_field[4],custom_field[5],city,country`)
                     .then((data) => {
                         updateAdditionalInfo(data);
                         initialTotalCount = data.total_count;
@@ -1269,74 +1338,40 @@
 
         searchParams = "";
 
-        function filter() {
+        function filter(addSearchKeyword = true) {
+
             hideNoJobsMessage();
-            filterObject = {};
+            showLoader();
+            updatePills();
 
             var searchValue = document.querySelector(".search-box").value;
-            if (searchValue != "") {
-                filterObject["search_keyword"] = searchValue;
+            if (searchValue != "" && filterObject['search_keyword'] != searchValue && addSearchKeyword) {
+                // filterObject["search_keyword"] = searchValue;
+                addToFilterObject('search_keyword', searchValue);
+                updatePills();
+            } else {
+                document.querySelector(".search-box").value = "";
             }
 
-            var checkboxes = document.querySelectorAll(
-                '#departmentDropdownValues input[type="checkbox"]:checked'
-            );
-            var departmentsSelected = Array.from(checkboxes).map(function (checkbox) {
-                return checkbox.value;
-            });
-            if (departmentsSelected.length > 0) {
-                filterObject["4"] = departmentsSelected.toString();
-            }
-
-            var checkboxes = document.querySelectorAll(
-                '#industryDropdownValues input[type="checkbox"]:checked'
-            );
-            var industriesSelected = Array.from(checkboxes).map(function (checkbox) {
-                return checkbox.value;
-            });
-            if (industriesSelected.length > 0) {
-                filterObject["5"] = industriesSelected.toString();
-            }
-
-            var checkboxes = document.querySelectorAll(
-                '#cityDropdownValues input[type="checkbox"]:checked'
-            );
-            var citiesSelected = Array.from(checkboxes).map(function (checkbox) {
-                return checkbox.value;
-            });
-            if (citiesSelected.length > 0) {
-                filterObject["city"] = citiesSelected.toString();
-            }
-
-            var checkboxes = document.querySelectorAll(
-                '#countryDropdownValues input[type="checkbox"]:checked'
-            );
-            var countriesSelected = Array.from(checkboxes).map(function (checkbox) {
-                return checkbox.value;
-            });
-            if (countriesSelected.length > 0) {
-                filterObject["country"] = countriesSelected.toString();
+            if(Object.keys(filterObject).length < 1) {
+                return;
             }
 
             searchParams = generateSearchParams(filterObject);
 
-            makeApiCall(
-                SOLUTION_API_BASE_URL + "/jobs/search/" + ACCOUNT_ID +
-                searchParams +
-                "&keys=custom_field[4],custom_field[5]"
-            )
+            makeApiCall(`${SOLUTION_API_BASE_URL}/jobs/search/${ACCOUNT_ID}` + searchParams + "&keys=custom_field[4],custom_field[5]")
                 .then((data) => {
                     clearJobCards();
+                    addResetFilterButton();
                     if (data.data.length > 0) {
-                        showLoader();
                         createJobCards(data);
                         totalCount = data.total_count;
                         updateNumbers();
-                        addResetFilterButton();
                         animateJobCards();
                     } else {
                         showNoJobsMessage();
                     }
+                    hideLoader();
                 })
                 .catch((error) => {
                     console.error(error);
@@ -1430,23 +1465,24 @@
             // Create the reset filter button element
             var resetButton = document.createElement("button");
             resetButton.classList.add(
-                "custom-btn",
-                "btn--outline-black",
+                
                 "reset-filter-btn"
             );
-            resetButton.textContent = "Reset Filters";
+            resetButton.textContent = "Filter löschen";
 
             // Add event listener to the reset button
             resetButton.addEventListener("click", resetFilters);
 
             // Insert the reset button after the jobs-count div
-            var jobsCountDiv = document.querySelector(".jobs-count");
+            var jobsCountDiv = document.querySelector("#pillsContainer");
             jobsCountDiv.append(resetButton);
 
             resetButton.classList.add("bounce-animation");
         }
 
         function resetFilters() {
+            filterObject = {};
+            updatePills();
             var resetButton = document.querySelector(".reset-filter-btn");
             if (resetButton) {
                 resetButton.style.display = "none";
@@ -1521,7 +1557,105 @@
             }
         });
 
+
+        function fixDropdown() {
+            const dropdownContainers = document.querySelectorAll('.dropdown');
+            dropdownContainers.forEach(function (container) {
+                const dropdownValues = container.querySelector('.dropdown-menu');
+                dropdownValues.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                });
+
+                const labels = dropdownValues.querySelectorAll('.form-check-label');
+                labels.forEach(function (label) {
+                    label.addEventListener('click', function (event) {
+                        event.stopPropagation();
+                    });
+                });
+            });
+        }
+
+        function addToFilterObject(key, value) {
+            if (filterObject.hasOwnProperty(key)) {
+                filterObject[key] += ',' + value;
+            } else {
+                filterObject[key] = value;
+            }
+        }
+
+        function removeFromFilterObject(key, value) {
+            if (filterObject.hasOwnProperty(key)) {
+                const values = filterObject[key].split(',');
+                const index = values.indexOf(value);
+                if (index !== -1) {
+                    values.splice(index, 1);
+                    filterObject[key] = values.join(',');
+                }
+
+                if (filterObject[key] === '') {
+                    delete filterObject[key];
+                }
+
+            }
+        }
+
+        function handleCheckboxChange(checkbox, key, value) {
+            if (checkbox.checked) {
+                addToFilterObject(key, value);
+            } else {
+                removeFromFilterObject(key, value);
+            }
+        }
+
+        function updatePills() {
+            const pillsContainer = document.getElementById('pillsContainer');
+            pillsContainer.innerHTML = ''; // Clear the container before re-creating pills
+
+            // Loop through the filterObject and create pills for each value
+            for (const key in filterObject) {
+                if (filterObject.hasOwnProperty(key)) {
+                    const values = filterObject[key].split(',');
+
+                    values.forEach(function (value) {
+                        const pill = document.createElement('span');
+                        pill.classList.add('pill');
+                        pill.innerText = value;
+
+                        const closeButton = document.createElement('button');
+                        closeButton.innerHTML = '&times;'; // Times symbol for cross-out
+                        closeButton.addEventListener('click', function () {
+                            removeFromFilterObject(key, value);
+                            var addSearchKeyword = true;
+
+                            if (key != 'search_keyword') {
+                                const checkboxes = document.getElementsByClassName('checkbox');
+                                for (const checkbox of checkboxes) {
+                                    if (checkbox.id === generateIds(value)) {
+                                        checkbox.checked = false;
+                                        break;
+                                    }
+                                }
+                            } else {
+                                addSearchKeyword = false;
+                            }
+
+                            if (Object.keys(filterObject).length > 0) {
+                                filter(addSearchKeyword);
+                            } else {
+                                resetFilters();
+                            }
+                        });
+
+                        pill.appendChild(closeButton);
+                        pillsContainer.appendChild(pill);
+                    });
+                }
+            }
+        }
+
+
     </script>
+
 </body>
 
 </html>
